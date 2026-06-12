@@ -1,0 +1,11 @@
+{
+  "id": "c-08-04-eureka-zk",
+  "planId": "plan-08-springcloud",
+  "name": "Eureka 服务注册与发现",
+  "pages": "143-146",
+  "status": "completed",
+  "learnedAt": "2026-06-04T14:00:00+0800",
+  "content": "Eureka 是 Netflix 开源的 AP 型服务注册中心。核心机制：服务注册（启动时向 Server 注册 IP/端口/元数据，存 Registry 内存表）、心跳续约（默认 30s）、服务注销（90s 无心跳剔除）、客户端缓存（Server 全挂后调用链路不断）。Eureka Server 间异步同步，优先保证可用性（AP），允许短暂数据不一致。Zookeeper 是 CP 系统，Leader 选举期间拒绝服务。Server 端两级缓存：readOnlyCacheMap（30s 同步）+ readWriteCacheMap（Guava 180s 过期），代价是新服务上线最长 4 分钟才被发现。自我保护机制：续租次数低于阈值（实例数 × 频率 × 85%）时，不再注销任何过期实例，宁可保死不错杀。",
+  "examples": ["两级缓存延迟累积：上线 → Registry即刻 → readWriteCacheMap 180s → readOnlyCacheMap 30s → Client 30s = 最长240s", "自我保护触发条件：10实例×2次/分钟×0.85=17次期望续租/分钟"],
+  "notes": "开发环境可关闭自我保护 enable-self-preservation=false。生产环境不要关。健康检查需启用 eureka.client.healthcheck.enabled=true 把 Actuator 状态同步到 Eureka。集成 SBA 实现可视化监控。"
+}

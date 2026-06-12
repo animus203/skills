@@ -1,0 +1,22 @@
+{
+  "id": "c-01-33-reflection",
+  "name": "反射原理与应用",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:25:00+0800",
+  "content": {
+    "definition": "运行时动态获取类的完整信息并操作（方法/字段/构造器/注解）",
+    "principle": "JVM加载类→方法区创建Class对象（含元信息）→反射API映射为Method/Field/Constructor",
+    "getClassInstance": ["类名.class", "obj.getClass()", "Class.forName(全限定名) ——运行时动态加载"],
+    "coreAPI": {
+      "getMethods": "所有public方法(含继承)",
+      "getDeclaredMethods": "本类所有方法(含private，不含继承)",
+      "invoke": "method.invoke(obj, args)",
+      "setAccessible": "绕过权限检查访问private成员"
+    },
+    "useCases": ["Spring IoC(动态创建Bean+注入)", "JDK动态代理(AOP)", "ORM框架(结果集→Entity映射)", "SPI/插件加载(Driver)"],
+    "performance": "反射比直接调用慢(权限检查+包装参数+少内联)，框架缓存Method对象/用MethodHandle优化",
+    "javaModules": "Java17+ setAccessible对JDK内部类限制更严"
+  },
+  "notes": "运行时拿Class→Method/Field/Constructor→调用/修改；Spring IOC+AOP基础；getMethods(含继承) vs getDeclaredMethods(本类全部)"
+}

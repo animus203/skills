@@ -1,0 +1,14 @@
+{
+  "id": "c-02-12-gc-type",
+  "name": "GC 类型",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:55:00+0800",
+  "content": {
+    "minorGC": {"scope": "新生代", "trigger": "Eden满", "feature": "频繁/快/STW短"},
+    "majorGC": {"scope": "老年代", "trigger": "老年代空间不足", "feature": "通常伴随Minor GC"},
+    "fullGC": {"scope": "整个堆+MetaSpace", "triggers": ["老年代不足", "元空间不足", "System.gc()", "CMS Promotion Failure", "空间担保失败"], "feature": "最慢/STW最长/应避免"},
+    "promotionFailure": {"cause": "Minor GC存活对象>Survivor+老年代剩余→只能Full GC→Serial Old长时间STW", "fix": "加大Survivor/调CMSInitiatingOccupancyFraction"}
+  },
+  "notes": "Minor(Eden满/快)→Major(老年代/慢)→Full(全堆+MetaSpace/最慢)；Promotion Failure是CMS突然Full GC经典原因"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "c-01-03-osi-model",
+  "planId": "plan-01-basics",
+  "name": "OSI七层与TCP/IP五层模型",
+  "pages": "13",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "OSI 七层（物理/链路/网络/传输/会话/表示/应用）vs TCP/IP 五层（合并会话+表示+应用）；每层数据单元（比特/帧/包/段/报文）；每层典型协议（HTTP/TCP/IP/Ethernet）和设备（集线器/交换机/路由器）；报文封装过程（自上而下加头）；分层工程价值（解耦、可替换、协议复用、按层故障定位）",
+  "examples": [
+    "封装过程：HTTP数据 → +TCP头 → +IP头 → +Eth头+FCS → 比特流",
+    "设备分层：物理层=集线器/中继器；链路层=交换机/网桥/网卡；网络层=路由器/防火墙；传输层=进程端口",
+    "ARP 是 PDF 漏掉的：网络层协议，IP→MAC 解析",
+    "MTU=1500，超过在网络层分片",
+    "排查命令链：ping → traceroute → nslookup → telnet/nc → curl"
+  ],
+  "notes": "PDF Page 13 半页内容完整覆盖。补充 PDF 之外：报文封装过程图示、ARP 漏列补充、L4/L7 负载均衡、tcpdump/Wireshark 抓包能力分层。两道练习题：分层排查网站打不开场景题、交换机 vs 路由器跨子网判断题。"
+}

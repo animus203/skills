@@ -1,0 +1,8 @@
+{
+  "id": "c-04-12-normal-form",
+  "name": "数据库范式",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:30:00+0800",
+  "content": {"reviewOf": "c-04-10-explain", "1NF": "列不可分", "2NF": "完全依赖主键", "3NF": "无传递依赖", "practice": "适度反范式冗余字段减少JOIN"}
+}

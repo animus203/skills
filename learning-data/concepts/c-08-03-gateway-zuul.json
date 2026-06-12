@@ -1,0 +1,11 @@
+{
+  "id": "c-08-03-gateway-zuul",
+  "planId": "plan-08-springcloud",
+  "name": "Gateway 网关",
+  "pages": "142-143",
+  "status": "completed",
+  "learnedAt": "2026-06-04T13:00:00+0800",
+  "content": "Spring Cloud Gateway 基于 WebFlux (Reactor-Netty) 的非阻塞 API 网关，取代 Zuul 1.x（Servlet 阻塞模型）。非阻塞模型用少量 EventLoop 线程消化海量并发，性能约为 Zuul 1.x 的 1.6 倍。三大核心组件：Route（ID + 目标 URI + Predicate + Filter）、Predicate（Java 8 Predicate，匹配 Path/Method/Header/Query/Host/Weight 等）、Filter（GatewayFilter 单路由 + GlobalFilter 全局，分 pre/post 阶段）。工作流程：匹配 Route → pre Filter 链（鉴权/限流/校验）→ 转发后端 → post Filter 链（日志/响应修改）→ 返回。",
+  "examples": ["路由配置: id:user-service, uri:lb://user-service, predicates:Path=/api/user/**, filters:StripPrefix=1", "GlobalFilter 实现全局鉴权和 TraceId 透传"],
+  "notes": "Zuul 1.x 一个请求一个线程（阻塞），Gateway 事件驱动（非阻塞）。新项目默认选 Gateway。迁移时需注意 Filter API 不同。Gateway 支持动态路由（配合配置中心热更新）。"
+}

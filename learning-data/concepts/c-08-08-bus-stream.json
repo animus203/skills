@@ -1,0 +1,11 @@
+{
+  "id": "c-08-08-bus-stream",
+  "planId": "plan-08-springcloud",
+  "name": "Bus / Stream",
+  "pages": "152",
+  "status": "completed",
+  "learnedAt": "2026-06-04T16:30:00+0800",
+  "content": "Spring Cloud Stream 通过 Binder 抽象层统一 MQ 编程模型，屏蔽 RabbitMQ/Kafka 底层差异，换 MQ 只换 Binder 依赖，业务代码不变。核心概念：Destination、Binder、Input（消费端）、Output（生产端）。新版用函数式模型取代旧 @EnableBinding/@StreamListener。Spring Cloud Bus 利用 MQ 广播配置变更事件 RefreshRemoteApplicationEvent，一次变更全网同步，配合 @RefreshScope 使用。用 Config Server+Git 架构时 Bus 标配，用 Nacos 则不需要（Nacos 内置长轮询推送）。",
+  "examples": ["换 MQ 只改依赖: spring-cloud-starter-stream-rabbit → spring-cloud-starter-stream-kafka", "POST /actuator/bus-refresh → 发事件到 MQ → 所有实例同时刷新配置"],
+  "notes": "Stream 只支持 RabbitMQ 和 Kafka。Nacos 内置配置推送能力，不需要 Bus 做广播。Bus 本质是事件驱动的配置同步，不存配置只传通知。"
+}

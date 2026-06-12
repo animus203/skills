@@ -1,0 +1,23 @@
+{
+  "id": "c-04-05-lock",
+  "name": "MySQL 锁",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:50:00+0800",
+  "content": {
+    "tableVsRow": {"table": "整张表，并发低，无死锁(MyISAM+InnoDB)", "row": "单行，并发高，会死锁(仅InnoDB)"},
+    "sxLocks": {
+      "S": "共享锁(LOCK IN SHARE MODE)，兼容S，读可共享",
+      "X": "排他锁(FOR UPDATE)，不兼容任何，写独占",
+      "IS/IX": "意向锁，表级，申请行锁前自动加，多粒度协调"
+    },
+    "innodbRowLocks": {
+      "RecordLock": "锁索引上一条记录",
+      "GapLock": "锁索引间隙，防INSERT",
+      "NextKeyLock": "Record+Gap，RR默认，防幻读(当前读)"
+    },
+    "indexKey": "锁的是索引项，不是数据行本身。无索引→全表锁(所有记录+间隙)",
+    "deadlock": "InnoDB自动检测死锁，回滚代价小的事务"
+  },
+  "notes": "行锁(InnoDB独有)=Record/Gap/Next-Key; S兼容S X不兼容任何; 意向锁IS/IX表级协调; 锁索引非数据行; 无索引=全表锁"
+}

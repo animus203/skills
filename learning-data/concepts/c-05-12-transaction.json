@@ -1,0 +1,14 @@
+{
+  "id": "c-05-12-transaction",
+  "name": "Redis 事务",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T11:10:00+0800",
+  "content": {
+    "fourCommands": {"MULTI": "开启事务", "EXEC": "执行队列", "DISCARD": "取消中止", "WATCH": "CAS乐观锁(监控key被改则事务不执行)"},
+    "characteristics": "顺序性/排他性/无回滚/只保证一致性和隔离性/仅AOF always时有持久性",
+    "vsMySQL": "Redis无回滚(语法错全不执行/运行错部分执行), 不支持原子性; MySQL全ACID支持回滚",
+    "watchCAS": "秒杀场景: WATCH stock + MULTI/DECR/EXEC → EXEC返回nil=并发冲突→重试"
+  },
+  "notes": "MULTI/EXEC/DISCARD/WATCH四原语; 不支持回滚; WATCH CAS乐观锁秒杀场景; 运行时错不阻塞其他命令"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "c-02-20-oom-trouble",
+  "name": "OOM 故障排查与实战案例",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:45:00+0800",
+  "content": {
+    "tools": {
+      "jhsdb": "JDK9+替代jmap, jhsdb jmap --heap/--binaryheap --pid",
+      "gcore": "jmap连不上时的兜底, gcore -o core $PID"
+    },
+    "caseStudy": {
+      "background": "报表系统, HttpClient补数据, Guava缓存, 3GB堆→OOM",
+      "round1": "升级4C8G, 6GB堆→OOM消失但GC 5秒+",
+      "round2": {
+        "MaxTenuringThreshold=3": "对象快速晋升老年代(报表对象存活时间长)",
+        "CMSScavengeBeforeRemark": "CMS Remark前先Minor GC清新生代, 减少扫描量",
+        "ParallelRefProcEnabled": "并行处理Reference, weak refs从4.5秒缩短"
+      },
+      "round3": "升级8C16G→堆大Minor GC>1秒→换G1目标200ms→GC更频繁但停顿小",
+      "round4": "代码优化: select*→必须字段, Guava Cache→弱引用, 限制文件大小+拆分超大查询"
+    },
+    "lessons": ["先加硬件缓口气再改代码治根", "报表类系统对象长命→MaxTenuringThreshold压低不是坏事", "大堆>6-8GB→G1优过CMS"]
+  },
+  "notes": "OOM→加内存→GC长→调参→换G1→代码优化治根；MaxTenuringThreshold/CMSScavengeBeforeRemark/ParallelRefProcEnabled三组合"
+}

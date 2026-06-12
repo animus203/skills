@@ -1,0 +1,15 @@
+{
+  "id": "c-05-15-multi-cache",
+  "name": "多级缓存与一致性",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T11:25:00+0800",
+  "content": {
+    "multiLevel": "浏览器本地→CDN→服务端本地(Caffeine)→分布式(Redis)→DB",
+    "whyNotDisk": "iowait(CPU等待磁盘返回), 吞吐暴跌",
+    "delayedDoubleDelete": "删缓存→更DB→sleep→再删缓存(清理回填旧值)",
+    "canal": "Canal监听binlog+MQ异步删缓存, 比延迟双删更可靠",
+    "pitfalls": ["先删后更: 中间旧值回填", "先更后删: 删除失败不一致", "延迟双删: sleep时机难把握, 二次删失败"]
+  },
+  "notes": "多级缓存(浏览器→CDN→本地→Redis→DB); 延迟双删; Canal+MQ异步删; 不用磁盘(iowait)"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "c-11-04-image",
+  "planId": "plan-11-docker-k8s",
+  "title": "Docker镜像",
+  "status": "completed",
+  "learnedAt": "2026-06-08T10:30:00+0800",
+  "content": "镜像是基于UnionFS的分层只读模板，每层对应一条Dockerfile指令(FROM/COPY/RUN)，各层叠加形成最终文件系统视图。容器启动时在镜像之上叠加一个可写层(Container Layer)。多个镜像可共享相同底层，节省磁盘空间。",
+  "examples": ["FROM ubuntu:20.04", "COPY app.jar /app/", "RUN apt-get update"],
+  "notes": "分层只读+可写容器层；同层共享节省空间；传输时只传缺失层"
+}

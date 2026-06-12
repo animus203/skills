@@ -1,0 +1,17 @@
+{
+  "id": "plan-07-spring",
+  "topicId": "topic-server-dev-interview",
+  "name": "Spring篇",
+  "description": "设计思想、Beans、注解、源码阅读",
+  "pages": "130-149",
+  "conceptIds": [
+    "c-07-01-ioc-di",
+    "c-07-02-aop",
+    "c-07-03-bean-lifecycle",
+    "c-07-04-three-cache",
+    "c-07-05-annotations",
+    "c-07-06-source-code"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

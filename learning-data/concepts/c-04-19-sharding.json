@@ -1,0 +1,1 @@
+{"id":"c-04-19-sharding","name":"分库分表深入","planId":"plan-04-mysql","status":"completed","learnedAt":"2026-05-29T09:25:00+0800","content":{"reviewOf":"c-04-18 + 详细讲解","keypoints":["水平/垂直拆分","hash/range/enum路由","四问题(ES/细粒度hash/最终一致/游标)","双写不中断迁移","Snowflake(41+10+12)"]}}

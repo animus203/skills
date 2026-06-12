@@ -1,0 +1,15 @@
+{
+  "id": "c-04-01-why-mysql",
+  "name": "Why MySQL",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:15:00+0800",
+  "content": {
+    "nosqlFamilies": {"HBase": "列存储，海量日志分析", "Redis": "K-V缓存，高并发读", "Neo4j": "图存储，社交推荐/知识图谱", "MongoDB": "文档存储，灵活schema"},
+    "aerospike": "T级KV，内存索引+SSD数据，<1ms响应，广告推荐场景",
+    "whyMySQL": ["ACID强事务", "SQL生态成熟", "适应性强(单机→分库分表→主从集群)", "人才池最深"],
+    "etl": "Extract(抽取)/Transform(转换)/Load(加载)，数据清洗→推荐引擎→Aerospike→投放引擎",
+    "selectionGuide": "事务→MySQL; 高并发缓存→Redis; 海量分析→HBase; 关系查询→Neo4j; 灵活schema→MongoDB"
+  },
+  "notes": "NoSQL四大家(HBase/Redis/Neo4j/MongoDB)；MySQL仍是主流因ACID+生态成熟；Aerospike广告推荐T级<1ms"
+}

@@ -1,0 +1,29 @@
+{
+  "date": "2026-05-15",
+  "entries": [
+    {
+      "time": "14:39:48",
+      "action": "complete_concept",
+      "conceptId": "c-01-12-http-https",
+      "note": "HTTP与HTTPS区别学习完成"
+    },
+    {
+      "time": "14:47:27",
+      "action": "complete_concept",
+      "conceptId": "c-01-13-https-handshake",
+      "note": "HTTPS握手过程学习完成"
+    },
+    {
+      "time": "14:48:12",
+      "action": "complete_concept",
+      "conceptId": "c-01-14-encrypt",
+      "note": "对称/非对称加密学习完成"
+    },
+    {
+      "time": "15:04:17",
+      "action": "complete_concept",
+      "conceptId": "c-01-15-get-post",
+      "note": "GET和POST区别学习完成"
+    }
+  ]
+}

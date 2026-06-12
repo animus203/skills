@@ -1,0 +1,15 @@
+{
+  "id": "c-07-06-source-code",
+  "planId": "plan-07-spring",
+  "name": "Spring 源码阅读 — 设计模式",
+  "pages": "139",
+  "status": "completed",
+  "learnedAt": "2026-06-04T11:00:00+0800",
+  "content": "Spring 运用了多种设计模式：单例模式（容器级别，beanName → singletonObjects 唯一映射，不是 GoF 的 ClassLoader 级单例）；工厂模式（BeanFactory 层级体系 + ApplicationContext 高级容器 + FactoryBean 自定义 Bean 创建逻辑）；代理模式（JDK 动态代理基于接口 + CGLib 基于子类继承，Spring Boot 2.x 默认 CGLib）；观察者模式（ApplicationEvent / ApplicationListener / ApplicationEventMulticaster 事件驱动模型，注意默认同步执行）；适配器模式（AOP 中 AdvisorAdapter 将不同 Advice 适配为统一的 MethodInterceptor，Spring MVC 中 HandlerAdapter 适配不同 Handler 类型）。",
+  "examples": [
+    "FactoryBean：MyBatis MapperFactoryBean — 只写接口，FactoryBean 生成动态代理实现",
+    "观察者模式：publishEvent(OrderCreatedEvent) → EventMulticaster → @EventListener handle() → 发邮件/推消息",
+    "适配器模式：DispatcherServlet 遍历 handlerAdapters，找到 supports(handler)=true 的，调 adapter.handle()"
+  ],
+  "notes": "Spring 单例不等于 GoF 单例：Spring 是容器级唯一（一个 beanName 一个实例），GoF 是 ClassLoader 级唯一。ApplicationEvent 默认同步执行，异步需配置 TaskExecutor 或加 @Async。事件发布在 @PostConstruct 中要谨慎，容器可能未完全就绪。"
+}

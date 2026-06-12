@@ -1,0 +1,29 @@
+{
+  "id": "c-03-05-thread-safe",
+  "name": "线程安全",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:50:00+0800",
+  "content": {
+    "cas": {
+      "mechanism": "V(内存值) A(预期值) B(新值), V==A则V=B否则自旋重试",
+      "defects": ["ABA问题(AtomicStampedReference版号解)", "自旋浪费CPU", "只能单变量"],
+      "useCase": "AtomicInteger等，读多写少"
+    },
+    "synchronized": {
+      "usage": ["实例方法(锁this)", "静态方法(锁类.class)", "代码块(锁指定对象)"],
+      "underlying": "monitorenter/monitorexit指令, ACC_SYNCHRONIZED标志, 对象头Mark Word",
+      "lockUpgrade": "无锁→偏向锁(单线程)→轻量级锁(CAS自旋)→重量级锁(OS互斥量, JDK6+优化)"
+    },
+    "reentrantLock": {
+      "underlying": "CAS自旋+volatile保证可见性",
+      "features": ["必须手动unlock(finally)", "可中断(lockInterruptibly/tryLock超时)", "公平/非公平可选", "多Condition条件变量"],
+      "vsSync": "synchronized JVM关键字自动释放不可中断非公平; ReentrantLock API手动释放可中断可选公平多Condition"
+    },
+    "fairVsUnfair": {
+      "fair": "FIFO排队, 不饿但吞吐低(多挂起唤醒)",
+      "unfair": "直接抢, 可能饿但吞吐高(少挂起)"
+    }
+  },
+  "notes": "CAS(VAB自旋/ABA版号/单变量); synchronized(对象头Mark Word/偏向→轻量→重量); ReentrantLock(手动/CAS/可中断/公平)"
+}

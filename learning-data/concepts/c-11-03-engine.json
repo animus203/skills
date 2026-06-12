@@ -1,0 +1,10 @@
+{
+  "id": "c-11-03-engine",
+  "planId": "plan-11-docker-k8s",
+  "title": "Docker引擎",
+  "status": "completed",
+  "learnedAt": "2026-06-08T10:30:00+0800",
+  "content": "Docker C/S架构：Client通过Unix Socket或REST API与Docker Daemon(dockerd)通信，引擎负责构建(build)、运行(run)、分发(push/pull)容器。",
+  "examples": ["docker run -d nginx", "docker build -t myapp .", "docker push myapp:v1"],
+  "notes": "引擎=工头，接收指令调度内核namespace/cgroups启动容器"
+}

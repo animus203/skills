@@ -1,0 +1,24 @@
+{
+  "id": "c-02-19-memory-leak",
+  "name": "内存泄漏排查",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:35:00+0800",
+  "content": {
+    "definition": "对象不被业务使用但仍被GC Roots强引用，GC无法回收。泄漏是因，溢出(OOM)是果。",
+    "symptoms": "Old区持续上升，Full GC多轮无明显下降，每轮GC后OU不回落到基线",
+    "troubleshooting": [
+      "jstat -gc看OU趋势→持续涨=可疑泄漏",
+      "jmap -dump:live导出heap dump(JDK9+可用jhsdb代替)",
+      "MAT→Dominator Tree→找Retained Heap最大对象",
+      "从该对象→GC Roots路径→定位不该引用的代码"
+    ],
+    "classicLeaks": {
+      "threadLocal": "线程池+ThreadLocal不remove→Entry(WeakRef key+强引value)→key被GC但value仍强可达永不回收",
+      "collectionForget": "HashMap cache put后从不remove",
+      "listener": "注册后不解绑，持有外部强引用"
+    },
+    "killDash3": "jstack无法连接时的替补：kill -3 <pid>→线程栈打印到stdout/stderr"
+  },
+  "notes": "泄漏=GC Roots不必要引用；排查=jstat→jmap→MAT Dominator Tree→GC Root路径；ThreadLocal不remove=经典泄漏"
+}

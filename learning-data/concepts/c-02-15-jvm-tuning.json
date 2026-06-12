@@ -1,0 +1,23 @@
+{
+  "id": "c-02-15-jvm-tuning",
+  "name": "JVM 调优命令",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:15:00+0800",
+  "content": {
+    "fiveCommands": {
+      "jps": {"purpose": "查看Java进程PID", "options": "-l(jar/类全名) -m(main参数) -v(JVM参数)"},
+      "jinfo": {"purpose": "查看/修改JVM参数", "usage": "jinfo -flags <pid>"},
+      "jstat": {"purpose": "JVM运行时GC统计", "keyOptions": "-gc(FGC/FGCT核心指标) -gcutil(百分比) -gccapacity(容量)", "usage": "jstat -gc <pid> 1000 10"},
+      "jstack": {"purpose": "线程栈快照", "options": "-l(锁信息) -F(强制) -m(混合模式)", "deadlock": "末尾直接打印Found deadlock"},
+      "jmap": {"purpose": "堆内存快照", "options": "-heap(堆摘要) -dump:live(仅存活,前先Full GC)"}
+    },
+    "troubleshooting": {
+      "cpuHigh": "top -Hp → 找线程nid → printf %x → jstack | grep hex → 定位代码",
+      "memoryHigh": "jstat -gc → 观察Full GC → jmap -dump → MAT分析 → 找大对象(Dominator Tree)",
+      "deadlock": "jstack -l → grep deadlock",
+      "oom": "jmap -dump → MAT → Dominator Tree → 找占内存最多对象"
+    }
+  },
+  "notes": "jps找pid/jinfo查参数/jstat看GC(jstat -gc)/jstack查死锁和CPU高/jmap导出dump; CPU高top+H→jstack, 内存高jmap→MAT"
+}

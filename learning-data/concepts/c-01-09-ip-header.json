@@ -1,0 +1,32 @@
+{
+  "id": "c-01-09-ip-header",
+  "name": "IP 报文格式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:45:00+0800",
+  "content": {
+    "headerSize": "固定20字节+可选项(最大40)=最大60字节",
+    "rows": 5,
+    "fields": [
+      "版本(4bit)=4",
+      "首部长度(4bit,单位32bit字,min=5,max=15)",
+      "TOS(8bit,现代用DSCP+ECN替代)",
+      "总长度(16bit,首部+数据,max=65535)",
+      "标识(16bit,分片重组)",
+      "标志(3bit,DF/MF)+片偏移(13bit,单位8字节)",
+      "TTL(8bit,最大跳数,每跳-1)",
+      "协议(8bit,TCP=6/UDP=17/ICMP=1)",
+      "首部检验和(16bit,仅校验首部)",
+      "源IP(32bit)",
+      "目的IP(32bit)"
+    ],
+    "checksumScope": "仅IP首部，每跳重算（TTL变化）",
+    "fragmentation": "片偏移单位8字节，DF=1触发PMTUD",
+    "pdfMissingFields": ["协议", "标志+片偏移", "源IP", "目的IP"]
+  },
+  "examples": [
+    "traceroute利用TTL递增逐跳探测路径",
+    "MTU=1500时，每片数据最多1480字节且为8的倍数"
+  ],
+  "notes": "IP首部5行20字节，核心任务寻址+分片+选路；首部检验和只验首部不验数据，职责分离"
+}

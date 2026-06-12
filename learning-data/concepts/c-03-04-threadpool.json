@@ -1,0 +1,21 @@
+{
+  "id": "c-03-04-threadpool",
+  "name": "线程池",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:40:00+0800",
+  "content": {
+    "sevenParams": {"corePoolSize": "核心线程数(常驻)", "maximumPoolSize": "最大线程数", "keepAliveTime": "超core空闲线程存活", "workQueue": "阻塞队列(任务积压)", "threadFactory": "线程工厂(命名/守护)", "rejectHandler": "拒绝策略"},
+    "taskFlow": [
+      "① 当前<corePoolSize→新建线程",
+      "② core满→workQueue入队",
+      "③ 队列满且<max→新建线程",
+      "④ ≥max→拒绝策略"
+    ],
+    "rejectPolicies": {"AbortPolicy": "抛异常(默认)", "CallerRunsPolicy": "调用者执行(缓冲)", "DiscardOldestPolicy": "丢最老任务", "DiscardPolicy": "直接丢弃"},
+    "executors": {"newFixedThreadPool(n)": "固定线程/无界队列→OOM风险", "newSingleThreadExecutor": "单线程顺序/无界队列", "newCachedThreadPool": "60s复用/无上限线程→OOM", "newScheduledThreadPool": "定时/周期性"},
+    "whyBanExecutors": "FixedPool无界队列OOM, CachedPool无限线程OOM; 生产手动ThreadPoolExecutor+有界队列",
+    "sizeFormula": "CPU密集=N+1; IO密集=N*2; 混合型拆两个池"
+  },
+  "notes": "七参数; 任务先core→队列→max→拒绝; 四种拒绝策略(Abort/CallerRuns/DiscardOldest/Discard); 禁止Executors(无界)"
+}

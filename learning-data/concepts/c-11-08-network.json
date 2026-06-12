@@ -1,0 +1,10 @@
+{
+  "id": "c-11-08-network",
+  "planId": "plan-11-docker-k8s",
+  "title": "Docker网络",
+  "status": "completed",
+  "learnedAt": "2026-06-09T10:30:00+0800",
+  "content": "四种网络模式：bridge(默认，docker0网桥+NAT，每容器独立IP)、host(复用宿主机网络栈，高性能但端口冲突)、none(仅lo回环，完全隔离)、container(共享另一容器网络栈，sidecar模式)。端口映射-p底层是iptables DNAT。同自定义bridge内容器可通过容器名DNS互访。",
+  "examples": ["docker run --network host nginx", "docker run --network container:main sidecar", "docker network create mynet && docker run --network mynet app"],
+  "notes": "PDF无此内容，为扩展补充。自定义bridge优于默认bridge(支持DNS)；host模式-p参数失效；container模式用于sidecar"
+}

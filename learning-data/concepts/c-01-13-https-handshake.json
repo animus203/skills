@@ -1,0 +1,26 @@
+{
+  "id": "c-01-13-https-handshake",
+  "name": "HTTPS 握手流程(TLS 握手)",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:35:00+0800",
+  "content": {
+    "handshakeGoals": ["协商加密套件", "安全交换对称密钥", "认证服务器身份"],
+    "rsaHandshake": {
+      "rtt": 2,
+      "steps": ["ClientHello(随机数1+套件列表)", "ServerHello(随机数2)+证书(含公钥)", "客户端生成PreMaster用公钥加密发送", "双方派生会话密钥", "ChangeCipherSpec+Finished"],
+      "flaw": "无前向安全性——私钥泄露则历史会话全部可解密"
+    },
+    "ecdheHandshake": {
+      "rtt": 2,
+      "steps": ["ClientHello(随机数1+套件)", "ServerHello(随机数2)+证书+临时ECDHE公钥A", "客户端发临时ECDHE公钥B", "双方ECDHE计算共享密钥", "ChangeCipherSpec+Finished"],
+      "advantage": "前向安全性——临时私钥握手后丢弃，无法追溯解密"
+    },
+    "tls13": {
+      "rtt": 1,
+      "improvements": ["砍掉RSA密钥交换", "砍掉旧加密套件(CBC/RSA/RC4/SHA1)", "0-RTT重连", "证书在加密通道传输", "仅保留AEAD算法"]
+    },
+    "forwardSecrecy": "ECDHE临时密钥握手后丢弃，服务端私钥泄露也无法解密历史会话"
+  },
+  "notes": "TLS 1.2 ECDHE握手2 RTT提供前向安全；TLS 1.3精简到1 RTT砍掉RSA，强制前向安全"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "c-04-14-binlog",
+  "name": "binlog/redo log/undo log",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:50:00+0800",
+  "content": {
+    "threeLogs": {
+      "binlog": {"layer": "Server层", "type": "逻辑(SQL/行变化)", "write": "追加写", "purpose": "主从复制+时间点恢复"},
+      "redo": {"layer": "InnoDB层", "type": "物理(页+偏移)", "write": "循环写固定大小", "purpose": "崩溃恢复WAL, 保证持久性"},
+      "undo": {"layer": "InnoDB层", "type": "逻辑(旧版本)", "purpose": "事务回滚+MVCC版本链, 保证原子性"}
+    },
+    "wal": "先写redo log(磁盘)后刷脏页(Buffer Pool→磁盘作为checkpoint), 崩溃后重放redo恢复",
+    "twoPhaseCommit": ["①redo prepare", "②写binlog", "③redo commit", "保证redo和binlog一致→主从一致"],
+    "redoVsBinlog": "redo=物理页修改循环写/崩溃恢复; binlog=逻辑SQL追加写/主从复制"
+  },
+  "notes": "binlog(Server层/追加/主从); redo(InnoDB/循环/WAL/持久性); undo(回滚+MVCC/原子性); 二阶段提交保主从一致"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "c-01-23-process-space",
+  "name": "进程地址空间",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:55:00+0800",
+  "content": {
+    "layout": {
+      "text": {"addr": "最低", "purpose": "程序二进制代码", "attr": "只读，进程间可共享"},
+      "data": {"purpose": "已初始化全局/静态变量", "inELF": true},
+      "bss": {"purpose": "未初始化全局/静态变量(自动=0)", "inELF": false, "note": "不占ELF文件空间"},
+      "heap": {"purpose": "malloc/new分配", "direction": "向高地址增长", "management": "程序员手动/GC", "sharedByThreads": true},
+      "stack": {"purpose": "局部变量/函数参数/返回地址", "direction": "向低地址增长", "management": "编译器自动", "sharedByThreads": false, "size": "默认8MB"}
+    },
+    "heapVsStack": {
+      "speed": "栈快(SP寄存器)，堆慢(找空闲块)",
+      "size": "栈小(8MB)，堆大(GB级)",
+      "lifetime": "栈帧函数返回即毁，堆手动/GC",
+      "fragmentation": "栈无(LIFO)，堆有"
+    },
+    "crashScenarios": ["递归过深+大局部变量→Stack Overflow(8MB爆)", "内存泄漏→堆空间耗尽但栈正常"]
+  },
+  "notes": "低→高: Text(代码只读)→Data+BSS(全局/静态)→Heap(向上增长)→Stack(向下增长)；线程独享栈，共享堆和静态区"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "c-06-10-rebalance",
+  "name": "Rebalance",
+  "planId": "plan-06-kafka",
+  "status": "completed",
+  "learnedAt": "2026-06-01T09:30:00+0800",
+  "content": {
+    "whyBad": "全组暂停消费, 积压雪崩。GC停顿>session.timeout→误判假死→Rebalance→GC回来→再Rebalance→循环",
+    "keyParams": {"session.timeout.ms": "心跳超时(默认45s)→加大到60-120s", "max.poll.interval.ms": "两次poll最大间隔(默认300s)→业务重加大到600s", "max.poll.records": "每次拉取量→减小(如100)防超时"},
+    "optimizations": ["加大超时参数", "减小拉取量", "单独线程处理防阻塞心跳", "静态Group Membership(Kafka2.3+)", "Sticky分配策略减少分区移动"],
+    "assignmentStrategies": {"Range": "均分/余数字典序靠前多拿(默认)", "RoundRobin": "轮询均分", "Sticky": "轮询均分+Rebalance尽量保持原分配(推荐)"}
+  },
+  "notes": "Rebalance全组停消费; GC停顿>session.timeout→反复Rebalance雪崩; Sticky+静态Group最小化影响"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "plan-13-leetcode",
+  "topicId": "topic-server-dev-interview",
+  "name": "LeetCode算法模板",
+  "description": "Python语法、背包、回溯、并查集、拓扑排序、单调栈、二分、动态规划、滑动窗口、前缀和、双指针、DFS、BFS、图论",
+  "pages": "207-230",
+  "conceptIds": [
+    "c-13-01-python",
+    "c-13-02-knapsack",
+    "c-13-03-backtrack",
+    "c-13-04-union-find",
+    "c-13-05-topo-sort",
+    "c-13-06-monotone-stack",
+    "c-13-07-binary-search",
+    "c-13-08-dp-single",
+    "c-13-09-dp-double",
+    "c-13-10-dp-interval",
+    "c-13-11-catalan",
+    "c-13-12-sliding-window",
+    "c-13-13-prefix-sum",
+    "c-13-14-two-pointer",
+    "c-13-15-dfs",
+    "c-13-16-bfs",
+    "c-13-17-graph"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

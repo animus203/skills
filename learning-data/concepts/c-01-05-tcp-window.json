@@ -1,0 +1,19 @@
+{
+  "id": "c-01-05-tcp-window",
+  "planId": "plan-01-basics",
+  "name": "TCP滑动窗口与拥塞控制",
+  "pages": "14",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "流控 vs 拥塞控制（端到端 vs 整张网，rwnd vs cwnd，发送量=min(rwnd,cwnd)）；滑动窗口四段结构 + 零窗口探测；拥塞控制四大算法（慢启动指数翻倍、拥塞避免线性+1、快重传 3 dup ACK、快恢复 cwnd 减半进拥塞避免）；现代算法演进 Reno→Cubic→BBR；TCP 可靠传输 6 大机制（分割/编号/校验/流控/拥塞/重传）",
+  "examples": [
+    "滑动窗口四段：已发送已ACK | 已发送未ACK | 可发送未发送 | 不能发送",
+    "慢启动起步：cwnd=1 MSS（现代 IW10），每收 ACK +1，每 RTT 翻倍",
+    "快重传触发条件：3 个 dup ACK",
+    "快恢复：ssthresh=cwnd/2，cwnd=ssthresh，进入拥塞避免",
+    "Linux 默认 Cubic，BBR 切换：sysctl -w net.ipv4.tcp_congestion_control=bbr",
+    "BDP=带宽×时延，决定窗口下限",
+    "工具：ss -nti 看 cwnd/ssthresh/rtt/retrans"
+  ],
+  "notes": "PDF Page 14 半页内容完整覆盖。补充 PDF 之外：流控 vs 拥塞控制对比表、滑动窗口四段结构与零窗口探测、四大算法 cwnd 演化图、Reno/Cubic/BBR 演进、Nagle vs 延迟 ACK 死锁、Linux 内核 buffer 调优。两道练习题：客户端卡住推送排查（流控诊断）、cwnd=1000 是否能持续发（窗口 vs 额度）。"
+}

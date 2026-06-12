@@ -1,0 +1,24 @@
+{
+  "id": "c-02-09-tomcat-classloader",
+  "name": "Tomcat 类加载机制",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:40:00+0800",
+  "content": {
+    "whyBreak": ["应用间类隔离(不同Spring版本)", "热部署(卸载应用→丢弃类加载器→卸载类)"],
+    "webAppClassLoaderFlow": [
+      "① 查本地cache(本Web应用加载过?) → 有→返回",
+      "② 查系统类加载器cache → 有→返回",
+      "③ 委派Ext→Bootstrap(保证核心类) → 找不到→",
+      "④ 自己findClass()(WEB-INF/lib+classes) → 找不到→",
+      "⑤ 委派AppClassLoader(公共库) → 找不到→",
+      "⑥ ClassNotFoundException"
+    ],
+    "vsStandard": {
+      "standard": "自己→App→Ext→Bootstrap→回退自己",
+      "tomcat": "自己→Ext→Bootstrap→自己findClass→App",
+      "key": "绕开AppClassLoader先用Ext/Bootstrap, 然后自己加载应用类, App最后用于共享公共库"
+    }
+  },
+  "notes": "WebAppClassLoader打破双亲委派→先Ext/Bootstrap→自己加载应用类→App共享公共库；每个应用独立加载器实现隔离和热部署"
+}

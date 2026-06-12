@@ -1,0 +1,165 @@
+graph TD
+    subgraph SpringTx["Spring 事务管理知识图谱"]
+        direction TB
+
+        subgraph CoreInterfaces["核心接口层"]
+            PlatformTM["PlatformTransactionManager<br/>事务管理器接口"]
+            TxDefinition["TransactionDefinition<br/>事务定义"]
+            TxStatus["TransactionStatus<br/>事务状态"]
+            TxSync["TransactionSynchronization<br/>事务同步回调"]
+
+            PlatformTM -->|getTransaction/commit/rollback| TxStatus
+            TxDefinition -->|传播/隔离/超时/只读| TxStatus
+            TxSync -->|beforeCommit/afterCommit/afterCompletion| TxSync
+        end
+
+        subgraph TMImpl["事务管理器实现"]
+            AbstractPTM["AbstractPlatformTransactionManager<br/>抽象事务管理器"]
+            DSTxManager["DataSourceTransactionManager<br/>JDBC 事务管理器"]
+            JtaTxManager["JtaTransactionManager<br/>分布式事务"]
+            HibernateTxManager["HibernateTransactionManager<br/>Hibernate 事务"]
+
+            AbstractPTM -->|实现| PlatformTM
+            DSTxManager -->|继承| AbstractPTM
+            JtaTxManager -->|继承| AbstractPTM
+            HibernateTxManager -->|继承| AbstractPTM
+        end
+
+        subpropagation["事务传播行为"]
+            REQUIRED["REQUIRED<br/>默认：加入/新建"]
+            REQUIRES_NEW["REQUIRES_NEW<br/>挂起当前，新建"]
+            NESTED["NESTED<br/>Savepoint 嵌套"]
+            SUPPORTS["SUPPORTS<br/>支持/非事务"]
+            MANDATORY["MANDATORY<br/>强制有事务"]
+            NOT_SUPPORTED["NOT_SUPPORTED<br/>挂起，非事务"]
+            NEVER["NEVER<br/>不能有事务"]
+
+            TxDefinition --> REQUIRED
+            TxDefinition --> REQUIRES_NEW
+            TxDefinition --> NESTED
+            TxDefinition --> SUPPORTS
+            TxDefinition --> MANDATORY
+            TxDefinition --> NOT_SUPPORTED
+            TxDefinition --> NEVER
+        end
+
+        subgraph TxIsolation["事务隔离级别"]
+            ISOLATION_DEFAULT["ISOLATION_DEFAULT<br/>数据库默认"]
+            ISOLATION_READ_UNCOMMITTED["READ_UNCOMMITTED<br/>读未提交"]
+            ISOLATION_READ_COMMITTED["READ_COMMITTED<br/>读已提交"]
+            ISOLATION_REPEATABLE_READ["REPEATABLE_READ<br/>可重复读"]
+            ISOLATION_SERIALIZABLE["SERIALIZABLE<br/>串行化"]
+
+            TxDefinition --> ISOLATION_DEFAULT
+            TxDefinition --> ISOLATION_READ_UNCOMMITTED
+            TxDefinition --> ISOLATION_READ_COMMITTED
+            TxDefinition --> ISOLATION_REPEATABLE_READ
+            TxDefinition --> ISOLATION_SERIALIZABLE
+        end
+
+        subgraph TxProxy["事务代理机制"]
+            EnableTx["@EnableTransactionManagement<br/>开启事务"]
+            AutoProxyCreator["InfrastructureAdvisorAutoProxyCreator<br/>BPP"]
+            TxAdvisor["BeanFactoryTransactionAttributeSourceAdvisor<br/>事务 Advisor"]
+            TxInterceptor["TransactionInterceptor<br/>事务拦截器"]
+            TxAttrSource["AnnotationTransactionAttributeSource<br/>解析 @Transactional"]
+            ThreadLocal["TransactionSynchronizationManager<br/>ThreadLocal 绑定资源"]
+
+            EnableTx --> AutoProxyCreator
+            EnableTx -->|注册| TxAdvisor
+            TxAdvisor -->|Pointcut 匹配 @Transactional| TxAdvisor
+            TxAdvisor -->|Advice| TxInterceptor
+            TxInterceptor -->|使用| TxAttrSource
+            TxInterceptor -->|调用| PlatformTM
+            PlatformTM -->|绑定资源到| ThreadLocal
+        end
+
+        subgraph TxLifecycle["事务生命周期"]
+            GetTx["getTransaction<br/>获取/创建事务"]
+            BeginTx["doBegin<br/>setAutoCommit(false)"]
+            ExecuteBiz["执行方法<br/>proceedWithInvocation"]
+            CommitTx["commit<br/>提交事务"]
+            RollbackTx["rollback<br/>回滚事务"]
+            CleanupTx["cleanupTransactionInfo<br/>恢复 ThreadLocal"]
+
+            TxInterceptor --> GetTx
+            GetTx -->|无事务| BeginTx
+            BeginTx --> ThreadLocal
+            GetTx --> ExecuteBiz
+            ExecuteBiz -->|正常返回| CommitTx
+            ExecuteBiz -->|抛异常| RollbackTx
+            CommitTx --> CleanupTx
+            RollbackTx --> CleanupTx
+        end
+
+        subpropagation["传播行为决策树"]
+            GetTxLogic["getTransaction()"]
+            IsExisting["isExistingTransaction()?"]
+            NoTx["无事务"]
+            YesTx["有事务"]
+            HandleExisting["handleExistingTransaction()"]
+            StartTx["startTransaction()"]
+            Suspend["suspend() 挂起"]
+            Resume["resume() 恢复"]
+            Savepoint["createSavepoint()"]
+
+            GetTxLogic --> IsExisting
+            IsExisting -->|否| NoTx
+            IsExisting -->|是| YesTx
+            NoTx -->|MANDATORY| ThrowException
+            NoTx -->|REQUIRED/REQUIRES_NEW/NESTED| StartTx
+            NoTx -->|其他| NonTxExecute
+            YesTx --> HandleExisting
+            HandleExisting -->|NEVER| ThrowException2
+            HandleExisting -->|NOT_SUPPORTED| Suspend
+            HandleExisting -->|REQUIRES_NEW| Suspend --> StartTx
+            HandleExisting -->|NESTED| Savepoint
+            HandleExisting -->|REQUIRED/SUPPORTS/MANDATORY| JoinExisting
+        end
+
+        subgraph TxSync["事务同步机制"]
+            SyncManager["TransactionSynchronizationManager<br/>管理同步器"]
+            SyncList["synchronizations ThreadLocal<br/>同步器列表"]
+            BeforeCommit["beforeCommit<br/>提交前"]
+            AfterCommit["afterCommit<br/>提交后"]
+            AfterCompletion["afterCompletion<br/>完成后"]
+            MQSync["发 MQ 消息<br/>afterCommit 中"]
+            EventSync["发 Spring 事件<br/>afterCommit 中"]
+
+            SyncManager --> SyncList
+            TxSync --> BeforeCommit
+            TxSync --> AfterCommit
+            TxSync --> AfterCompletion
+            SyncManager --> MQSync
+            SyncManager --> EventSync
+        end
+
+        subgraph ConnectionRouting["Connection 路由机制"]
+            DataSource["DataSource<br/>数据源"]
+            TxManagerBegin["doBegin()<br/>获取 Connection<br/>setAutoCommit(false)"]
+            BindResource["bindResource<br/>绑定到 ThreadLocal"]
+            DataSourceUtils["DataSourceUtils.getConnection<br/>获取 Connection"]
+            JdbcTemplate["JdbcTemplate/MyBatis<br/>执行 SQL"]
+            CheckThreadLocal["getResource<br/>查 ThreadLocal"]
+            ReturnTxCon["返回事务中的 Connection"]
+            NewCon["获取新 Connection"]
+
+            TxManagerBegin --> DataSource
+            TxManagerBegin --> BindResource
+            BindResource --> ThreadLocal
+            JdbcTemplate --> DataSourceUtils
+            DataSourceUtils --> CheckThreadLocal
+            CheckThreadLocal -->|有绑定| ReturnTxCon
+            CheckThreadLocal -->|无绑定| NewCon
+            ReturnTxCon --> JdbcTemplate
+            NewCon --> JdbcTemplate
+        end
+    end
+
+    style SpringTx fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style CoreInterfaces fill:#e3f2fd,stroke:#1565c0
+    style TMImpl fill:#e8f5e9,stroke:#2e7d32
+    style TxProxy fill:#fff3e0,stroke:#ef6c00
+    style TxLifecycle fill:#fce4ec,stroke:#c2185b
+    style TxSync fill:#f3e5f5,stroke:#7b1fa2
+    style ConnectionRouting fill:#e0f2f1,stroke:#00695c

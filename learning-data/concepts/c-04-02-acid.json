@@ -1,0 +1,24 @@
+{
+  "id": "c-04-02-acid",
+  "name": "ACID 事务",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:25:00+0800",
+  "content": {
+    "acid": {
+      "Atomicity": {"meaning": "要么全做要么全不做", "implementation": "undo log回滚"},
+      "Consistency": {"meaning": "事务前后数据满足所有约束", "implementation": "undo+redo+约束"},
+      "Isolation": {"meaning": "并发事务互不干扰", "implementation": "锁+MVCC"},
+      "Durability": {"meaning": "提交后数据永不丢失", "implementation": "redo log"}
+    },
+    "isolationLevels": {
+      "READ_UNCOMMITTED": {"dirtyRead": "有", "nonRepeatable": "有", "phantom": "有"},
+      "READ_COMMITTED": {"dirtyRead": "防", "nonRepeatable": "有", "phantom": "有"},
+      "REPEATABLE_READ": {"dirtyRead": "防", "nonRepeatable": "防", "phantom": "有(MVCC快照读防/当前读不防)"},
+      "SERIALIZABLE": {"dirtyRead": "防", "nonRepeatable": "防", "phantom": "防"}
+    },
+    "mysqlDefault": "REPEATABLE READ, MVCC快照读解决幻读, 当前读用Next-Key Lock",
+    "threeProblems": {"dirtyRead": "读未提交数据", "nonRepeatable": "同事务两次读结果不同(update)", "phantom": "同事务两次读行数不同(insert)"}
+  },
+  "notes": "ACID=undo原子+undo/redo一致+锁/MVCC隔离+redo持久; 四级: RU→RC(防脏)→RR(防不可重复/MySQL默认)→Serializable(全防)"
+}

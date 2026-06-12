@@ -1,0 +1,1 @@
+{"id":"c-06-03-concept","name":"Kafka概念","planId":"plan-06-kafka","status":"completed","learnedAt":"2026-05-29T13:10:00+0800","content":{"reviewOf":"c-06-01","key":"Topic(分类)→Partition(并行/扩展)→ConsumerGroup(负载均衡)→Replica(高可用); 单分区内有序,跨分区无序"}}

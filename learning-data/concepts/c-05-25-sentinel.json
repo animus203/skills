@@ -1,0 +1,19 @@
+{
+  "id": "c-05-25-sentinel",
+  "name": "哨兵模式",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:20:00+0800",
+  "content": {
+    "arch": "至少3个Sentinel进程, 监控主从节点, 自动故障检测+转移",
+    "sdownVsOdown": {
+      "SDOWN": "PING无响应≥down-after-milliseconds→单Sentinel认为下线(主观，可能误判)",
+      "ODOWN": "SDOWN后广播询问→≥quorum个确认→客观下线(只适用于Master)"
+    },
+    "raftElection": "随机超时发起+一term一票+多数派(≥quorum)→Leader Sentinel负责故障转移",
+    "newMasterSelection": "①过滤不健康/无响应 ②slave-priority高 ③offset大(数据最新) ④runid小(最稳定)",
+    "failover": "①Slave→SLAVEOF NO ONE升主 ②其余Slave→SLAVEOF新Master ③旧Master恢复→SLAVEOF新Master(降级防脑裂)",
+    "brainSplit": "网络分区→哨兵侧选新主→旧Master还在写→双写→恢复后旧主降级,分区期间写入可能丢失"
+  },
+  "notes": "SDOWN→广播→quorum→ODOWN→Raft选Leader→选最佳Slave→SLAVEOF NO ONE升主→旧主降级; 至少3个防单点"
+}

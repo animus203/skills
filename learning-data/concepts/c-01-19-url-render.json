@@ -1,0 +1,24 @@
+{
+  "id": "c-01-19-url-render",
+  "name": "浏览器输入 URL 全过程",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:10:00+0800",
+  "content": {
+    "sixStages": [
+      "URL解析: 协议/域名/路径/参数",
+      "DNS解析: 递归查询，UDP 53，缓存链: 浏览器→hosts→路由器→ISP DNS→根→.com→域名",
+      "TCP三次握手: SYN→SYN+ACK→ACK, 1 RTT",
+      "TLS握手(HTTPS): TLS1.2 ECDHE 2 RTT, TLS1.3 1 RTT",
+      "HTTP请求响应: 构建请求→Nginx→应用服务器→返回HTML",
+      "浏览器渲染: DOM树+CSSOM树→Render Tree→布局→绘制→合成"
+    ],
+    "totalRTT": "DNS命中+TLS1.2=4 RTT, TLS1.3=3 RTT",
+    "renderCriticalPath": {
+      "css": "不阻塞DOM但阻塞Render Tree和JS执行",
+      "js": "阻塞DOM解析(除非async/defer)",
+      "optimization": "CSS放head, JS放body底部"
+    }
+  },
+  "notes": "六阶段串联全栈知识：URL→DNS→TCP→TLS→HTTP→渲染；CSS不阻塞DOM但阻塞渲染，JS阻塞DOM解析"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "c-01-27-oo-features",
+  "name": "Java 面向对象三大特性",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:35:00+0800",
+  "content": {
+    "threeFeatures": {
+      "encapsulation": {"core": "属性私有化+public方法控制访问", "why": "防止外部直接篡改，统一校验/日志/事务"},
+      "inheritance": {"rule": "单extends多implements，复用父类属性方法", "principle": "组合优于继承(少耦合)"},
+      "polymorphism": {"core": "同一方法不同对象不同行为，运行时动态绑定", "paths": ["继承+方法重写(@Override)", "接口+实现"]}
+    },
+    "binding": {
+      "staticBinding": {"when": "编译期", "example": "方法重载", "mechanism": "静态分派，根据参数类型选方法"},
+      "dynamicBinding": {"when": "运行时", "example": "方法重写/接口实现", "mechanism": "动态分派，JVM找实际类型→子类查方法→往上查"}
+    },
+    "jvmStackFrame": "局部变量表/操作栈/动态连接(运行时符号引用→直接引用)/返回地址",
+    "overrideRule": "不能抛比父类更宽泛的检查异常（里氏替换）"
+  },
+  "notes": "封装=隐藏数据+暴露接口；继承=单extends多implements(组合优于继承)；多态=动态绑定(重写/接口)≠静态绑定(重载)"
+}

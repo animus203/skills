@@ -1,0 +1,11 @@
+{
+  "id": "c-08-02-springboot",
+  "planId": "plan-08-springcloud",
+  "name": "SpringBoot 深入",
+  "pages": "141-142",
+  "status": "completed",
+  "learnedAt": "2026-06-04T12:00:00+0800",
+  "content": "Actuator 提供生产级监控端点：health（聚合健康检查）、metrics（内存/CPU/GC指标）、env（环境变量）、loggers（运行时动态改日志级别，不重启）、threaddump（线程转储）。Spring Boot Admin 将 Actuator 数据可视化。自定义 Starter 五步：创建 @ConfigurationProperties 配置类 → 编写自动配置类（@ConditionalOnMissingBean 确保用户优先）→ spring.factories/.imports 注册 → 配置提示文件 → Maven 发布。",
+  "examples": ["自定义 Starter: MyDataSourceAutoConfiguration 自动装配 DataSource", "运行时降级排查: POST /actuator/loggers/com.xxx.trouble {configuredLevel: DEBUG}"],
+  "notes": "Starter 命名规范：官方 spring-boot-starter-xxx，第三方 xxx-spring-boot-starter。@ConditionalOnMissingBean 确保用户自定义 Bean 优先于自动配置。"
+}

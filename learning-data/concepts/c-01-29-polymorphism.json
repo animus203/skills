@@ -1,0 +1,14 @@
+{
+  "id": "c-01-29-polymorphism",
+  "name": "多态实现原理",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:45:00+0800",
+  "content": {
+    "reviewOf": "c-01-27-oo-features",
+    "core": "运行时动态绑定，静态分派(重载/编译期) vs 动态分派(重写/运行时)",
+    "mechanism": "JVM栈帧动态连接，invokevirtual指令，从实际类型→父类搜索方法",
+    "mnemonic": "编译看左边(引用类型)，运行看右边(实际对象)"
+  },
+  "notes": "复习概念，与c-01-27重复；多态=方法表+动态分派+invokevirtual"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "plan-16-architecture",
+  "topicId": "topic-server-dev-interview",
+  "name": "架构设计",
+  "description": "社区系统、商城系统、对账系统、用户系统、秒杀系统、统计系统、微博系统设计",
+  "pages": "284-290",
+  "conceptIds": [
+    "c-16-01-community-arch",
+    "c-16-02-mall-storage",
+    "c-16-03-reconcile",
+    "c-16-04-user-migrate",
+    "c-16-05-seckill-design",
+    "c-16-06-count-system",
+    "c-16-07-ms-design",
+    "c-16-08-weibo-design"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

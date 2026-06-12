@@ -1,0 +1,23 @@
+{
+  "id": "plan-08-springcloud",
+  "topicId": "topic-server-dev-interview",
+  "name": "SpringCloud篇",
+  "description": "Spring Boot、网关、注册中心、负载均衡、限流熔断、配置中心、消息驱动、链路追踪、安全认证、灰度发布、多版本隔离",
+  "pages": "140-167",
+  "conceptIds": [
+    "c-08-01-why-sc",
+    "c-08-02-springboot",
+    "c-08-03-gateway-zuul",
+    "c-08-04-eureka-zk",
+    "c-08-05-feign-ribbon",
+    "c-08-06-hystrix-sentinel",
+    "c-08-07-config-nacos",
+    "c-08-08-bus-stream",
+    "c-08-09-sleuth-zipkin",
+    "c-08-10-auth",
+    "c-08-11-gray-release",
+    "c-08-12-version-isolation"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

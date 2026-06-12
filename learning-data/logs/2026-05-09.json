@@ -1,0 +1,35 @@
+{
+  "date": "2026-05-09",
+  "entries": [
+    {
+      "time": "10:52:18",
+      "action": "complete_concept",
+      "conceptId": "c-01-04-tcp-udp",
+      "note": "TCP与UDP区别学习完成"
+    },
+    {
+      "time": "14:10:28",
+      "action": "complete_concept",
+      "conceptId": "c-01-05-tcp-window",
+      "note": "TCP滑动窗口与拥塞控制学习完成"
+    },
+    {
+      "time": "17:23:11",
+      "action": "complete_concept",
+      "conceptId": "c-01-06-tcp-sticky",
+      "note": "TCP粘包学习完成"
+    },
+    {
+      "time": "17:36:35",
+      "action": "complete_concept",
+      "conceptId": "c-01-07-tcp-header",
+      "note": "TCP报文格式学习完成"
+    },
+    {
+      "time": "17:37:46",
+      "action": "complete_concept",
+      "conceptId": "c-01-08-udp-header",
+      "note": "UDP报文格式、IP报文格式、以太网报文格式快速完成"
+    }
+  ]
+}

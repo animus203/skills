@@ -1,0 +1,18 @@
+{
+  "id": "plan-03-multithreading",
+  "topicId": "topic-server-dev-interview",
+  "name": "多线程篇",
+  "description": "线程调度、线程池、线程安全、内存模型、JUC相关",
+  "pages": "53-68",
+  "conceptIds": [
+    "c-03-01-thread-state",
+    "c-03-02-state-switch",
+    "c-03-03-block-wakeup",
+    "c-03-04-threadpool",
+    "c-03-05-thread-safe",
+    "c-03-06-memory-model",
+    "c-03-07-juc"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

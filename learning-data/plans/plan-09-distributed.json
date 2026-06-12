@@ -1,0 +1,25 @@
+{
+  "id": "plan-09-distributed",
+  "topicId": "topic-server-dev-interview",
+  "name": "分布式篇",
+  "description": "发展历程、CAP理论、一致性、可用性、分区容错、分布式事务、面试题",
+  "pages": "158-177",
+  "conceptIds": [
+    "c-09-01-evolution",
+    "c-09-02-cap",
+    "c-09-03-consistency",
+    "c-09-04-xa-2pc-3pc",
+    "c-09-05-paxos",
+    "c-09-06-zab",
+    "c-09-07-raft",
+    "c-09-08-availability",
+    "c-09-09-partition",
+    "c-09-10-tcc",
+    "c-09-11-saga",
+    "c-09-12-local-msg",
+    "c-09-13-mq-final",
+    "c-09-14-distributed-interview"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

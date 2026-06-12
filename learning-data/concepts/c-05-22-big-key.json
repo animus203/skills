@@ -1,0 +1,1 @@
+{"id":"c-05-22-big-key","name":"BigKey问题","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:40:00+0800","content":{"phenomenon":"一个key的value过大→读阻塞/网络慢/内存碎片","solutions":["拆为多个小key","Hash结构分段存储","长过期时间避免频繁重建"]}}

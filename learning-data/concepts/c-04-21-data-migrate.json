@@ -1,0 +1,1 @@
+{"id":"c-04-21-data-migrate","name":"数据迁移","planId":"plan-04-mysql","status":"completed","learnedAt":"2026-05-29T09:35:00+0800","content":{"reviewOf":"c-04-18","steps":["双写老库+新库","补齐历史数据(updateTime判断)","校验一致","切流新库"],"feature":"不停机不锁表"}}

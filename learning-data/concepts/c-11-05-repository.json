@@ -1,0 +1,10 @@
+{
+  "id": "c-11-05-repository",
+  "planId": "plan-11-docker-k8s",
+  "title": "Docker仓库",
+  "status": "completed",
+  "learnedAt": "2026-06-08T10:30:00+0800",
+  "content": "仓库分公开(如Docker Hub)和私有(如Harbor)。Registry是仓库服务器，Repository是具体镜像名(如library/mysql)，可存多个TAG版本。通过docker pull/push完成镜像分发。",
+  "examples": ["docker pull mysql:5.7.30", "docker push myrepo/myapp:v1", "docker tag mysql:5.7.30 mysql5"],
+  "notes": "Registry=服务器，Repository=镜像名；Hub公开，Harbor私有"
+}

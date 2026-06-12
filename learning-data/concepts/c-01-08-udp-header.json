@@ -1,0 +1,21 @@
+{
+  "id": "c-01-08-udp-header",
+  "name": "UDP 报文格式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:30:00+0800",
+  "content": {
+    "fields": ["源端口(16bit)", "目的端口(16bit)", "长度(16bit)", "检验和(16bit)"],
+    "headerSize": "固定8字节",
+    "pseudoHeader": "源IP + 目的IP + 0 + 协议号17 + UDP总长度，共12字节，不传输仅参与检验和",
+    "checksumCoverage": "伪首部 + UDP首部 + UDP数据",
+    "ipv4vsipv6": "IPv4检验和可选(填0)，IPv6强制",
+    "minLength": 8,
+    "maxDataSize": 65507
+  },
+  "examples": [
+    "DNS查询默认UDP 53端口，单包<512字节",
+    "音视频流用UDP：能容忍丢包，不能容忍重传延迟"
+  ],
+  "notes": "UDP首部仅4个字段固定8字节，牺牲可靠性换极低开销，适合低延迟场景"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "c-04-07-cluster-index",
+  "name": "聚簇索引深入",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:05:00+0800",
+  "content": {
+    "reviewOf": "c-04-06-btree",
+    "keyPoints": {
+      "clustered": "叶子存完整行数据，一张表一个，数据即索引",
+      "pkRecommendation": "自增ID(顺序追加无页分裂)，避免UUID(随机插入页分裂+碎片)",
+      "noPk": "InnoDB自动生成隐藏row_id(6字节)，不可查不可用不保证有序"
+    }
+  },
+  "notes": "复习c-04-06; 聚簇=数据即索引; 主键用自增ID避免页分裂; 无主键自动隐藏row_id"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "c-02-17-hardware-trouble",
+  "name": "硬件故障排查",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:25:00+0800",
+  "content": {
+    "threeSteps": {
+      "isolate": "摘除故障机器(Nginx权重=0)，防雪崩",
+      "preserve": "保留瞬时态(当前值)+历史态(趋势)，脚本全收",
+      "diagnose": "逐维度排查CPU→内存→网络→I/O→进程"
+    },
+    "sevenDimensions": {
+      "networkConn": "ss -antp(替代netstat，连接多更快)，看TIME_WAIT/CLOSE_WAIT",
+      "networkStats": "netstat -s + sar -n DEV，看网卡跑满/丢包/重传(Redis/Kafka场景)",
+      "processRes": "lsof -p <pid>，看打开文件/socket/连接服务器",
+      "cpu": "mpstat/vmstat/uptime，看CPU/负载/上下文切换",
+      "io": "iostat -x，看磁盘util%/await/日志写满",
+      "memory": "free -h，看SWAP/SLAB挤占JVM内存",
+      "kernel": "dmesg，看OOM Killer/硬件错误，静默宕机唯一线索"
+    },
+    "oomKiller": "OOM不一定是Java OOM，dmesg | grep 'Out of memory' 检查OS OOM Killer是否杀了Java进程",
+    "quickLookup": "CPU高→top -Hp+jstack; 内存高→free -h+jstat -gc; OOM→dmesg grep oom; 网络慢→ss+wc -l+sar; 磁盘满→iostat+du -sh"
+  },
+  "notes": "隔离→保留现场→排查；ss>netstat(连接多时快)；dmesg看OOM Killer；free看SWAP；磁盘满用iostat"
+}

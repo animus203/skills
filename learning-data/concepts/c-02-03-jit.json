@@ -1,0 +1,29 @@
+{
+  "id": "c-02-03-jit",
+  "name": "JIT 即时编译器",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:00:00+0800",
+  "content": {
+    "executionMode": "解释器+JIT编译器混合，默认混合模式",
+    "hotSpotDetection": {
+      "methodCounter": "方法被调用次数超阈值→编译",
+      "backedgeCounter": "循环体执行次数超阈值→编译",
+      "defaultThreshold": "Client 1500, Server 10000"
+    },
+    "compilers": {
+      "C1": "Client Compiler, 编译快优化少",
+      "C2": "Server Compiler, 编译慢优化激进",
+      "tiered": "Java7+ 分层编译 Level 0(解释)→1(C1)→2(C1+profile)→3(完整profile)→4(C2激进)"
+    },
+    "keyOptimizations": {
+      "methodInlining": "被调方法嵌入调用处，省栈帧开销",
+      "escapeAnalysis": "对象未逃逸→栈上分配/标量替换",
+      "lockElimination": "逃逸分析确认单线程→消除synchronized",
+      "lockCoarsening": "连续锁合并为大锁块",
+      "deadCode": "删除不可能执行的分支"
+    },
+    "warmup": "JIT预热：应用启动解释执行，热点逐步编译→先慢后快。AOT(JDK9)可以提前编译但牺牲profile优化"
+  },
+  "notes": "解释器启动快解释慢，JIT编译后快；分层编译C1快速C2深度优化；预热过程=先慢后快"
+}

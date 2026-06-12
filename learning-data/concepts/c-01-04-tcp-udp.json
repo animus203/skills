@@ -1,0 +1,17 @@
+{
+  "id": "c-01-04-tcp-udp",
+  "planId": "plan-01-basics",
+  "name": "TCP与UDP区别及应用场景",
+  "pages": "13-14",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "TCP/UDP 六维对比（连接性/可靠性/顺序性/流控/传输单位/首部）；首部字节差异（TCP 20-60 vs UDP 固定8）；典型协议归属（TCP: HTTP/FTP/SMTP/SSH；UDP: DNS/DHCP/SNMP/NTP/音视频）；DNS 用 UDP 的原因（小/快/无状态）以及何时转 TCP（>512字节、区域传送）；HTTP/3 + QUIC 用 UDP 解决 TCP 队头阻塞和内核态升级困难；UDP 校验和只检测不恢复",
+  "examples": [
+    "UDP 首部 8 字节：源端口/目的端口/长度/校验和",
+    "TCP 首部 20-60 字节：6 个标志位 URG/ACK/PSH/RST/SYN/FIN，序号/确认号/窗口/可选项",
+    "UDP 保留消息边界（一次 sendto 一个完整报文），TCP 字节流没边界",
+    "UDP 应用：DNS/DHCP/SNMP/NTP/RTP（音视频）/游戏",
+    "QUIC = UDP + 用户态可靠传输 + 多路复用 + 0-RTT，HTTP/3 标配"
+  ],
+  "notes": "PDF Page 13-14 内容完整覆盖。补充 PDF 之外：六维对比表（PDF 只给出片段）、HTTP/3 + QUIC 工程意义、KCP/RUDP 在游戏场景、SO_REUSEADDR vs SO_REUSEPORT、IPv6 UDP 校验和强制等。两道练习题：实时游戏选 UDP 场景题（队头阻塞）、UDP 校验和能保证什么（检测 vs 恢复边界）。"
+}

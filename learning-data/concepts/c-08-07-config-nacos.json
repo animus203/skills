@@ -1,0 +1,11 @@
+{
+  "id": "c-08-07-config-nacos",
+  "planId": "plan-08-springcloud",
+  "name": "Nacos 配置中心",
+  "pages": "151-152",
+  "status": "completed",
+  "learnedAt": "2026-06-04T16:00:00+0800",
+  "content": "Nacos = Eureka + Config + Bus 三合一。数据模型三级隔离：Namespace（环境 dev/test/prod 完全隔离）→ Group（项目分组）→ DataId（具体配置文件，命名规范 ${app}-${env}.${ext}）。@RefreshScope 基于 RefreshEvent 实现配置懒刷新：变更→标记 Bean 为脏→下次调用时新配置重建。保护阈值与 Eureka 自我保护逻辑一致：健康比例低于阈值时返回所有实例含不健康的，宁可错给不可错杀，AP 取舍。Nacos 额外支持 AP/CP 模式切换（Distro 协议/Raft 协议）。",
+  "examples": ["配置动态刷新: @RefreshScope + @Value，Nacos 改配置→发布事件→下次调用时生效", "保护阈值: 健康 30% < 阈值 50% → 返回全部实例，可能调到死实例但比拿不到实例要好"],
+  "notes": "@RefreshScope 是懒刷新，非即时生效——改配置后第一个请求稍慢（重建 Bean 开销）。不同于 Eureka 纯 AP 和 ZK 纯 CP，Nacos 可切 AP/CP 更灵活。规则持久化到 Nacos 而非默认内存。"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "c-02-07-classloader",
+  "name": "类加载过程",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:30:00+0800",
+  "content": {
+    "fiveStages": {
+      "loading": "全限定名→字节流→方法区运行时结构→堆Class对象(方法区入口)",
+      "verification": "四层: 文件格式(CAFEBABE/版本) → 元数据(继承/final检查) → 字节码(防恶意) → 符号引用(存在性/权限,解析阶段发生)",
+      "preparation": "static变量分配内存+赋零值(非代码初值)。例外: final static常量直接赋值(ConstantValue属性)",
+      "resolution": "符号引用(com/User) → 直接引用(内存指针/偏移量)。可后于初始化(支持动态绑定)",
+      "initialization": "执行<clinit>: static赋值+static块按代码顺序合并。触发: new/反射/访问static/子类初始化/main"
+    },
+    "clinitExample": "static { x=5; } static int x=3; → clinit按顺序: 先x=5后x=3覆盖→最终x=3",
+    "triggers": ["new关键字", "反射Class.forName", "访问static变量/方法", "子类初始化触发父类", "main方法所在类启动"]
+  },
+  "notes": "加载→验证→准备→解析→初始化；准备=零值(非代码值)，初始化=clinit按序执行；final static准备阶段直接赋值"
+}

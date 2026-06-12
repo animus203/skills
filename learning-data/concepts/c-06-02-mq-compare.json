@@ -1,0 +1,1 @@
+{"id":"c-06-02-mq-compare","name":"MQ对比深入","planId":"plan-06-kafka","status":"completed","learnedAt":"2026-05-29T13:05:00+0800","content":{"reviewOf":"c-06-01","killerFeature":"RabbitMQ(AMQP路由)/RocketMQ(事务消息)/Kafka(持久化回放)","selection":"响应→RocketMQ; 路由→RabbitMQ; 海量回放→Kafka"}}

@@ -1,0 +1,38 @@
+{
+  "id": "c-01-20-process-thread",
+  "name": "进程与线程",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:20:00+0800",
+  "content": {
+    "definitions": {
+      "process": "资源分配的最小单位，独立地址空间",
+      "thread": "CPU调度的最小单位，共享进程地址空间",
+      "coroutine": "用户态轻量线程，程序自行调度"
+    },
+    "memoryLayout": {
+      "shared": ["堆", "方法区(类信息/静态变量/常量池)"],
+      "exclusive": ["虚拟机栈", "本地方法栈", "程序计数器(PC)"],
+      "whyStackExclusive": "每个线程有独立调用链，栈帧不同"
+    },
+    "comparison": {
+      "addressSpace": "进程独立 vs 线程共享",
+      "communication": "进程需IPC vs 线程直接读写共享变量",
+      "creationCost": "进程大(复制页表) vs 线程小(栈+PC)",
+      "contextSwitch": "进程慢(TLB刷新) vs 线程快(仅寄存器+栈指针)",
+      "isolation": "进程强(崩溃不影响) vs 线程弱(拖垮进程)"
+    },
+    "contextSwitchMechanism": {
+      "threadSwitch": "保存/恢复寄存器+PC+栈指针，不切虚拟内存页表",
+      "processSwitch": "以上全部+切换CR3(TLB刷新重走页表遍历)",
+      "costOrder": "进程切换~μs，线程切换~μs但更轻，协程切换~几十ns"
+    },
+    "coroutine": {
+      "essence": "用户态调度，OS无感知",
+      "switch": "用户态仅保存少量寄存器，几十ns",
+      "examples": "Go goroutine, Java Virtual Thread(Loom), Kotlin coroutine",
+      "useCase": "I/O密集高并发，一个线程跑上万协程"
+    }
+  },
+  "notes": "进程资源分配单位独立地址空间，线程CPU调度单位共享地址空间，协程用户态调度切换经过内核"
+}

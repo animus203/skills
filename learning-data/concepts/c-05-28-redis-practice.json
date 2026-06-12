@@ -1,0 +1,14 @@
+{
+  "id": "c-05-28-redis-practice",
+  "name": "Redis 实战",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:50:00+0800",
+  "content": {
+    "distLockLimits": {"blocking": "客户端阻塞锁过期→看门狗续期", "clockDrift": "过期依赖系统时钟→漂移可能误判", "masterSlaveFailover": "主从切换丢锁→RedLock多数派", "redlock": "也不完美, 切换瞬间可能有双锁"},
+    "vsZK": {"Redis": "自旋CAS/非公平/极高/可能丢锁(主从切换)", "ZK": "监听通知/公平/低/CP不丢锁", "selection": "性能优先幂等→Redis; 金融强一致→ZK/etcd"},
+    "heartbeat": {"replconfAck": "每秒ACK: 检测连接状态+辅助min-slaves+检测命令丢失重传", "minSlaves": "min-slaves-to-write + max-lag: 没足够从库在线则拒绝写入"},
+    "optimization": {"readWrite": "不用KEYS→SCAN/分页; SSET代替SINTER大量", "kvSize": "大value拆多个小key", "keyCount": "只缓存热数据, 冷数据查DB", "qpsTier": "<10w单池; >100w本地→Redis→DB三级", "hitRate": "核心业务>99%, 预留容量"}
+  },
+  "notes": "Redis锁(性能高可能丢)→ZK锁(CP可靠但慢); min-slaves安全写; 优化=SCAN+分页+小KV+热数据+多级+>99%命中"
+}

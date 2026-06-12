@@ -1,0 +1,29 @@
+{
+  "id": "topic-server-dev-interview",
+  "name": "服务端开发与面试知识手册",
+  "description": "系统学习《服务端开发与面试知识手册》(309页)，大淘宝技术开发工程师刘苏宏(淘苏)编写。包含Java体系、架构能力、算法实战、项目架构设计等17个模块",
+  "createdAt": "2026-04-28T10:00:00Z",
+  "updatedAt": "2026-04-28T14:00:00Z",
+  "planIds": [
+    "plan-01-basics",
+    "plan-02-jvm",
+    "plan-03-multithreading",
+    "plan-04-mysql",
+    "plan-05-redis",
+    "plan-06-kafka",
+    "plan-07-spring",
+    "plan-08-springcloud",
+    "plan-09-distributed",
+    "plan-10-es",
+    "plan-11-docker-k8s",
+    "plan-12-netty",
+    "plan-13-leetcode",
+    "plan-14-algo-practice",
+    "plan-15-projects",
+    "plan-16-architecture",
+    "plan-17-ddd"
+  ],
+  "totalPages": 309,
+  "totalModules": 17,
+  "source": "/Users/sunqiyang/Desktop/pdf/服务端开发与面试知识手册.pdf"
+}

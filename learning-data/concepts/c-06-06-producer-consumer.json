@@ -1,0 +1,17 @@
+{
+  "id": "c-06-06-producer-consumer",
+  "name": "生产消费流程",
+  "planId": "plan-06-kafka",
+  "status": "completed",
+  "learnedAt": "2026-06-01T09:10:00+0800",
+  "content": {
+    "producerFlow": "拦截器→序列化→分区器→缓冲区(RecordAccumulator)→Sender线程批量发送(触发: batch.size满/linger.ms到)",
+    "acks": {"0": "不等确认/最快/可能丢", "1": "Leader确认/默认/Leader宕可能丢", "all": "ISR全确认/最安全/最慢"},
+    "retryOrdering": "retries重试→可能乱序→解决: max.in.flight.requests.per.connection=1 或 enable.idempotence=true幂等",
+    "leaderElection": "ISR中选新Leader; ISR全挂→unclean.leader.election(true=OSR选/丢数据, false=等到恢复/不丢)",
+    "replicaSync": "Follower FETCH→Leader更新LEO→推进HW(ISR最小LEO=HW边界,消费者可见上限)",
+    "rebalance": {"triggers": ["消费者增减", "Topic变化", "分区数变化"], "process": "Coordinator触发→Group Leader制定方案(RangeAssignor)→SyncGroup同步→全组恢复消费", "impact": "Rebalance期间全组停止消费"},
+    "rangeAssignor": "分区除消费数均分, 余数按consumer名称字典序从前往后分。字典序靠前的多拿"
+  },
+  "notes": "Producer: 拦截→序列→分区→缓冲→Sender异步批量; acks(0/1/all)控可靠性; ISR选Leader; LEO/HW; Rebalance全组停消费"
+}

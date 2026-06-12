@@ -1,0 +1,10 @@
+{
+  "id": "c-11-06-container-ops",
+  "planId": "plan-11-docker-k8s",
+  "title": "容器基本操作",
+  "status": "completed",
+  "learnedAt": "2026-06-08T10:30:00+0800",
+  "content": "镜像操作：pull/images/tag/inspect/search/rmi/push，tag只加别名不复制数据。容器生命周期：create→start→stop→rm，docker run=create+start。核心参数：-d后台、-it交互、--rm退出即删、-p端口映射、-v卷挂载、--network网络模式。",
+  "examples": ["docker run -d -p 8080:8080 --name myapp nginx", "docker run -it --rm mysql:8.0", "docker ps -a"],
+  "notes": "tag指向同一IMAGE ID不额外占空间；docker run=create+start组合；--rm适合一次性调试容器"
+}

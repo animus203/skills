@@ -1,0 +1,26 @@
+{
+  "id": "c-01-26-deadlock",
+  "name": "死锁",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:25:00+0800",
+  "content": {
+    "definition": "多进程/线程相互持有对方所需资源形成循环等待",
+    "fourConditions": {
+      "mutualExclusion": "资源一次仅一个进程用",
+      "holdAndWait": "持旧资源要新资源，阻塞也不放旧",
+      "noPreemption": "已获资源不能被抢",
+      "circularWait": "P1→P2→...→Pn→P1等待环"
+    },
+    "solutions": {
+      "breakMutualExclusion": "CAS无锁操作(AtomicInteger)，仅适用简单场景",
+      "breakHoldAndWait": "tryLock一次性拿全部锁，拿不到就释放重试",
+      "breakNoPreemption": "超时释放已持锁，数据库deadlock超时",
+      "breakCircularWait": "资源编号按序申请，转账先锁min(id)再锁max(id)——最实用"
+    },
+    "javaDiagnose": "jstack <pid> 直接显示死锁信息",
+    "mysqlDiagnose": "SHOW ENGINE INNODB STATUS → LATEST DETECTED DEADLOCK",
+    "transferExample": "A→B和B→A同时发生：先锁ID小再锁ID大，环破裂"
+  },
+  "notes": "死锁四条件(互斥/请求保持/不可剥夺/循环等待)缺一不锁；破坏循环等待(按序加锁)是最实用的预防方案"
+}

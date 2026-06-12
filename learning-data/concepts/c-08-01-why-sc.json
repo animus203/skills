@@ -1,0 +1,11 @@
+{
+  "id": "c-08-01-why-sc",
+  "planId": "plan-08-springcloud",
+  "name": "Why SpringCloud",
+  "pages": "140-141",
+  "status": "completed",
+  "learnedAt": "2026-06-04T11:30:00+0800",
+  "content": "SpringCloud 是一系列 Spring Boot 风格的有序集合，解决分布式系统基础设施问题：服务注册发现、负载均衡、服务调用、限流熔断、网关路由、配置中心、链路追踪、安全认证等。SpringBoot 解决单个微服务快速搭建（自动装配 + Starter + 内嵌容器 + Actuator），SpringCloud 解决多个微服务协同。关系：SpringBoot 是地基，SpringCloud 是建在地基上的分布式全家桶。",
+  "examples": ["SpringBoot 解决三大痛点：搭建繁琐 → Starter + 自动装配；部署依赖 Tomcat → 内嵌容器 + fat jar；监控简陋 → Actuator 端点"],
+  "notes": "SpringBoot 核心思想是约定大于配置。SpringCloud 每个组件都以 SpringBoot Starter 形式发布。"
+}

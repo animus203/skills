@@ -1,0 +1,14 @@
+{
+  "id": "c-07-01-ioc-di",
+  "name": "IoC与DI",
+  "planId": "plan-07-spring",
+  "status": "completed",
+  "learnedAt": "2026-06-01T10:05:00+0800",
+  "content": {
+    "ioc": {"meaning": "对象创建控制权从程序转移到容器, 程序员不new只声明依赖", "container": "本质=Map<String,Object>(单例池)"},
+    "di": {"field": "@Autowired字段(最常用)", "constructor": "构造器注入(final/不可变/测试友好/推荐)", "setter": "setter注入(可选依赖)"},
+    "refresh12Steps": ["prepareRefresh", "obtainFreshBeanFactory(解析→BeanDefinition)", "prepareBeanFactory", "postProcessBeanFactory", "invokeBeanFactoryPostProcessors", "registerBeanPostProcessors(AOP入口)", "initMessageSource", "initApplicationEventMulticaster", "onRefresh(子类扩展,SpringBoot启Tomcat)", "registerListeners", "finishBeanFactoryInitialization(核心!初始化所有单例Bean)", "finishRefresh"],
+    "whyConstructorInjection": "final不可变/编译期发现缺失/测试不依赖容器"
+  },
+  "notes": "IoC=控制权反转到容器; DI三种(字段/构造器推荐/Setter); refresh 12步(2解析BeanDefinition+11初始化单例Bean)"
+}

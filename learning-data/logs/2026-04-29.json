@@ -1,0 +1,29 @@
+{
+  "date": "2026-04-29",
+  "entries": [
+    {
+      "time": "10:02:51",
+      "action": "start_learning",
+      "conceptId": "c-01-01-tcp-handshake",
+      "note": "用户选择从基础篇开始系统学习，从头开始第1个概念TCP三次握手"
+    },
+    {
+      "time": "10:05:25",
+      "action": "batch_complete",
+      "conceptId": "c-01-01-tcp-handshake",
+      "note": "批次1（三次握手过程+为什么三次）用户跳过答题，要求直接给答案推进"
+    },
+    {
+      "time": "10:08:40",
+      "action": "complete_concept",
+      "conceptId": "c-01-01-tcp-handshake",
+      "note": "TCP三次握手学习完成，面试速答已记录到interview-notes.md"
+    },
+    {
+      "time": "10:19:44",
+      "action": "complete_concept",
+      "conceptId": "c-01-02-tcp-wave",
+      "note": "TCP四次挥手学习完成"
+    }
+  ]
+}

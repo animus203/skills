@@ -1,0 +1,19 @@
+{
+  "id": "c-01-28-java-cpp",
+  "name": "Java 与 C++ 区别",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:40:00+0800",
+  "content": {
+    "comparison": {
+      "inheritance": {"Java": "单extends+多implements", "C++": "多继承"},
+      "pointer": {"Java": "无，用引用(受限指针)", "C++": "有指针，可运算"},
+      "memory": {"Java": "JVM自动GC", "C++": "手动new/delete"},
+      "compilation": {"Java": ".class字节码(JVM JIT)", "C++": "原生机器码"},
+      "platform": {"Java": "跨平台(WORA)", "C++": "编译特定平台"},
+      "safety": {"Java": "数组越界检查/无裸内存", "C++": "越界/野指针/缓冲区溢出风险"}
+    },
+    "essence": "Java牺牲底层能力和极端性能，换取安全(GC/无指针)和跨平台(JVM)"
+  },
+  "notes": "Java无指针有引用(自动GC跨平台安全)，C++有指针手动内存管理(能力强风险高)"
+}

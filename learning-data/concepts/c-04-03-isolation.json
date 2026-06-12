@@ -1,0 +1,20 @@
+{
+  "id": "c-04-03-isolation",
+  "name": "事务隔离级别与 MVCC",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:35:00+0800",
+  "content": {
+    "rcVsRr": {"RC": "每次SQL新ReadView, 读最新已提交, 有不可重复读", "RR": "事务开始生成一次ReadView, 始终看到快照, 无可重复读"},
+    "mvccMechanism": {
+      "hiddenColumns": ["DB_TRX_ID(修改事务ID)", "DB_ROLL_PTR(回滚指针→undo链)", "DB_ROW_ID(行ID)"],
+      "undoChain": "当前记录→undo1→undo2→undo3 (通过roll_ptr串联版本链)",
+      "readView": "记录创建时活跃事务列表, 比较trx_id决定版本可见性",
+      "visibilityRules": ["trx_id<min→可见(已提交)", "trx_id≥max→不可见(太新)", "在活跃列表→不可见(未提交)", "不在活跃列表→可见(已提交)"]
+    },
+    "snapshotVsCurrent": {"snapshot": "普通SELECT, MVCC版本, 不加锁", "current": "UPDATE/DELETE/SELECT FOR UPDATE, 最新版本+加锁"},
+    "currentReadPhantom": "当前读可能幻读, InnoDB用Next-Key Lock(行锁+Gap Lock)解决",
+    "mvccScope": "MVCC只在RC和RR工作, RU不需要(直接读最新), Serializable不需要(串行)"
+  },
+  "notes": "MVCC=隐藏列+undo版本链+Read View; RC每SQL新View→不可重复读, RR事务一次View→可重复读; 快照读不加锁,当前读Next-Key Lock防幻读"
+}

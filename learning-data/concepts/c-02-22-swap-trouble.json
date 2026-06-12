@@ -1,0 +1,23 @@
+{
+  "id": "c-02-22-swap-trouble",
+  "name": "SWAP 故障排查",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:00:00+0800",
+  "content": {
+    "caseStudy": {
+      "symptom": "某实例频繁卡顿，CPU/内存/网络/I/O无异常",
+      "diagnosis": [
+        "GC日志对比→该实例GC时间异常长",
+        "vmstat→GC时si/so飙升",
+        "free -h→SWAP使用率高",
+        "/proc/meminfo+slabtop→dentry(目录高速缓存)异常高"
+      ],
+      "rootCause": "运维执行 find / | grep 全盘扫描→文件元数据缓存到SLAB→挤占物理内存→JVM堆被swap到硬盘→GC访问swap区→磁盘级延迟→GC时间暴涨",
+      "solution": "swapoff -a 关闭SWAP"
+    },
+    "lesson": "高并发场景建议禁用SWAP；进程没死但GC时间不可忍受",
+    "diagnosticCommands": ["vmstat(si/so列)", "free -h(SWAP使用)", "/proc/meminfo(内存分布)", "slabtop(dentry/slab缓存)", "/proc/<pid>/smaps(进程swap详情)"]
+  },
+  "notes": "SWAP→JVM堆在硬盘→GC从纳秒变毫秒→STW暴涨；高并发建议swapoff -a；find全盘扫描→dentry缓存→slab挤占→swap"
+}

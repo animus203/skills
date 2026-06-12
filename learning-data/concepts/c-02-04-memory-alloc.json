@@ -1,0 +1,25 @@
+{
+  "id": "c-02-04-memory-alloc",
+  "name": "内存分配方式",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:10:00+0800",
+  "content": {
+    "heapAllocation": {
+      "pointerBumping": {"condition": "堆规整(GC带压缩)", "mechanism": "指针后移O(1)", "applicableGC": ["Serial", "ParNew"]},
+      "freeList": {"condition": "堆不规整(GC不压缩)", "mechanism": "从空闲列表中找足够大的块", "applicableGC": ["CMS"]}
+    },
+    "tlab": {
+      "purpose": "线程本地分配缓冲，避免多线程对象分配竞争CAS",
+      "location": "Eden内的线程私有小空间(默认Eden 1%)",
+      "mechanism": "TLAB内指针碰撞无锁分配，用完再申请(低频率同步)",
+      "flag": "-XX:+UseTLAB(默认开)"
+    },
+    "stackAllocation": {
+      "mechanism": "逃逸分析→标量替换→栈上分配",
+      "benefit": "完全不参与GC",
+      "example": "方法内临时对象(JIT优化后在栈上分配)"
+    }
+  },
+  "notes": "堆规整→指针碰撞(Serial/ParNew); 堆碎片→空闲列表(CMS); TLAB线程私有无锁; 逃逸分析→栈上分配避GC"
+}

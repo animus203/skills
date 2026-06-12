@@ -1,0 +1,1 @@
+{"id":"c-05-02-memcache-compare","name":"Memcached对比","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T10:10:00+0800","content":{"reviewOf":"c-05-01","selection":"Redis(多结构/持久化/主从) vs Memcached(仅KV/无持久/多线程高吞吐)"}}

@@ -1,0 +1,1 @@
+{"id":"c-05-16-cache-avalanche","name":"缓存雪崩","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:35:00+0800","content":{"phenomenon":"大量key同一时刻过期或Redis宕机→请求全砸DB→DB崩溃","solutions":["TTL加随机值错开","Redis高可用(主从+哨兵/Cluster)","本地缓存兜底+限流降级","逻辑永不过期异步更新","多级缓存"]}}

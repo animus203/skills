@@ -1,0 +1,21 @@
+{
+  "id": "c-05-24-master-slave",
+  "name": "主从模式",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:10:00+0800",
+  "content": {
+    "arch": "一主多从, Master写Slave读, 读写分离",
+    "replicationFlow": {
+      "psync": "Slave发送PSYNC rep_id offset→Master判断全量/增量",
+      "fullSync": "首次: Master BGSAVE生成RDB→发Slave清空加载→积压buffer命令补发→数据一致",
+      "commandPropagation": "Master每条写命令异步发给所有Slave→Slave执行",
+      "partialResync": "断连重连, offset在backlog内→只发缺失; 超出→全量",
+      "psync2": "Redis4.0+ Slave重启也可部分复制(repid+offset写入RDB)"
+    },
+    "backlog": "环状缓冲区, 默认1MB(repl-backlog-size可调), 存储断连期间的写命令",
+    "issues": ["Master单点不能自动切换", "写压力集中+同步压力随Slave增多", "异步复制有延迟", "主从从结构缓解同步压力"],
+    "scene": "读多写少, 并发低, 业务初期, 可接受人工切换"
+  },
+  "notes": "PSYNC→全量(RDB+积压buffer)→增量(命令传播)→断连(backlog部分/超出全量); PSYNC2重启部分复制; Master单点需人工切换"
+}

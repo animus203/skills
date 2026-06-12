@@ -1,0 +1,12 @@
+{
+  "id": "c-05-05-evcache-etcd",
+  "name": "EVCache 与 etcd",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T10:25:00+0800",
+  "content": {
+    "evcache": {"company": "Netflix", "base": "Memcached", "meaning": "Ephemeral+Volatile(短暂+随时消失)", "scale": "30M QPS/数十亿对象/1-5ms/99%命中", "features": ["一致性hash分片", "分钟级扩容", "ZK/Eureka注册"]},
+    "etcd": {"model": "CP(Raft)", "vsZK": "Raft vs ZAB, Go vs Java, gRPC/HTTP vs ZK协议, K8s标配", "uses": ["服务发现", "配置中心", "分布式协调", "Leader选举"]}
+  },
+  "notes": "EVCache=Netflix基于Memcache的全球分布式(临时+易失); etcd=CP+Raft+Go(轻量ZK替代, K8s标配)"
+}

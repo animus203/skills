@@ -1,0 +1,27 @@
+{
+  "id": "c-04-09-index-fail",
+  "name": "索引失效场景",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:15:00+0800",
+  "content": {
+    "failureScenarios": {
+      "likePrefix": "LIKE '%x' 打破最左前缀",
+      "function": "WHERE YEAR(create_time)=2023 函数破坏索引",
+      "implicitConversion": "varchar列传数字→全表扫",
+      "orNoIndex": "OR连无索引列→全表扫，改UNION",
+      "notEqual": "!=/<> 排除大部分行",
+      "isNull": "IS NULL/IS NOT NULL",
+      "notIn": "NOT IN 无法利用索引树",
+      "lackLeftmost": "联合索引(a,b) WHERE b=1 缺最左列"
+    },
+    "optimizations": {
+      "like": "LIKE 'x%' 可用索引，'%x%'不行考虑ES",
+      "charVsVarchar": "CHAR定长查询更快, VARCHAR变长省空间",
+      "deepPaging": "LIMIT 100000,20 用子查询+覆盖索引先定位ID再回表",
+      "or": "改UNION让每个子查询走自己的索引"
+    },
+    "selectivity": "区分度<0.1的索引MySQL可能不选(回表代价>全扫)"
+  },
+  "notes": "失效: LIKE '%x'/函数/隐式转换/OR无索引/!=/IS NULL/NOT IN/联合索引缺最左; 优化: UNION/覆盖子查询/CHAR/ES"
+}

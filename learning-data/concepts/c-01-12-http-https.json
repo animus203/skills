@@ -1,0 +1,26 @@
+{
+  "id": "c-01-12-http-https",
+  "name": "HTTP 与 HTTPS 区别",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:25:00+0800",
+  "content": {
+    "ports": {"HTTP": 80, "HTTPS": 443},
+    "security": {
+      "encryption": "TLS加密防窃听",
+      "authentication": "CA证书链防冒充",
+      "integrity": "TLS MAC防篡改"
+    },
+    "performance": {
+      "HTTP": "1 RTT (TCP)",
+      "HTTPS_TLS1.2": "3 RTT (TCP + TLS 2RTT)",
+      "HTTPS_TLS1.3": "2 RTT (TCP + TLS 1RTT)"
+    },
+    "cryptoStrategy": "混合加密：非对称(RSA)传对称密钥(AES)，对称加密传数据",
+    "comparison": {
+      "HTTP": "明文、无认证、端口80、快",
+      "HTTPS": "加密、CA认证、端口443、多TLS握手开销"
+    }
+  },
+  "notes": "HTTPS = HTTP over TLS；非对称用来安全交换对称密钥，对称用来高效加密业务数据"
+}

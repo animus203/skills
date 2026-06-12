@@ -1,0 +1,14 @@
+{
+  "id": "c-04-13-master-slave",
+  "name": "主从复制",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:40:00+0800",
+  "content": {
+    "process": "主binlog→dump线程发→从I/O线程收→Relay Log→SQL线程回放",
+    "binlogFormats": {"STATEMENT": "记录SQL(小但非确定性函数不一致)", "ROW": "记录行变化(一致性最强/推荐)", "MIXED": "折中"},
+    "replicationModes": {"async": "不等从库(可能丢)", "semiSync": "等一个从库确认(推荐)", "fullSync": "等所有从库(最慢)"},
+    "delaySolutions": ["缓存记录写key路由主库", "关键业务读主库", "非关键容忍秒级"]
+  },
+  "notes": "三线程(主dump/从I/O/从SQL); binlog推荐ROW(一致但大); 半同步推荐; 读写分离注意延迟"
+}

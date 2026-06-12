@@ -1,0 +1,27 @@
+{
+  "id": "c-01-39-serialization",
+  "name": "序列化与反序列化",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:20:00+0800",
+  "content": {
+    "definition": {"ser": "对象→字节流", "deser": "字节流→对象"},
+    "javaMechanism": {
+      "interface": "Serializable(标记接口)",
+      "api": "ObjectOutputStream.writeObject / ObjectInputStream.readObject",
+      "transient": "不参与序列化(密码/缓存值)",
+      "static": "不参与序列化(属于类不属于对象)",
+      "serialVersionUID": "版本兼容控制，不一致→InvalidClassException，显式声明防止类变更导致历史数据反序列化失败"
+    },
+    "useCases": ["Redis RDB持久化", "Dubbo/gRPC远程通信", "分布式Session(Tomcat→Redis)", "深拷贝(序列化→反序列化)"],
+    "limitations": ["性能差体积大", "跨语言不友好(仅Java)", "安全漏洞(反序列化RCE)", "版本兼容脆弱"],
+    "modernAlternatives": {
+      "JSON(Jackson/Gson)": "文本可读跨语言，适合Web",
+      "ProtoBuf": "二进制极快极小跨语言，gRPC标配",
+      "Kryo": "Java专用二进制，比原生快10倍",
+      "Hessian": "二进制跨语言，Dubbo默认",
+      "FST": "Java专用，比Kryo更安全"
+    }
+  },
+  "notes": "对象↔字节流；transient不序列化；serialVersionUID控制兼容；现代用JSON/ProtoBuf/Kryo代替原生Java序列化"
+}

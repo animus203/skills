@@ -1,0 +1,11 @@
+{
+  "date": "2026-05-13",
+  "entries": [
+    {
+      "time": "11:30:55",
+      "action": "complete_concept",
+      "conceptId": "c-01-11-http-versions",
+      "note": "HTTP协议版本学习完成"
+    }
+  ]
+}

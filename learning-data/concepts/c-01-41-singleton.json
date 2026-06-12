@@ -1,0 +1,20 @@
+{
+  "id": "c-01-41-singleton",
+  "name": "单例模式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:40:00+0800",
+  "content": {
+    "definition": "一个类仅一个实例，全局访问点，Spring默认Bean作用域",
+    "implementations": {
+      "eager": {"code": "static final INSTANCE = new Singleton()", "pros": ["线程安全(JVM类加载)", "简单"], "cons": ["不管用不用都创建"]},
+      "dcl": {"code": "volatile + synchronized + 双null检查", "pros": ["懒加载", "volatile防指令重排"], "cons": ["代码复杂", "反射可破"]},
+      "holder": {"code": "静态内部类Holder.INSTANCE", "pros": ["懒加载", "JVM类加载线程安全", "无需volatile"], "cons": ["反射可破"]},
+      "enum": {"code": "enum Singleton { INSTANCE }", "pros": ["反射无法破坏", "序列化自带安全", "最简单"], "cons": ["不能继承"]}
+    },
+    "volatileWhy": "new Object()非原子(分配内存/初始化/赋值)，JVM可能1-3-2重排→另一个线程看到非null但未初始化完的对象",
+    "serialization": "DCL/Holder需加 readResolve() 返回 INSTANCE；枚举自动安全",
+    "reflection": "前面三种反射可破(setAccessible+newInstance)，枚举不行(JVM禁止)"
+  },
+  "notes": "4种：饿汉(类加载)/DCL(volatile+双检)/Holder(懒加载最优雅)/枚举(防反射防序列化首选)；Spring默认单例"
+}

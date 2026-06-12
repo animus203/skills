@@ -1,0 +1,28 @@
+{
+  "id": "c-01-10-ethernet",
+  "name": "以太网报文格式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:00:00+0800",
+  "content": {
+    "headerSize": "14字节(目的MAC 6 + 源MAC 6 + 类型 2)",
+    "trailerSize": "4字节 FCS(CRC32)",
+    "frameRange": "64-1518字节",
+    "fields": [
+      "目的MAC(48bit)",
+      "源MAC(48bit)",
+      "类型/长度(16bit, 0x0800=IPv4, 0x0806=ARP, 0x86DD=IPv6)",
+      "数据(46-1500B)",
+      "FCS(32bit, CRC32)"
+    ],
+    "mtu": 1500,
+    "minData": 46,
+    "broadcastMAC": "ff:ff:ff:ff:ff:ff",
+    "pdfMissingFields": ["类型/长度字段", "FCS帧检验序列"]
+  },
+  "examples": [
+    "ARP包28字节需补18字节填充至最小46字节",
+    "跨路由器MAC地址每跳替换，IP全程不变"
+  ],
+  "notes": "以太网帧工作在L2数据链路层，MAC于网卡固化，仅同子网有效；MTU=1500指数据上限，FCS提供硬件级CRC32校验"
+}

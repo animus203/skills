@@ -1,0 +1,22 @@
+{
+  "id": "plan-10-es",
+  "topicId": "topic-server-dev-interview",
+  "name": "ES篇",
+  "description": "概述、基本概念、高级特性、实战",
+  "pages": "169-185",
+  "conceptIds": [
+    "c-10-01-overview",
+    "c-10-02-competitor",
+    "c-10-03-ik-analyzer",
+    "c-10-04-index-mapping",
+    "c-10-05-dsl",
+    "c-10-06-aggregation",
+    "c-10-07-suggester",
+    "c-10-08-write-optimize",
+    "c-10-09-read-optimize",
+    "c-10-10-zero-downtime",
+    "c-10-11-deep-paging"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

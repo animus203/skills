@@ -1,0 +1,29 @@
+{
+  "id": "c-03-06-memory-model",
+  "name": "Java 内存模型 JMM",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:00:00+0800",
+  "content": {
+    "jmmThree": {
+      "atomicity": "synchronized(monitorenter/monitorexit)",
+      "visibility": "volatile(写回主内存/读从主内存刷新) + synchronized + final",
+      "ordering": "volatile(内存屏障禁止重排) + synchronized(单线程串行)"
+    },
+    "volatile": {
+      "visibility": "写立即回主内存，读强制从主内存刷新",
+      "noReordering": "内存屏障禁止指令重排",
+      "notAtomic": "i++不原子，需synchronized或AtomicInteger"
+    },
+    "lockOptimizations": {
+      "reduceTime": "只锁关键代码",
+      "reduceGranularity": "CHM分段锁(1.7 Segment 16段)",
+      "coarsening": "循环锁提到外面",
+      "readWriteLock": "ReentrantReadWriteLock读不互斥",
+      "cas": "低竞争+快速操作免上下文切换",
+      "lockElimination": "JIT检测无竞争→去锁"
+    },
+    "threadLocal": {"mechanism": "Thread.threadLocals(ThreadLocalMap), key=弱引ThreadLocal, value=强引数据", "leak": "线程池线程复用→value强引永不回收→用完必须remove()"}
+  },
+  "notes": "JMM=原子(synced)+可见(volatile)+有序(volatile/synced); volatile可见禁止重排但不原子; ThreadLocal用完remove防泄漏"
+}

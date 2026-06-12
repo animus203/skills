@@ -1,0 +1,1 @@
+{"id":"c-04-20-auto-id","name":"自增ID方案","planId":"plan-04-mysql","status":"completed","learnedAt":"2026-05-29T09:30:00+0800","content":{"reviewOf":"c-04-18","snowflake":"41时间+10机器+12序列, 每毫秒4096, 趋势递增索引友好", "comparison":"Redis/步长/UUID(页分裂)/Snowflake(推荐)/独立服务"}}

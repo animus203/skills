@@ -1,0 +1,15 @@
+{
+  "id": "c-07-03-bean-lifecycle",
+  "planId": "plan-07-spring",
+  "name": "Bean 生命周期",
+  "pages": "131-134",
+  "status": "completed",
+  "learnedAt": "2026-06-03T10:00:00+0800",
+  "content": "Spring Bean 生命周期分 4 阶段：实例化 → 属性赋值 → 初始化 → 销毁，共 10 步。refresh() 方法 12 步完成容器初始化：prepareRefresh → obtainFreshBeanFactory → prepareBeanFactory → postProcessBeanFactory → invokeBeanFactoryPostProcessors → registerBeanPostProcessors → initMessageSource → initApplicationEventMulticaster → onRefresh → registerListeners → finishBeanFactoryInitialization → finishRefresh。Singleton 与容器同生命周期，存于单例池，关闭时执行销毁回调。Prototype 每次 getBean 创建新实例，Spring 创建后即放手，销毁由 GC 回收。",
+  "examples": [
+    "refresh() 12 步中 step 5 的 ConfigurationClassPostProcessor 解析 @Configuration + @Bean 生成 BeanDefinition",
+    "AOP 代理在 postProcessAfterInitialization 阶段由 AbstractAutoProxyCreator 创建",
+    "Aware 回调由 ApplicationContextAwareProcessor（一个 BeanPostProcessor）在 postProcessBeforeInitialization 中统一驱动"
+  ],
+  "notes": "关键扩展点：BeanFactoryPostProcessor（改定义） → BeanPostProcessor（改行为） → Aware（拿资源） → init/destroy 回调（写逻辑）。InstantiationAwareBeanPostProcessor 可在实例化前返回代理跳过实例化。Prototype Bean 的 destroy-method 不生效。"
+}

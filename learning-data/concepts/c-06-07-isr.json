@@ -1,0 +1,1 @@
+{"id":"c-06-07-isr","name":"ISR机制深入","planId":"plan-06-kafka","status":"completed","learnedAt":"2026-06-01T09:15:00+0800","content":{"reviewOf":["c-06-04","c-06-06"],"key":"ISR=Leader+同步Follower; 落后>10s踢出; ISR中选Leader; ISR全挂→unclean.leader.election决定; HW=ISR最小LEO"}}

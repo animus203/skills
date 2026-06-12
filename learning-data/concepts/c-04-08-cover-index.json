@@ -1,0 +1,13 @@
+{
+  "id": "c-04-08-cover-index",
+  "name": "覆盖索引与回表",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:10:00+0800",
+  "content": {
+    "backTable": "非聚簇索引→查到主键ID→回聚簇索引查完整行数据，两次索引树访问",
+    "coveringIndex": "SELECT列全在索引中→不回表→EXPLAIN Extra=Using index",
+    "whyNoSelectStar": "SELECT * 必回表(无法知道哪些列在索引里)，尽量指定必须列走覆盖"
+  },
+  "notes": "覆盖索引=查询列全在索引一次查完不回表; 回表=非聚簇→主键ID→聚簇再查; Using index标识覆盖索引"
+}

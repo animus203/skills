@@ -1,0 +1,1 @@
+{"id":"c-05-18-cache-breakdown","name":"缓存击穿","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:35:00+0800","content":{"phenomenon":"一个热点key过期→海量并发同查此key→全miss→DB被打爆","vsAvalanche":"雪崩=大量不同key过期, 击穿=一个热点key","solutions":["互斥锁(第一个查DB其余等)","热点永不过期(逻辑过期+异步更新)","缓存预热","限流兜底默认值"]}}

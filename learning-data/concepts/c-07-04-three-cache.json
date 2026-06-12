@@ -1,0 +1,14 @@
+{
+  "id": "c-07-04-three-cache",
+  "planId": "plan-07-spring",
+  "name": "循环依赖与三级缓存",
+  "pages": "133-134",
+  "status": "completed",
+  "learnedAt": "2026-06-03T10:30:00+0800",
+  "content": "Spring 循环依赖分三种场景：Prototype 无法解决（无缓存机制），构造器注入无法解决（实例化与依赖绑定，拿不到半成品暴露），Field/setter 注入通过三级缓存解决。三级缓存：一级 singletonObjects（成品），二级 earlySingletonObjects（半成品早期引用，从三级升级而来），三级 singletonFactories（ObjectFactory 工厂 lambda）。核心流程：A 实例化后将工厂放入三级缓存 → 填充属性发现需要 B → 创建 B，B 实例化后工厂入三级 → B 发现需要 A → 从三级缓存取 A 的工厂，调 getObject() 得早期引用升级至二级 → B 拿到 A* 完成创建 → A 拿到 B 成品完成创建。singletonsCurrentlyInCreation Set 是循环检测的开关。三级缺一不可：没三级无法做 AOP 代理包装，没二级代理不唯一。",
+  "examples": [
+    "A 依赖 B, B 依赖 A 的完整推演：A 实例化 → addSingletonFactory(A) → populateBean 发现需要 B → 创建 B → B 实例化 → addSingletonFactory(B) → B populateBean 发现需要 A → getSingleton(A) 从三级缓存取 factory → factory.getObject() → 升级至二级 → B 完成 → A 继续完成",
+    "AbstractAutoProxyCreator 通过 earlyProxyReferences 避免在 getEarlyBeanReference 和 postProcessAfterInitialization 中重复创建代理"
+  ],
+  "notes": "构造器循环依赖无法通过三级缓存解决的根本原因：实例化需要传参，无法产生'半成品'对象来提前暴露。@Lazy 通过注入代理对象绕开循环依赖，本质是推迟依赖解析而非真正解决。singletonsCurrentlyInCreation Set 是三级缓存机制的开关——检测循环并控制三级缓存只在正确的窗口期可用。"
+}

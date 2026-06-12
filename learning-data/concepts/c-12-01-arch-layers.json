@@ -1,0 +1,10 @@
+{
+  "id": "c-12-01-arch-layers",
+  "planId": "plan-12-netty",
+  "title": "Netty整体架构分层",
+  "status": "completed",
+  "learnedAt": "2026-06-09T10:30:00+0800",
+  "content": "整体三层：Transport Service(TCP/UDP传输抽象)→Core(事件模型+通用Channel API+零拷贝ByteBuf)→Protocol Support(HTTP/Protobuf编解码)。逻辑架构三层：网络通信层(Bootstrap/ServerBootstrap/Channel)、事件调度层(EventLoop单线程绑定Channel保证无锁/EventLoopGroup线程池支持主从Reactor)、服务编排层(Pipeline双向链表编排Handler/Handler分InboundOutbound/HandlerContext管理Handler交互与事件传播)。",
+  "examples": ["ServerBootstrap.group(boss, worker).channel(NioServerSocketChannel.class).bind(8080)", "Pipeline: Head→InboundHandler→OutboundHandler→Tail", "ctx.fireChannelRead(msg)传递事件"],
+  "notes": "boss接连接worker干读写；入站Head→Tail出站Tail→Head；不调fireChannelRead事件传播断链"
+}

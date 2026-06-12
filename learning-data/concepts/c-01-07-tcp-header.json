@@ -1,0 +1,18 @@
+{
+  "id": "c-01-07-tcp-header",
+  "planId": "plan-01-basics",
+  "name": "TCP报文格式与字段含义",
+  "pages": "15",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "TCP 首部 20-60 字节结构；9 个核心字段（源/目的端口、seq、ack、首部长度、保留位、6 标志位、窗口大小、校验和、紧急指针）；6 标志位 URG/ACK/PSH/RST/SYN/FIN 含义；首部长度单位是 4 字节字（4 bit 最大 60）；窗口字段 64KB 上限通过 Window Scale 扩到 GB 级；可选项 MSS/SACK/Timestamps/Window Scale 工程意义；伪首部跨层校验",
+  "examples": [
+    "四元组：源IP+源端口+目的IP+目的端口",
+    "首部长度=5 表示 20 字节，=15 表示 60 字节",
+    "SYN/FIN 不带数据但消耗一个序号",
+    "MSS 默认 1460 = 1500 MTU - 20 IP - 20 TCP",
+    "Window Scale 让 16 bit 窗口扩到 64KB × 2^14 = 1GB",
+    "RST 触发场景：连不存在端口、进程崩溃、SO_LINGER=0 close、对已关闭 socket 发数据"
+  ],
+  "notes": "PDF Page 15 完整覆盖。补充 PDF 之外：报文结构图、四元组概念、端口分类、SYN/FIN 消耗序号细节、SACK 工程价值、时间戳的 PAWS 防回绕、ECN 显式拥塞通知、RST 攻击与防御、抓包工具实战。两道练习题：seq/ack 计算题（SYN 消耗序号）、RST+ACK 含义场景题。"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "c-01-18-cookie-session",
+  "name": "Cookie 与 Session",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:00:00+0800",
+  "content": {
+    "whyNeeded": "HTTP是无状态协议，需要Cookie/Session添加记忆",
+    "cookie": {
+      "location": "客户端浏览器",
+      "size": "4KB",
+      "mechanism": "Set-Cookie响应头存，Cookie请求头带",
+      "securityAttributes": {
+        "HttpOnly": "防XSS窃取(JS读不到)",
+        "Secure": "仅HTTPS传输(防中间人)",
+        "SameSite": "Lax/Strict防CSRF"
+      },
+      "useCase": "JWT Token、用户偏好、跟踪标识"
+    },
+    "session": {
+      "location": "服务端(内存/Redis)",
+      "mechanism": "客户端只存SessionID(Cookie)，服务端存完整数据",
+      "issues": ["重启丢失(内存)", "分布式不共享", "服务端每次查询开销"]
+    },
+    "distributedSolutions": [
+      "Sticky Session: 负载均衡固定用户到同机器(简单但下线丢)",
+      "Redis集中存储: 标准方案",
+      "JWT无状态Token: 不存服务端，签名验证"
+    ],
+    "securityRule": "生产Cookie必须设 HttpOnly + Secure + SameSite=Lax"
+  },
+  "notes": "Cookie客户端4KB(设HttpOnly/Secure/SameSite)，Session服务端(Redis共享)；分布式三方案：粘滞/Redis/JWT"
+}

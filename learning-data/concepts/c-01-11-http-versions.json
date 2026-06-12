@@ -1,0 +1,20 @@
+{
+  "id": "c-01-11-http-versions",
+  "name": "HTTP 协议版本演进",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:15:00+0800",
+  "content": {
+    "versions": {
+      "1.0": {"year": 1996, "features": ["短连接", "无状态"], "problems": ["每次请求新建TCP", "无Host头"]},
+      "1.1": {"year": 1999, "features": ["长连接(Keep-Alive)", "Host头(虚拟主机)", "ETag缓存控制", "断点续传(Range)", "管道化(鸡肋)"], "problems": ["队头阻塞(HOL blocking)", "Header冗余"]},
+      "2.0": {"year": 2015, "features": ["二进制分帧", "多路复用(Stream)", "HPACK Header压缩", "Server Push"], "problems": ["TCP层HOL仍在", "Server Push已被Chrome移除"]}
+    },
+    "keyInnovations": {
+      "multiplexing": "一个TCP连接多Stream并行，响应可乱序",
+      "hpack": "静态字典+动态字典+Huffman编码，压缩率85%+",
+      "holBlocking": "HTTP/2解决应用层HOL，TCP层HOL需HTTP/3(QUIC)"
+    }
+  },
+  "notes": "HTTP 1.0→1.1 长连接+Host头+缓存，1.1→2.0 二进制+多路复用+Header压缩；TCP HOL等HTTP/3解决"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "c-01-34-exception",
+  "name": "Java 异常体系",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:35:00+0800",
+  "content": {
+    "hierarchy": {
+      "Throwable": "所有错误/异常超类",
+      "Error": "JVM级严重问题，不捕获(OOM/StackOverflow/NoClassDefFound)",
+      "Exception": {
+        "RuntimeException": "非受检，程序逻辑bug(NPE/越界/ClassCast)，应修复代码",
+        "CheckedException": "受检，外部不确定性(IOException/SQLException)，必须try-catch/throws"
+      }
+    },
+    "designPhilosophy": "RuntimeException=程序员bug应修复代码；CheckedException=外部不可控必须显式处理",
+    "bestPractices": [
+      "不要吞异常(catch后什么都不做)",
+      "不要把异常当控制流(如用catch NumberFormatException代替正则预检)",
+      "捕获后记录上下文+保留根因链(cause)"
+    ],
+    "springTransactional": "默认仅回滚RuntimeException+Error，不回滚CheckedException(视为业务预期异常)"
+  },
+  "notes": "Throwable→Error(JVM级)+Exception(RuntimeException非受检+CheckedException受检)；Spring默认回滚RuntimeException不回滚CheckedException"
+}

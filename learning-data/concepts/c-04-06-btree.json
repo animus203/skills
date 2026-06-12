@@ -1,0 +1,18 @@
+{
+  "id": "c-04-06-btree",
+  "name": "B+ 树索引",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:00:00+0800",
+  "content": {
+    "innodbVsMyIsam": {"InnoDB": "事务/行锁/外键/索引数据同文件(聚簇)", "MyISAM": "无事务/表锁/无外键/索引数据分离(非聚簇)"},
+    "bplusTree": {
+      "advantages": ["磁盘IO少(一页16KB, 树矮胖)", "查询稳定(都到叶子节点)", "范围查询快(叶子双向链表)"],
+      "vsBTree": "B+仅叶存数据+链表; B所有节点存数据无链表",
+      "vsHash": "哈希O(1)点查但不支持范围/排序"
+    },
+    "clusteredVsNon": {"clustered": "叶子存完整行数据, 主键索引, 只有一个", "nonClustered": "叶子存主键ID, 需回表查聚簇索引", "coveringIndex": "查询列全在索引中→不回表"},
+    "leftmostPrefix": {"principle": "联合索引(a,b,c)按a排序, 查询必须从最左列匹配", "failures": ["缺a", "范围后b/c失效", "LIKE '%x'前缀匹配失效"]}
+  },
+  "notes": "B+树叶子存数据+双向链表; 聚簇=叶子完整行数据, 非聚簇=叶子存主键ID→回表; 最左前缀=联合索引从第一列开始匹配"
+}

@@ -1,0 +1,107 @@
+graph TD
+    subgraph SpringMVC["Spring MVC 知识图谱"]
+        direction TB
+
+        subgraph ServletLayer["Servlet 层"]
+            HttpServlet["HttpServlet<br/>Servlet 规范"]
+            HttpServletBean["HttpServletBean<br/>配置参数转 Bean 属性"]
+            FrameworkServlet["FrameworkServlet<br/>初始化 WebApplicationContext"]
+            DispatcherServlet["DispatcherServlet<br/>前端控制器"]
+
+            HttpServlet --> HttpServletBean --> FrameworkServlet --> DispatcherServlet
+        end
+
+        subgraph InitStrategies["DispatcherServlet 9 大组件"]
+            HandlerMappingComp["HandlerMapping<br/>URL → Handler"]
+            HandlerAdapterComp["HandlerAdapter<br/>执行 Handler"]
+            HandlerExceptionResolverComp["HandlerExceptionResolver<br/>异常处理"]
+            ViewResolverComp["ViewResolver<br/>视图解析"]
+            MultipartResolverComp["MultipartResolver<br/>文件上传"]
+            LocaleResolverComp["LocaleResolver<br/>本地化"]
+            ThemeResolverComp["ThemeResolver<br/>主题"]
+            ViewNameTranslatorComp["RequestToViewNameTranslator<br/>请求→视图名"]
+            FlashMapManagerComp["FlashMapManager<br/>重定向参数"]
+
+            DispatcherServlet -->|initStrategies| InitStrategies
+        end
+
+        subgraph DoDispatch["doDispatch() 核心流程"]
+            CheckMultipart["checkMultipart()<br/>文件上传处理"]
+            GetHandler["getHandler()<br/>查找 Handler"]
+            GetAdapter["getHandlerAdapter()<br/>查找 Adapter"]
+            PreHandle["applyPreHandle()<br/>拦截器前置"]
+            Handle["handle()<br/>执行 Handler"]
+            PostHandle["applyPostHandle()<br/>拦截器后置"]
+            ProcessResult["processDispatchResult()<br/>处理结果"]
+            AfterCompletion["triggerAfterCompletion()<br/>拦截器完成"]
+
+            CheckMultipart --> GetHandler --> GetAdapter --> PreHandle --> Handle --> PostHandle --> ProcessResult --> AfterCompletion
+        end
+
+        subgraph HandlerMappingDetail["HandlerMapping 详解"]
+            AbstractHM["AbstractHandlerMapping<br/>抽象基类"]
+            AbstractHandlerMethodMapping["AbstractHandlerMethodMapping<br/>方法映射"]
+            RequestMappingHM["RequestMappingHandlerMapping<br/>@RequestMapping 映射"]
+            RequestMappingInfo["RequestMappingInfo<br/>URL/方法/参数/头匹配"]
+            MappingRegistry["MappingRegistry<br/>urlLookup + mappingLookup"]
+            AntPathMatcher["AntPathMatcher<br/>Ant 风格路径匹配"]
+
+            AbstractHM --> AbstractHandlerMethodMapping --> RequestMappingHM
+            RequestMappingHM -->|创建| RequestMappingInfo
+            RequestMappingHM -->|注册到| MappingRegistry
+            RequestMappingHM -->|使用| AntPathMatcher
+        end
+
+        subgraph HandlerAdapterDetail["HandlerAdapter 详解"]
+            RequestMappingHA["RequestMappingHandlerAdapter<br/>@RequestMapping 适配器"]
+            ServletInvocableHM["ServletInvocableHandlerMethod<br/>可调用方法"]
+            ArgumentResolvers["HandlerMethodArgumentResolver<br/>参数解析器"]
+            ReturnValueHandlers["HandlerMethodReturnValueHandler<br/>返回值处理器"]
+            HttpMessageConverters["HttpMessageConverter<br/>消息转换器"]
+            ModelAndViewContainer["ModelAndViewContainer<br/>MVC 容器"]
+
+            RequestMappingHA -->|创建| ServletInvocableHM
+            ServletInvocableHM -->|使用| ArgumentResolvers
+            ServletInvocableHM -->|使用| ReturnValueHandlers
+            RequestMappingHA -->|包含| HttpMessageConverters
+            RequestMappingHA -->|创建| ModelAndViewContainer
+        end
+
+        subgraph InterceptorDetail["HandlerInterceptor 详解"]
+            HandlerInterceptor["HandlerInterceptor<br/>拦截器接口"]
+            HandlerExecutionChain["HandlerExecutionChain<br/>执行链"]
+            PreHandle2["preHandle()<br/>正序执行"]
+            PostHandle2["postHandle()<br/>逆序执行"]
+            AfterCompletion2["afterCompletion()<br/>逆序执行"]
+            AsyncInterceptor["AsyncHandlerInterceptor<br/>异步拦截"]
+
+            HandlerInterceptor -->|封装| HandlerExecutionChain
+            HandlerExecutionChain --> PreHandle2
+            HandlerExecutionChain --> PostHandle2
+            HandlerExecutionChain --> AfterCompletion2
+            HandlerInterceptor -->|扩展| AsyncInterceptor
+        end
+
+        subgraph ViewResolverDetail["ViewResolver 详解"]
+            ViewResolver["ViewResolver<br/>视图解析器接口"]
+            AbstractCachingVR["AbstractCachingViewResolver<br/>带缓存的解析器"]
+            InternalResourceVR["InternalResourceViewResolver<br/>JSP 视图"]
+            ContentNegotiatingVR["ContentNegotiatingViewResolver<br/>内容协商"]
+            View["View<br/>视图接口"]
+            InternalResourceView["InternalResourceView<br/>JSP 渲染"]
+
+            ViewResolver --> AbstractCachingVR --> InternalResourceVR
+            ViewResolver --> ContentNegotiatingVR
+            ViewResolver -->|解析为| View
+            View --> InternalResourceView
+        end
+    end
+
+    style SpringMVC fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style ServletLayer fill:#e3f2fd,stroke:#1565c0
+    style InitStrategies fill:#e8f5e9,stroke:#2e7d32
+    style DoDispatch fill:#fff3e0,stroke:#ef6c00
+    style HandlerMappingDetail fill:#fce4ec,stroke:#c2185b
+    style HandlerAdapterDetail fill:#f3e5f5,stroke:#7b1fa2
+    style InterceptorDetail fill:#e0f2f1,stroke:#00695c
+    style ViewResolverDetail fill:#e8eaf6,stroke:#283593

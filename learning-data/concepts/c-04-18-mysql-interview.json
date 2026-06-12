@@ -1,0 +1,20 @@
+{
+  "id": "c-04-18-mysql-interview",
+  "name": "MySQL 综合考察题",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-29T09:15:00+0800",
+  "content": {
+    "sharding": {
+      "horizontal": "同表数据分多库，hash/range/id路由，分担并发",
+      "vertical": "同表列拆分，冷热分离",
+      "client": "Sharding-JDBC(高性能需耦合)",
+      "proxy": "Mycat(透明需运维)"
+    },
+    "fourProblems": {"crossDbQuery": "ES宽表", "dataSkew": "细粒度hash", "distTrans": "最终一致(Seata)", "deepPaging": "游标查询(带上最大ID)"},
+    "migration": "双写不中断：老写+新写→程序补齐(看updateTime)→一致后切换",
+    "idSchemes": {"Redis": "中低并发", "步长": "简单水平伸缩", "UUID": "无序/页分裂/不推荐主键", "Snowflake": "推荐: 41时间+10机器+12序列, 一毫秒4096个, 时钟回拨需处理"},
+    "performance": "32库×32表≈1000-2000张, 每表300w=60亿数据"
+  },
+  "notes": "分库分表: Sharding-JDBC/Mycat; 四问题: ES/细粒度hash/最终一致/游标; ID: Snowflake推荐(41+10+12)"
+}

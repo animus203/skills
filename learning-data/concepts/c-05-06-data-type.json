@@ -1,0 +1,18 @@
+{
+  "id": "c-05-06-data-type",
+  "name": "Redis 五大数据类型",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T10:35:00+0800",
+  "content": {
+    "fiveTypes": {
+      "String": {"encoding": "SDS(RAW/EMBSTR/INT)", "apis": "SET/GET/INCR/SETNX/EXPIRE", "useCase": "缓存/计数器/分布式锁/Session"},
+      "List": {"encoding": "QuickList", "apis": "LPUSH/RPUSH/LPOP/RPOP/LRANGE/BRPOP", "useCase": "消息队列/时间线/阻塞消费"},
+      "Set": {"encoding": "IntSet/HT", "apis": "SADD/SREM/SINTER/SUNION/SDIFF", "useCase": "好友关系/标签/去重/共同关注"},
+      "ZSet": {"encoding": "Ziplist/SkipList+Dict", "apis": "ZADD/ZRANGE/ZRANK/ZSCORE", "useCase": "排行榜/延时队列/优先级队列"},
+      "Hash": {"encoding": "Ziplist/HT", "apis": "HSET/HGET/HGETALL/HINCRBY", "useCase": "对象存储/购物车/用户属性"},
+      "Stream": {"encoding": "listpack+Rax树", "apis": "XADD/XREAD/XREADGROUP", "useCase": "消息队列"}
+    }
+  },
+  "notes": "String(SDS/万能)→List(QuickList/队列)→Set(去重/交集)→ZSet(SkipList/排行榜)→Hash(Ziplist/对象存储)→Stream(消息队列)"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "c-01-40-string",
+  "name": "String 详解",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:30:00+0800",
+  "content": {
+    "immutability": {"jdk8": "private final char[] value", "jdk9": "private final byte[] value + coder(Compact Strings)", "why": ["常量池复用", "hashCode缓存", "安全(防注入篡改)", "线程安全"]},
+    "constantPool": {"literal": "\"hello\"→编译时入常量池→运行时加载→intern()返回池引用", "newString": "new String(\"hello\")→堆新对象(1-2个)", "intern": "查询/加入常量池", "jdk7": "常量池移入堆"},
+    "comparison": {
+      "String": {"mutable": false, "threadSafe": true, "useCase": "少量拼接/做key"},
+      "StringBuilder": {"mutable": true, "threadSafe": false, "useCase": "单线程大量拼接"},
+      "StringBuffer": {"mutable": true, "threadSafe": true, "useCase": "多线程拼接(synchronized)"}
+    },
+    "constantFolding": "编译期常量表达式直接算出结果(\"a\"+\"b\"→\"ab\")，不创建中间对象",
+    "compactStrings": "JDK9 byte[]+coder 替代 char[]，纯Latin字符每字符1字节(省50%内存)"
+  },
+  "notes": "String不可变(final byte[])，常量池复用intern，+号拼接常量折叠编译期优化；循环用Builder不要用+"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "c-02-02-heap-detail",
+  "name": "堆内存分配策略",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-27T13:20:00+0800",
+  "content": {
+    "heapStructure": "新生代(Eden 80% + S0 10% + S1 10%) + 老年代, 默认比例 8:1:1",
+    "fiveStrategies": {
+      "edenFirst": "对象优先在Eden分配, Eden满→Minor GC, 存活→Survivor From",
+      "largeObjectDirectOld": "大对象(长字符串/大数组)直接进老年代, 避免复制拷贝开销, -XX:PretenureSizeThreshold",
+      "agingPromotion": "每熬一次Minor GC Age+1, 默认15岁晋升, 对象头Age字段仅4 bit(最大15), -XX:MaxTenuringThreshold",
+      "dynamicAge": "同龄对象总大小 > Survivor一半 → 这批直接晋升, 防止Survivor被撑爆",
+      "spaceGuarantee": "Minor GC前检查老年代剩余, 不够→Full GC, 再不够→OOM"
+    },
+    "gcTypes": {"Minor GC": "新生代, Eden满触发, 频繁快", "Major GC": "老年代, 老年代不足", "Full GC": "整个堆+MetaSpace, 最慢STW长"},
+    "whyNotAllOld": "新生代复制算法(存活少拷贝少), 老年代标记清除/整理(存活多拷贝不划算); 弱分代假说: 绝大多数对象朝生夕死"
+  },
+  "notes": "Eden满→Minor GC→Survivor→Age+1→15岁进老年代; 大对象直接老年代; 同龄>Survivor一半也晋升; 空间不够Full GC"
+}

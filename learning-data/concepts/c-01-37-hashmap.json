@@ -1,0 +1,22 @@
+{
+  "id": "c-01-37-hashmap",
+  "name": "HashMap 详解",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:05:00+0800",
+  "content": {
+    "dataStructure": "数组+链表+红黑树(Node/TreeNode)",
+    "keyParams": {"defaultCapacity": 16, "loadFactor": 0.75, "treeifyThreshold": 8, "untreeifyThreshold": 6, "minTreeifyCapacity": 64},
+    "hashFunction": "(n-1)&hash(位运算代替取模) + (h^(h>>>16))扰动(高低16位异或)",
+    "whyPowerOfTwo": "1)(n-1)&hash代替%取模(快10倍) 2)扩容hash&oldCap拆链(一半原位一半原位+oldCap)",
+    "putProcess": ["1.算hash(key.hashCode()^>>>16)", "2.table空→resize()初始化", "3.(n-1)&hash定位桶", "4.桶空直接放/树走插入/链表尾插+equals覆盖", "5.链表>=8→treeifyBin()(需数组>=64)", "6.size++>threshold→resize()"],
+    "resize": {"trigger": "size > capacity*0.75", "process": "2倍扩容, hash&oldCap=0原位≠0移原位+oldCap"},
+    "jdk17vs18": {
+      "17": {"structure": "数组+链表", "insertion": "头插法", "hash": "4次扰动", "bug": "并发扩容头插法反转→死循环→CPU100%"},
+      "18": {"structure": "数组+链表+红黑树", "insertion": "尾插法", "hash": "1次扰动(高16^低16)", "bug": "修复死循环但依然非线程安全"}
+    },
+    "whyTreeify8": "泊松分布:负载0.75时链表长度≥8概率<千万分之一; 防御Tomcat URL参数DoS碰撞攻击",
+    "notThreadSafe": "1.8尾插法修死循环但put/size++仍不原子, 多线程用ConcurrentHashMap"
+  },
+  "notes": "数组+链表+红黑树; 2^N容量 (n-1)&hash代替取模; 1.7头插死循环, 1.8尾插+树化解DoS"
+}

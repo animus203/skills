@@ -1,0 +1,1 @@
+{"id":"c-05-10-zset-skiplist","name":"ZSet跳表实现","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:00:00+0800","content":{"reviewOf":"c-05-07","key":"ZSet=SkipList(score排序OlogN)+Dict(member→score O1); 小数据ziplist; 跳表优于红黑树(简单/范围快/易序列化)"}}

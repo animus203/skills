@@ -1,0 +1,22 @@
+{
+  "id": "c-01-16-http-status",
+  "name": "HTTP 状态码",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T16:05:00+0800",
+  "content": {
+    "categories": {
+      "1xx": {"meaning": "收到，处理中", "codes": {"100": "Continue", "101": "WebSocket升级"}},
+      "2xx": {"meaning": "成功", "codes": {"200": "OK", "201": "Created", "204": "No Content", "206": "Partial Content(断点续传)"}},
+      "3xx": {"meaning": "重定向", "codes": {"301": "永久(浏览器缓存)", "302": "临时(不缓存)", "304": "Not Modified(缓存有效)"}},
+      "4xx": {"meaning": "客户端错误", "codes": {"400": "Bad Request", "401": "未认证", "403": "无权限", "404": "Not Found", "405": "Method Not Allowed", "429": "限流"}},
+      "5xx": {"meaning": "服务端错误", "codes": {"500": "内部异常", "502": "网关收到无效上游响应", "503": "服务暂不可用", "504": "网关超时"}}
+    },
+    "keyDistinctions": {
+      "301vs302": "301永久(浏览器缓存跳转，收不回)；302临时(每次问原地址)",
+      "401vs403": "401未登录/认证失败；403已登录但权限不足",
+      "502vs504": "502上游返回了错误响应；504上游超时没返回"
+    }
+  },
+  "notes": "1xx信息2xx成功3xx重定向4xx客户端5xx服务端；301永久缓存慎用，401vs403=未认证vs无权限"
+}

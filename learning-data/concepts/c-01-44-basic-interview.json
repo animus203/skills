@@ -1,0 +1,19 @@
+{
+  "id": "c-01-44-basic-interview",
+  "name": "基础篇综合考察题",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T13:00:00+0800",
+  "content": {
+    "topics": {
+      "constructor": "可重载，无返回值，类无显式构造时自动给默认构造",
+      "initOrder": "父类静态块→子类静态块→父类实例块→父类构造→子类实例块→子类构造",
+      "this": "当前对象引用，不能在static方法中使用",
+      "overloadVsOverride": "重载=同类不同参(编译期静态分派); 重写=父子同签(运行时动态分派)",
+      "objectMethods": {"toString": "默认类名@hashCode一般重写", "equals": "默认==(引用比较)", "hashCode": "equals等则hashCode等，反不成立", "clone": "需实现Cloneable，默认浅拷贝", "getClass": "反射入口", "finalize": "Java9+废弃不用", "notify/wait": "线程通信"},
+      "wrapperCache": {"Byte/Short/Integer/Long": "[-128,127]", "Character": "[0,127]", "Boolean": "true/false"}
+    },
+    "keyPitfall": "equals与hashCode必须同时重写(HashMap先用hashCode定位再用equals); Integer==在[-128,127]内true外false"
+  },
+  "notes": "plan-01 综合复习：构造顺序/重载重写/Object方法/hashCode契约/Integer缓存"
+}

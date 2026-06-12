@@ -1,0 +1,127 @@
+graph TD
+    subgraph SpringAOP["Spring AOP 知识图谱"]
+        direction TB
+
+        subgraph AOPConcepts["AOP 核心概念"]
+            JoinPoint["JoinPoint<br/>连接点"]
+            Pointcut["Pointcut<br/>切点（在哪里切入）"]
+            Advice["Advice<br/>通知（切入后做什么）"]
+            Advisor["Advisor<br/>切点+通知的粘合剂"]
+            Aspect["Aspect<br/>切面"]
+            Weaving["Weaving<br/>织入"]
+            Proxy["Proxy<br/>代理对象"]
+
+            Pointcut -->|包含| ClassFilter["ClassFilter<br/>类级别过滤"]
+            Pointcut -->|包含| MethodMatcher["MethodMatcher<br/>方法级别匹配"]
+            MethodMatcher -->|静态匹配| StaticMatch["启动时匹配<br/>execution/within/@annotation"]
+            MethodMatcher -->|动态匹配| DynamicMatch["运行时匹配<br/>args()"]
+            Advisor -->|组合| Pointcut
+            Advisor -->|组合| Advice
+            Aspect -->|包含多个| Advisor
+        end
+
+        subgraph ProxyImpl["代理实现层"]
+            AopProxy["AopProxy<br/>代理接口"]
+            JDKProxy["JdkDynamicAopProxy<br/>JDK 动态代理"]
+            CGLIBProxy["CglibAopProxy<br/>CGLIB 代理"]
+            DefaultFactory["DefaultAopProxyFactory<br/>代理策略选择"]
+
+            AopProxy --> JDKProxy
+            AopProxy --> CGLIBProxy
+            DefaultFactory -->|有接口| JDKProxy
+            DefaultFactory -->|无接口/final/proxyTargetClass| CGLIBProxy
+        end
+
+        subgraph JDK["JDK 动态代理详解"]
+            ProxyClass["java.lang.reflect.Proxy<br/>生成代理类"]
+            InvocationHandler["InvocationHandler<br/>方法调用处理器"]
+            JdkAopProxy["JdkDynamicAopProxy<br/>Spring 实现"]
+            ReflectiveMI["ReflectiveMethodInvocation<br/>责任链执行"]
+            GeneratedProxy["$Proxy0<br/>生成的代理类"]
+
+            ProxyClass -->|newProxyInstance| GeneratedProxy
+            GeneratedProxy -->|所有方法调用| InvocationHandler
+            JdkAopProxy -->|实现| InvocationHandler
+            JdkAopProxy -->|创建| ReflectiveMI
+            ReflectiveMI -->|proceed| Chain["拦截器链逐个执行"]
+            Chain -->|最后| InvokeJoinpoint["invokeJoinpoint<br/>反射调用目标方法"]
+        end
+
+        subgraph CGLIB["CGLIB 代理详解"]
+            Enhancer["Enhancer<br/>CGLIB 增强器"]
+            CBMethodInterceptor["net.sf.cglib.proxy.MethodInterceptor<br/>CGLIB 拦截器"]
+            DynamicAdvised["DynamicAdvisedInterceptor<br/>Spring CGLIB 拦截器"]
+            MethodProxy["MethodProxy<br/>方法代理"]
+            FastClass["FastClass<br/>索引调用优化"]
+            CglibMI["CglibMethodInvocation<br/>CGLIB 责任链"]
+            GeneratedSubclass["UserService$$Enhancer<br/>生成的子类"]
+
+            Enhancer -->|setSuperclass + setCallback| GeneratedSubclass
+            GeneratedSubclass -->|重写方法| CBMethodInterceptor
+            DynamicAdvised -->|实现| CBMethodInterceptor
+            DynamicAdvised -->|创建| CglibMI
+            MethodProxy -->|invokeSuper| FastClass
+            FastClass -->|索引调用| TargetMethod["目标方法<br/>无反射开销"]
+            CglibMI -->|invokeJoinpoint| MethodProxy
+        end
+
+        subgraph AdvisorChain["Advisor 与拦截器链"]
+            PointcutAdvisor["PointcutAdvisor<br/>含 Pointcut 的 Advisor"]
+            IntroductionAdvisor["IntroductionAdvisor<br/>引入通知"]
+            DefaultPointcut["DefaultPointcutAdvisor<br/>通用实现"]
+            AspectJAdvisor["InstantiationModelAwarePointcutAdvisorImpl<br/>@Aspect 注解生成"]
+            AdvisorAdapter["AdvisorAdapter<br/>Advice → MethodInterceptor"]
+            ChainFactory["DefaultAdvisorChainFactory<br/>构建拦截器链"]
+            MethodCache["methodCache<br/>方法→拦截器链缓存"]
+
+            PointcutAdvisor --> DefaultPointcut
+            PointcutAdvisor --> AspectJAdvisor
+            Advisor --> PointcutAdvisor
+            Advisor --> IntroductionAdvisor
+            AdvisorAdapter -->|转换| MethodInterceptor["MethodInterceptor<br/>统一拦截器接口"]
+            ChainFactory -->|查询+匹配| MethodCache
+            ChainFactory -->|返回| MethodInterceptor
+        end
+
+        subgraph AspectJConversion["@Aspect 注解转换流程"]
+            AspectAnnotation["@Aspect 类"]
+            ReflectiveFactory["ReflectiveAspectJAdvisorFactory"]
+            BeforeAdvice["AspectJMethodBeforeAdvice"]
+            AfterReturningAdvice["AspectJAfterReturningAdvice"]
+            AroundAdvice["AspectJAroundAdvice<br/>直接是 MethodInterceptor"]
+            BeforeInterceptor["MethodBeforeAdviceInterceptor<br/>适配器包装"]
+            AfterInterceptor["AfterReturningAdviceInterceptor<br/>适配器包装"]
+
+            AspectAnnotation -->|解析每个通知方法| ReflectiveFactory
+            ReflectiveFactory -->|@Before| BeforeAdvice -->|适配| BeforeInterceptor
+            ReflectiveFactory -->|@AfterReturning| AfterReturningAdvice -->|适配| AfterInterceptor
+            ReflectiveFactory -->|@Around| AroundAdvice
+        end
+
+        subgraph SpringAOPTrigger["Spring AOP 触发流程"]
+            EnableAspectJ["@EnableAspectJAutoProxy"]
+            AutoProxyCreator["AnnotationAwareAspectJAutoProxyCreator<br/>BPP"]
+            FindAdvisors["findCandidateAdvisors<br/>查找所有 Advisor"]
+            WrapIfNecessary["wrapIfNecessary<br/>检查是否需要代理"]
+            CreateProxy["createProxy<br/>创建代理对象"]
+            MethodCall["方法调用"]
+            InterceptorChain["拦截器链执行"]
+
+            EnableAspectJ -->|注册| AutoProxyCreator
+            AutoProxyCreator -->|postProcessAfterInitialization| WrapIfNecessary
+            WrapIfNecessary -->|需要代理| FindAdvisors
+            FindAdvisors -->|有匹配 Advisor| CreateProxy
+            CreateProxy -->|替换 Bean| ProxyBean["代理对象替换原始 Bean"]
+            ProxyBean --> MethodCall
+            MethodCall --> InterceptorChain
+        end
+    end
+
+    style SpringAOP fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style AOPConcepts fill:#e3f2fd,stroke:#1565c0
+    style ProxyImpl fill:#e8f5e9,stroke:#2e7d32
+    style JDK fill:#fff3e0,stroke:#ef6c00
+    style CGLIB fill:#fce4ec,stroke:#c2185b
+    style AdvisorChain fill:#f3e5f5,stroke:#7b1fa2
+    style AspectJConversion fill:#e0f2f1,stroke:#00695c
+    style SpringAOPTrigger fill:#e8eaf6,stroke:#283593

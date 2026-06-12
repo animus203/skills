@@ -1,0 +1,13 @@
+{
+  "id": "c-05-11-rdb-aof",
+  "name": "RDB 与 AOF 持久化",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T11:05:00+0800",
+  "content": {
+    "rdb": {"mechanism": "全量快照, fork子进程写dump.rdb", "pros": ["文件小", "恢复快", "fork主进程几乎不受影响"], "cons": ["可能丢两次快照间数据", "大数据量fork慢且内存翻倍"]},
+    "aof": {"mechanism": "每条写命令追加日志", "fsync": ["always(最安全慢)", "everysec(推荐/丢1s)", "no(OS决定)"], "pros": ["数据安全(最多1s)", "append不易损坏"], "cons": ["文件大", "恢复慢"], "rewrite": "BGREWRITEAOF压缩无效命令"},
+    "mixed": {"since": "4.0", "mechanism": "RDB全量+AOF增量 → 恢复快且数据安全", "recommendation": "everysec+混合持久化"}
+  },
+  "notes": "RDB(快照/恢复快/可能丢)→AOF(日志/安全/文件大)→混合(RDB基础+AOF增量); 生产: everysec+混合"
+}

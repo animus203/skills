@@ -1,0 +1,13 @@
+{
+  "id": "c-04-25-sql-tuning",
+  "name": "SQL 调优",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-29T09:55:00+0800",
+  "content": {
+    "dynamicSQLTrap": "WHERE 1=1 + 参数全空 → 全表扫描 → JVM OOM",
+    "solutions": ["强制分页LIMIT", "必填参数校验", "最大返回行数兜底", "MyBatis <where>代替WHERE 1=1"],
+    "controllerOOM": "大数据集JSON解析内存翻倍→分页+精简DTO+流式导出"
+  },
+  "notes": "WHERE 1=1+空参数=全表返回OOM; 强制分页+参数校验+<where>标签; 大数据集用流式"
+}

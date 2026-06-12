@@ -1,0 +1,13 @@
+{
+  "id": "c-04-15-consistency",
+  "name": "数据一致性问题",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-29T09:00:00+0800",
+  "content": {
+    "caseStudy": {"scenario": "INSERT→SELECT→UPDATE连续操作, 高峰期主从延迟~50ms, 偶发更新失败", "rootCause": "INSERT主库→SELECT读从库→数据未同步", "diagnosis": "SHOW SLAVE STATUS看Seconds_Behind_Master"},
+    "solutions": ["分库降写并发", "关键操作直连主库", "延迟查询", "写后同时放Redis缓存过渡"],
+    "principle": "写后立即要读的场景不要读从库; 刚insert的数据内存里就有, 不要再多查一次"
+  },
+  "notes": "主从延迟→写后读从库查不到; Seconds_Behind_Master诊断; 关键操作直连主库或缓存过渡"
+}

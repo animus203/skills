@@ -1,0 +1,24 @@
+{
+  "id": "c-03-02-state-switch",
+  "name": "线程状态切换",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:20:00+0800",
+  "content": {
+    "methodComparison": {
+      "start": {"triggers": "NEW→RUNNABLE"},
+      "sleep(ms)": {"lock": "不释放", "state": "TIMED_WAITING", "recover": "时间到自动"},
+      "wait/notify": {"lock": "释放", "state": "WAITING", "recover": "notify唤醒", "require": "必须在synchronized中"},
+      "join": {"lock": "不释放", "state": "WAITING", "recover": "目标线程终止"},
+      "yield": {"lock": "不释放", "state": "RUNNABLE(让出CPU)"},
+      "notify/notifyAll": {"notify": "随机唤醒一个", "notifyAll": "唤醒所有但一个能拿到锁"}
+    },
+    "sleepVsWait": {
+      "class": "sleep=Thread, wait=Object",
+      "lock": "sleep不释放, wait释放",
+      "synchronized": "sleep不需要, wait必须",
+      "recover": "sleep自动, wait等notify"
+    }
+  },
+  "notes": "sleep不释锁(TIMED_WAITING自动恢复)→wait释锁(WAITING等notify必须在synchronized中)；notifyAll唤醒所有但只有一个拿锁"
+}

@@ -1,0 +1,1 @@
+{"id":"c-04-23-sync-delay","name":"主从延时优化","planId":"plan-04-mysql","status":"completed","learnedAt":"2026-05-29T09:45:00+0800","content":{"reviewOf":["c-04-13","c-04-15"],"diagnosis":"SHOW SLAVE STATUS Seconds_Behind_Master","solutions":["分库降并发","直连主库","缓存路由","延迟查询"]}}

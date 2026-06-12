@@ -1,0 +1,20 @@
+{
+  "id": "c-01-21-ipc",
+  "name": "进程间通信方式 IPC",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:35:00+0800",
+  "content": {
+    "sixMethods": {
+      "pipe": {"type": "匿名(父子)/命名(任意)", "feature": "FIFO半双工字节流，数据单向", "cost": "2次拷贝(用户→内核→用户)"},
+      "signal": {"type": "通知", "feature": "仅传信号编号不传数据, kill/Ctrl+C", "scenario": "通知终止/挂起"},
+      "messageQueue": {"type": "有格式消息", "feature": "按类型取消息，克服管道无格式缺点", "limit": "单消息长度上限"},
+      "sharedMemory": {"type": "直接读写同一物理内存", "feature": "最快IPC，0次拷贝", "requirement": "必须配信号量做同步"},
+      "semaphore": {"type": "计数器+P/V原子操作", "feature": "不做数据传输，只做同步互斥", "pairing": "与共享内存配对"},
+      "socket": {"type": "跨网络", "feature": "TCP/UDP/Unix Domain", "scenario": "RPC/HTTP/跨机通信"}
+    },
+    "performanceRank": "共享内存(0拷贝) > 消息队列 > 管道(2次拷贝) > Socket",
+    "whySharedMemoryFastest": "绕过内核，直接读写同一物理内存，无用户态↔内核态拷贝"
+  },
+  "notes": "六种IPC：管道(简单)/信号(通知)/消息队列(格式化)/共享内存(最快0拷贝)/信号量(同步)/Socket(跨网)；共享内存需配信号量防竞态"
+}

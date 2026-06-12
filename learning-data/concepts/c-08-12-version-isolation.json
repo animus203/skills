@@ -1,0 +1,11 @@
+{
+  "id": "c-08-12-version-isolation",
+  "planId": "plan-08-springcloud",
+  "name": "多版本隔离",
+  "pages": "156-157",
+  "status": "completed",
+  "learnedAt": "2026-06-05T10:00:00+0800",
+  "content": "多版本隔离解决接口不兼容升级时新旧客户端长期共存问题：通过 Eureka 元数据标记 version（如 v1/v2），Ribbon 根据请求头 X-API-Version 路由到对应版本实例。发布流程：摘流量→升级节点→测试→接入流量→下一节点，逐台替换。也涉及各组件调优：Hystrix 信号量默认 100 需按需调大、Feign 换 httpclient、Tomcat 线程池/队列/连接数参数评估、Gateway+配置中心动态路由、Feign+配置中心动态日志。",
+  "examples": ["iOS App 审核周期 3-5 天: v2 服务已上线但旧 App 仍调 v1 → 多版本共存直至用户升级完毕", "Eureka metadata: eureka.instance.metadata-map.version=v2, Ribbon 据此路由"],
+  "notes": "灰度发布关注'如何安全上线'，多版本隔离关注'如何让新旧客户端同时工作'。Tomcat 默认 max-threads=200，accept-count 为请求队列长度。Gateway 信号量默认 maxConcurrent=100 是常见并发瓶颈。"
+}

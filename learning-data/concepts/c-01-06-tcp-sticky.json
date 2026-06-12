@@ -1,0 +1,18 @@
+{
+  "id": "c-01-06-tcp-sticky",
+  "planId": "plan-01-basics",
+  "name": "TCP粘包问题与解决方案",
+  "pages": "14",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "粘包是伪问题（TCP 字节流本无消息边界）；两根因（发送方 Nagle 合并小包 / 接收方 buffer 累积）；UDP 因数据报协议天生有边界故无粘包；三种工程解法（定长包 / 分隔符 / 长度前缀 TLV）；Netty 解码器 LengthFieldBasedFrameDecoder 五参数；HTTP/1.1 用分隔符+Content-Length+chunked 组合方案；gRPC/WebSocket/Redis RESP 实战协议",
+  "examples": [
+    "Nagle 关闭：setsockopt TCP_NODELAY",
+    "定长包场景：心跳包、IoT 协议",
+    "分隔符方案：HTTP 头部 \\r\\n\\r\\n、Redis RESP",
+    "长度前缀代表：Dubbo 16 字节 header、HTTP/2 9 字节帧头、MQTT 1-4 字节变长长度",
+    "Netty LengthFieldBasedFrameDecoder 五参数：lengthFieldOffset/lengthFieldLength/lengthAdjustment/initialBytesToStrip/maxFrameLength",
+    "HTTP/1.1 三种边界组合：头部分隔符 + body Content-Length + chunked"
+  ],
+  "notes": "PDF Page 14 完整覆盖。补充 PDF 之外：粘包是伪问题（TCP 设计本意）、UDP 没粘包但有 MTU 风险、Netty 解码器全家桶、Protobuf 不自带边界要套长度前缀、gRPC 帧格式、Redis RESP 组合方案。两道练习题：IM 协议设计场景题（LengthFieldBasedFrameDecoder 实战）、HTTP/1.1 是否有粘包判断题（解决方案三组合）。"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "c-01-35-arraylist-linkedlist",
+  "name": "ArrayList 与 LinkedList",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:45:00+0800",
+  "content": {
+    "arrayList": {"underlying": "数组", "randomAccess": "O(1)", "defaultCapacity": 10, "expansion": "1.5倍(Arrays.copyOf)", "midInsertDelete": "O(n)", "tailAppend": "均摊O(1)"},
+    "linkedList": {"underlying": "双向链表", "randomAccess": "O(n)", "headTailOp": "O(1)", "midInsert": "O(n)(需先遍历定位)", "extraInterface": "Deque(栈/队列/双向队列)"},
+    "comparison": {"threadSafety": "都线程不安全", "cache": "ArrayList连续内存CPU缓存友好", "practice": "大部分场景用ArrayList(除非频繁头插入+不需要随机访问)"},
+    "performanceNote": "LinkedList中间插入O(n)不是O(1)——插入节点O(1)但定位位置需O(n)遍历"
+  },
+  "notes": "ArrayList数组O(1)随机读扩容1.5倍；LinkedList双向链表头尾O(1)实现Deque；大部分场景ArrayList连续内存缓存更优"
+}

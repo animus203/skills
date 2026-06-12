@@ -1,0 +1,17 @@
+{
+  "id": "c-04-11-join",
+  "name": "JOIN 查询",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:25:00+0800",
+  "content": {
+    "threeTypes": {"LEFT": "左表全保留, 右表NULL", "RIGHT": "右表全保留, 左表NULL", "INNER": "只返回匹配行"},
+    "algorithms": {
+      "IndexNestedLoop": "被驱动表有索引, 最优",
+      "BlockNestedLoop": "无索引, Join Buffer批量处理(5.6+)",
+      "HashJoin": "被驱动表建哈希, O(1)查找(8.0.18+)"
+    },
+    "optimizations": ["小表驱动大表", "被驱动表关联字段必建索引", "字段类型一致避免隐式转换"]
+  },
+  "notes": "LEFT左全保留; INNER只匹配; Index Nested-Loop最优(被驱动表必建索引); 8.0.18+ Hash Join"
+}

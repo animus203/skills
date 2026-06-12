@@ -1,0 +1,1 @@
+{"id":"c-05-17-cache-penetration","name":"缓存穿透","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:35:00+0800","content":{"phenomenon":"查缓存和DB都不存在的数据→每次都落DB→恶意攻击或bug","solutions":["缓存空值(null,TTL短)","布隆过滤器(不存在一定拦截)","接口参数校验(id<=0拦截)"]}}

@@ -1,0 +1,11 @@
+{
+  "id": "c-08-05-feign-ribbon",
+  "planId": "plan-08-springcloud",
+  "name": "Feign 与 Ribbon",
+  "pages": "146-148",
+  "status": "completed",
+  "learnedAt": "2026-06-04T15:00:00+0800",
+  "content": "Feign 是声明式 HTTP 客户端，通过 JDK 动态代理将接口方法调用转换为 HTTP 请求。七大组件：InvocationHandlerFactory（生成代理）、Contract（解析 @GetMapping 等注解）、Encoder/Decoder（编解码）、Client（执行 HTTP，默认 HttpURLConnection 无连接池需换 Apache HttpClient）、Retryer（重试）、RequestInterceptor（透传 TraceId/Token）、Logger（NONE/BASIC/HEADERS/FULL）。Feign 集成 Hystrix 时，HystrixInvocationHandler 将请求包装为 HystrixCommand 执行。Ribbon 是客户端负载均衡：从注册中心拉实例列表，按策略选择。内置算法：RoundRobinRule（轮询）、RandomRule（随机）、BestAvailableRule（最小并发）、ZoneAvoidanceRule（同 Zone 优先）。自定义场景：灰度发布、多版本隔离、故障隔离。",
+  "examples": ["RequestInterceptor 透传: template.header('X-Trace-Id', TraceContext.getTraceId())", "灰度发布: 按 Header X-Version=v2 路由到新版实例，普通用户调旧版实例", "ZoneAvoidanceRule: 上海服务A调B优先选上海实例，跨机房降级备选"],
+  "notes": "Spring Cloud 3.x 用 LoadBalancer 替代 Ribbon，思路不变。FULL 日志仅开发用，生产不要开。GET 多参数用 @SpringQueryMap 自动展开。"
+}

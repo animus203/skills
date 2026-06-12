@@ -1,0 +1,14 @@
+{
+  "id": "c-05-23-partition",
+  "name": "Redis数据分区",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:00:00+0800",
+  "content": {
+    "hashMod": {"mechanism": "hash(key)%N", "pros": "简单均匀", "cons": "节点增减→全量数据重新映射→全量迁移", "stability": "无"},
+    "consistentHash": {"mechanism": "节点和key映射到hash环, key顺时针找节点", "pros": "节点增减只影响相邻弧段", "cons": "数据不均匀", "optimization": "虚拟节点(多映射点散落环上→均匀分布)"},
+    "redisClusterSlot": {"mechanism": "16384个slot, CRC16(key)%16384定槽位, 槽分配给各Master", "pros": "按槽粒度迁移, 灵活; 心跳2KB刚好一包", "why16384": "心跳包slot位图刚好2KB, 槽太多心跳大, 槽太少粒度粗"},
+    "migration": "扩容时标记slot为migrating→逐key迁移→更新路由表"
+  },
+  "notes": "Hash取余(全量迁移)→一致性Hash(环+虚拟节点, 只影响邻近)→Redis Cluster(16384槽, 按槽迁移灵活)"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "c-01-43-abstract-factory",
+  "name": "抽象工厂模式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:50:00+0800",
+  "content": {
+    "definition": "提供一个接口创建一族相关产品，保证产品族内部一致性",
+    "vsFactoryMethod": {
+      "factoryMethod": "一个工厂→一个产品",
+      "abstractFactory": "一个工厂→一族产品(Button+TextField+Dialog)"
+    },
+    "example": "UIFactory→DarkUIFactory(DarkButton+DarkTextField)/LightUIFactory(LightButton+LightTextField)",
+    "pros": "产品族内部约束(风格统一)",
+    "cons": "加新产品需改所有工厂类(侵入性大)"
+  },
+  "notes": "工厂方法管一产品，抽象工厂管一族产品；切换主题=换一个工厂实例；加产品族新成员需改所有工厂"
+}

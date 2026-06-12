@@ -1,0 +1,10 @@
+{
+  "date": "2026-04-28",
+  "entries": [
+    {
+      "time": "21:17:48",
+      "action": "reset_progress",
+      "note": "用户要求清空学习进度，所有concept和plan重置为pending，current-status重置为初始状态"
+    }
+  ]
+}

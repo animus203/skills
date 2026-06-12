@@ -1,0 +1,26 @@
+{
+  "id": "c-06-01-why-kafka",
+  "name": "Why Kafka",
+  "planId": "plan-06-kafka",
+  "status": "completed",
+  "learnedAt": "2026-05-29T13:00:00+0800",
+  "content": {
+    "mqRoles": {"async": "主流程快返/非关键异步处理", "peakShaving": "突发流量进MQ排队/后端匀速消费", "decoupling": "生产消费不直连/只看MQ"},
+    "comparison": {
+      "RabbitMQ": {"lang": "Erlang", "qps": "几万~几十万", "latency": "毫秒", "protocol": "AMQP/路由灵活", "scene": "中小公司/一般业务"},
+      "RocketMQ": {"lang": "Java", "qps": "几十万", "latency": "毫秒", "features": "事务/顺序/死信DLX/双11验证", "scene": "电商/金融/响应敏感"},
+      "Kafka": {"lang": "Java/Scala", "qps": "几十万~2000万", "latency": "高(批处理异步)", "features": "分区/多副本/消息持久化/回放/流计算", "scene": "大数据/日志/流计算"}
+    },
+    "coreConcepts": {
+      "topic": "消息分类，类似DB表",
+      "partition": "Topic内有序不可变序列，水平扩展单元，单partition内有序",
+      "replica": "分区副本，Leader读写+Follower同步，高可用",
+      "producer": "发消息，分区策略(指定/keyhash/轮询)",
+      "consumer": "消费消息，offset记录进度",
+      "consumerGroup": "组内一partition只给一consumer(防重复)，挂掉自动rebalance",
+      "broker": "一台Kafka服务器",
+      "keyDifference": "消息消费后不删除(基于时间/大小保留)→支持回放"
+    }
+  },
+  "notes": "MQ作用=异步/削峰/解耦; RabbitMQ(路由灵活)→RocketMQ(电商毫秒)→Kafka(海量吞吐回放); Kafka核心=Topic→Partition→CG"
+}

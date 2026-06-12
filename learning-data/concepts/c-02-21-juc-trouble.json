@@ -1,0 +1,23 @@
+{
+  "id": "c-02-21-juc-trouble",
+  "name": "JUC 调优：HttpClient 连接池阻塞",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:50:00+0800",
+  "content": {
+    "caseStudy": {
+      "background": "大屏系统HttpClient调两个接口: fast(100ms)/slow(2s)，共享连接池",
+      "symptom": "整体服务不可用",
+      "diagnosis": "jstack→大多线程阻塞在fast接口(非slow)→迷惑→真相: slow占连接池不释放, fast请求进得多积得快→jstack快照fast线程占多数",
+      "rootCause": "slow 慢请求占满连接池→fast 拿不到连接→等待队列积压"
+    },
+    "solutions": {
+      "isolation": "fast/slow用独立HttpClient连接池",
+      "circuitBreaker": "slow超时熔断，返回缓存/默认值",
+      "monitor": "slow耗时+连接池水位+等待队列长度监控告警",
+      "concurrency": "CountDownLatch控制多线程合并结果"
+    },
+    "lesson": "共享连接池=SPOF，不同SLA的请求必须隔离连接池和线程池"
+  },
+  "notes": "慢接口占连接池→快接口积压→jstack反而堵在快接口；解法=隔离连接池+熔断+监控"
+}

@@ -1,0 +1,1 @@
+{"id":"c-05-21-hot-key","name":"HotKey问题","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:40:00+0800","content":{"phenomenon":"秒杀/明星事件→百万请求打同一节点","detection":["事前预估","Spark实时","Hadoop离线"],"solutions":["key后缀拆分→多slot","主从复制垂直扩容","本地前置缓存兜底"]}}

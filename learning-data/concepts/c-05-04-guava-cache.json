@@ -1,0 +1,20 @@
+{
+  "id": "c-05-04-guava-cache",
+  "name": "Guava Cache",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T10:20:00+0800",
+  "content": {
+    "position": "JVM本地缓存, ns级, 多实例不共享",
+    "api": "CacheBuilder.maximumSize/expireAfterWrite/expireAfterAccess/refreshAfterWrite/recordStats",
+    "advantages": {
+      "eviction": "write/access过期+LRU淘汰",
+      "concurrent": "类似CHM分段锁",
+      "antiBreakdown": "同key单线程回源(CacheLoader.load), 其他阻塞等",
+      "asyncRefresh": "refreshAfterWrite异步更新",
+      "monitor": "cache.stats()命中率/加载时间"
+    },
+    "vsManualMap": "Map无过期/淘汰/击穿防护/监控; Guava全部内置"
+  },
+  "notes": "本地ns级缓存; CacheLoader自动回源+防击穿; expireAfterWrite/expireAfterAccess/refreshAfterWrite三时间控制"
+}

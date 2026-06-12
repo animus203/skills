@@ -1,0 +1,20 @@
+{
+  "id": "c-02-13-gc-collector",
+  "name": "垃圾收集器",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:05:00+0800",
+  "content": {
+    "collectors": {
+      "Serial": {"gen": "Young/Old", "mechanism": "单线程STW, 复制/标记-整理", "useCase": "客户端小内存"},
+      "ParNew": {"gen": "Young", "mechanism": "Serial多线程版, 复制算法", "pair": "CMS"},
+      "ParallelScavenge": {"gen": "Young", "mechanism": "多线程复制, 关注吞吐量", "pair": "Parallel Old", "useCase": "后台批处理"},
+      "CMS": {"gen": "Old", "mechanism": "标记-清除, 四阶段: 初始(STW)→并发→重标记(STW)→并发清除", "pros": "低停顿并发", "cons": ["CPU敏感", "浮动垃圾", "碎片→Serial Old单线程STW"], "status": "JDK14移除"},
+      "G1": {"gen": "Both", "mechanism": "Region分区, 按价值优先回收, 标记-整理", "features": ["精准停顿控制(MaxGCPauseMillis)", "无碎片", "四阶段"], "default": "JDK 9+"},
+      "ZGC": {"gen": "Both", "mechanism": "着色指针+读屏障, 全程并发", "features": ["<10ms STW", "TB级堆(16TB)", "不分代(JDK21分代)"], "since": "JDK11, JDK15生产可用"}
+    },
+    "cmsFragmentation": "老年代碎片→promotion failure→Serial Old单线程长时间STW",
+    "selection": "小内存→Serial; 后台计算→Parallel; JDK8 Web→CMS; JDK9+通用→G1; 低延迟大堆→ZGC"
+  },
+  "notes": "Serial(单线程)→ParNew(多线程)→Parallel(吞吐)→CMS(低停顿/碎片/JDK14移除)→G1(Region/精准/JDK9默认)→ZGC(<10ms/TB级)"
+}

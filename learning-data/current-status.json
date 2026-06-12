@@ -1,0 +1,16 @@
+{
+  "currentTopicId": "topic-server-dev-interview",
+  "currentPlanId": "plan-12-netty",
+  "currentConceptId": "c-12-02-eventloop",
+  "currentPlanIndex": 11,
+  "totalPlans": 17,
+  "lastAccessedAt": "2026-06-09T10:30:00+0800",
+  "progress": {
+    "completedPlans": ["plan-01-basics", "plan-02-jvm", "plan-03-multithreading", "plan-04-mysql", "plan-05-redis", "plan-06-kafka", "plan-07-spring", "plan-08-springcloud", "plan-09-distributed", "plan-10-es", "plan-11-docker-k8s"],
+    "completedConcepts": ["c-09-01-evolution", "c-09-02-cap", "c-09-03-consistency", "c-09-04-xa-2pc-3pc", "c-09-05-paxos", "c-09-06-zab", "c-09-07-raft", "c-09-08-availability", "c-09-09-partition", "c-09-10-tcc", "c-09-11-saga", "c-09-12-local-msg", "c-09-13-mq-final", "c-09-14-distributed-interview", "c-10-01-overview", "c-10-02-competitor", "c-10-03-ik-analyzer", "c-10-04-index-mapping", "c-10-05-dsl", "c-10-06-aggregation", "c-10-07-suggester", "c-10-08-write-optimize", "c-10-09-read-optimize", "c-10-10-zero-downtime", "c-10-11-deep-paging", "c-11-01-why-docker", "c-11-02-vs-vm", "c-11-03-engine", "c-11-04-image", "c-11-05-repository", "c-11-06-container-ops", "c-11-07-volume", "c-11-08-network", "c-12-01-arch-layers"],
+    "totalConcepts": 299,
+    "currentPlanProgress": "12/17",
+    "currentConceptInPlan": "1/10"
+  },
+  "sessionNotes": "c-12-01 整体架构分层 已完成（分两批讲完）。下一节 c-12-02-eventloop EventLoop。"
+}

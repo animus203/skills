@@ -1,0 +1,29 @@
+{
+  "id": "c-02-05-object-create",
+  "name": "对象创建过程",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:20:00+0800",
+  "content": {
+    "fiveSteps": {
+      "step1": "类加载检查：常量池符号引用→类是否加载/解析/初始化，否则先加载",
+      "step2": "分配内存：指针碰撞(堆规整)/空闲列表(碎片)/TLAB，详见c-02-04",
+      "step3": "初始化零值：全置默认零值(int=0, ref=null...)，保证字段有默认值",
+      "step4": "设置对象头：Mark Word(hashCode/GC年龄/锁状态)+Klass Pointer(指向类元数据)+对齐填充(8字节倍数)",
+      "step5": "执行<init>：构造方法+实例初始化块，从零值设为目标值"
+    },
+    "objectHeader": {
+      "markWord": "32/64 bit位复用，含hashCode/GC年龄(4bit)/锁状态标志/偏向线程ID",
+      "klassPointer": "指向方法区Class元数据，指针压缩后32 bit",
+      "padding": "对齐到8字节倍数"
+    },
+    "markWordStates": {
+      "unlocked": "hashCode+GC年龄(25+4+1+2bit)",
+      "biased": "线程ID+epoch+GC年龄",
+      "lightweight": "指向栈中Lock Record指针",
+      "heavyweight": "指向ObjectMonitor指针"
+    },
+    "minObjectSize": "64位JVM+指针压缩: Mark Word(8B)+KlassPtr(4B)+实例数据(0B)+对齐填充(4B)=16字节"
+  },
+  "notes": "五步：类检查→分配→置零→设对象头(Mark Word+KlassPtr)→执行<init>；对象头8字节倍数，最小16字节"
+}

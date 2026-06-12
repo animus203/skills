@@ -1,0 +1,16 @@
+{
+  "id": "c-07-02-aop",
+  "name": "AOP 动态代理",
+  "planId": "plan-07-spring",
+  "status": "completed",
+  "learnedAt": "2026-06-01T10:15:00+0800",
+  "content": {
+    "concept": "AOP=切面(Pointcut+Advice), 横切关注点集中管理(日志/权限/事务)",
+    "jdkProxy": "反射+实现接口, 必须有接口, invocationHandler.invoke拦截",
+    "cglib": "字节码(ASM)+生成子类, 不需要接口, 不能代理final类/方法, 创建慢调用快",
+    "springBoot2x": "默认CGLib, 不区分有无接口",
+    "advice": {"@Before":"方法前", "@After":"方法后(不限异常)", "@AfterReturning":"正常返回后", "@AfterThrowing":"抛异常后", "@Around":"环绕(最灵活/控制是否执行原方法)"},
+    "transactionalTrap": "@Transactional AOP代理, this调用不触发(内部调用不走代理), 需注入自己代理或抽另一个Bean"
+  },
+  "notes": "JDK Proxy(接口反射)→CGLib(子类字节码/不能final); SpringBoot2x默认CGLib; @Transactional=AOP代理, this内部调用不生效"
+}

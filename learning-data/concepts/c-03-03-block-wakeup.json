@@ -1,0 +1,25 @@
+{
+  "id": "c-03-03-block-wakeup",
+  "name": "阻塞唤醒过程",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:30:00+0800",
+  "content": {
+    "monitorQueues": {
+      "entrySet": "竞争锁失败的线程(BLOCKED)",
+      "owner": "持有锁的线程(RUNNABLE)",
+      "waitSet": "wait后放锁的线程(WAITING)",
+      "flow": "Entry Set → 抢到锁 → Owner → wait() → Wait Set → notify() → 回到Entry Set重新竞争"
+    },
+    "whyWaitInSync": "wait需释放锁，必须先持有Monitor；否则IllegalMonitorStateException。notify同理",
+    "sleepVsWait": {
+      "class": "wait=Object, sleep=Thread",
+      "sync": "wait必须synchronized, sleep不需要",
+      "lock": "wait释放, sleep不释放",
+      "recover": "wait等notify/超时, sleep时间到自动"
+    },
+    "threadCreation": ["extends Thread(不推荐,单继承限制)", "implements Runnable(推荐,任务与线程分离)", "implements Callable(有返回值+可抛异常)"],
+    "startVsRun": "start()=新建线程异步执行, run()=当前线程同步调用"
+  },
+  "notes": "Monitor三队列: Entry Set(BLOCKED)→Owner→Wait Set(WAITING)→notify→回Entry Set竞争锁; wait必须synchronized"
+}

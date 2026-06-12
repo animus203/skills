@@ -1,0 +1,19 @@
+{
+  "id": "c-06-11-no-loss-no-dup",
+  "name": "消息不丢失不重复",
+  "planId": "plan-06-kafka",
+  "status": "completed",
+  "learnedAt": "2026-06-01T09:40:00+0800",
+  "content": {
+    "semantics": {"atMostOnce": "可能丢不重复", "atLeastOnce": "不丢可重复(Kafka默认)", "exactlyOnce": "不丢不重复"},
+    "producerIdempotence": "PID+SequenceNumber, Broker记录(ProducerID,TopicPartition)→匹配SN→去重或拒绝, enable.idempotence=true, 仅单ProducerSession内有效",
+    "consumerDedup": ["唯一键查Redis/DB去重", "业务幂等化(UPDATE SET=)", "Kafka事务(跨系统一致性)"],
+    "threeDefenses": {
+      "producer": "acks=all + retries=MAX + enable.idempotence=true",
+      "broker": "replication≥3 + min.insync.replicas≥2 + unclean.leader.election=false",
+      "consumer": "先处理业务→后提交offset(不是先提交后处理!)"
+    },
+    "leaderEpoch": "替换HW机制, 每次Leader切换epoch+1, 旧Leader恢复按epoch精确定位有效截断点, 避免HW多截或少截"
+  },
+  "notes": "Producer幂等(PID+SN)→Consumer去重(唯一键/幂等)→三道防线(acks=all/副本≥3/先处理后提交); LeaderEpoch补HW缺"
+}

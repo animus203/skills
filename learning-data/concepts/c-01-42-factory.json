@@ -1,0 +1,16 @@
+{
+  "id": "c-01-42-factory",
+  "name": "工厂模式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:45:00+0800",
+  "content": {
+    "definition": "定义创建产品接口，子类决定创建何种产品，将对象创建从调用方抽离",
+    "simpleFactory": {"mechanism": "一个工厂类用switch/if根据参数创建不同产品", "pros": "解耦调用方", "cons": "加产品需改工厂代码(违反开闭原则)"},
+    "factoryMethod": {"mechanism": "工厂也抽象化，每个产品对应一个工厂(Factory接口+具体工厂)", "pros": "加产品只加类不动旧代码(开闭原则)", "example": "PaymentFactory→AlipayFactory/WechatFactory"},
+    "spring": "ApplicationContext是巨型工厂，BeanFactory/FactoryBean对应工厂模式",
+    "pros": "解耦，通过配置增加产品",
+    "cons": "每加产品需新增产品类+工厂类"
+  },
+  "notes": "简单工厂(一个工厂switch)/工厂方法(每产品一个工厂，开闭原则)；Spring IoC是巨型工厂"
+}

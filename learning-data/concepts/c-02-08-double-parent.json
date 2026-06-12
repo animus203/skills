@@ -1,0 +1,26 @@
+{
+  "id": "c-02-08-double-parent",
+  "name": "双亲委派机制",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:35:00+0800",
+  "content": {
+    "threeLoaders": {
+      "Bootstrap": {"path": "JAVA_HOME/lib/rt.jar", "lang": "C/C++", "prints": "null"},
+      "Extension": {"path": "JAVA_HOME/lib/ext/*.jar(Java9+→Platform)", "lang": "Java"},
+      "Application": {"path": "classpath用户类", "lang": "Java"}
+    },
+    "flow": "底向上检查是否已加载 → 顶向下尝试加载；自定义→App→Ext→Bootstrap(rt.jar) → 找不到才回退自己findClass()",
+    "benefits": {
+      "antitamper": "java.lang.String永由Bootstrap从rt.jar加载，无法用classpath假类篡改",
+      "noDuplication": "java.lang.Object仅加载一次，所有类加载器共享同一定义"
+    },
+    "breakCases": {
+      "SPI": "DriverManager(Bootstrap加载)→需加载MySQL驱动(Application)→Bootstrap用线程上下文类加载器(TCCL)向下委派",
+      "Tomcat": "WebappClassLoader先自己从WEB-INF/lib加载→找不到才向上委派(隔离不同应用)",
+      "OSGi": "网状拓扑←→树状委派，按包级暴露依赖"
+    },
+    "customBreak": "自定义类加载器重写loadClass()可打破双亲委派"
+  },
+  "notes": "双亲委派=先缓存→委派父→父找不到才自己；防篡改防重复；SPI(用TCCL打破)、Tomcat(先己后父)、OSGi(网状)"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "c-05-13-eviction",
+  "name": "内存淘汰与过期策略",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T11:15:00+0800",
+  "content": {
+    "expirationDelete": {"lazy": "访问时检查过期", "periodic": "100ms随机20个, >25%过期继续", "scheduled": "定时器到期删(CPU大)"},
+    "evictionPolicies": {
+      "noeviction": "不淘汰拒绝写(持久化场景)",
+      "allkeys-lru": "全局LRU(缓存推荐)",
+      "allkeys-lfu": "全局LFU频率淘汰(4.0+)",
+      "allkeys-random": "全局随机",
+      "volatile-*": "仅TTL key的LRU/LFU/random/ttl最短"
+    },
+    "lruVsLfu": {"LRU": "最近访问时间", "LFU": "访问频率", "redisLRU": "近似LRU——随机5个淘汰最久"},
+    "recommendation": "缓存用allkeys-lru; 持久化存储用noeviction"
+  },
+  "notes": "过期删除=惰性+定期扫描; 淘汰=allkeys-lru(缓存推荐)/noeviction(持久化); Redis用近似LRU(随机5个)"
+}

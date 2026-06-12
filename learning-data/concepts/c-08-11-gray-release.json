@@ -1,0 +1,11 @@
+{
+  "id": "c-08-11-gray-release",
+  "planId": "plan-08-springcloud",
+  "name": "灰度发布",
+  "pages": "155",
+  "status": "completed",
+  "learnedAt": "2026-06-05T10:00:00+0800",
+  "content": "灰度发布通过非全量发布逐步放量验证：部署 1-2 个新版本实例 → 根据 X-Gray-Tag 请求头将灰度用户路由到新实例 → 观察运行情况 → 逐步扩大比例 → 出问题只回滚灰度节点。实现方式：Ribbon 自定义负载均衡规则按 version 元数据分流、Discovery 组件提供高层灰度抽象、利用 Eureka Zone 实现就近灰度隔离。配合 Discovery 服务发现组件可管理灰度策略。",
+  "examples": ["Ribbon 自定义规则: if header 'X-Gray-Tag'='gray' → route to server.metadata.version='v2', else → route to 'v1'", "发布流程: 摘流量 → 升级 → 测试验证 → 恢复流量 → 发布下一节点，逐台替换"],
+  "notes": "灰度发布是临时发布策略（验证完就结束），多版本隔离是长期运行策略。Eureka Zone 利用就近路由特性隔离灰度流量。"
+}

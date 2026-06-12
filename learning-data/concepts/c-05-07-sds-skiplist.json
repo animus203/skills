@@ -1,0 +1,15 @@
+{
+  "id": "c-05-07-sds-skiplist",
+  "name": "Redis 底层数据结构",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T10:45:00+0800",
+  "content": {
+    "sds": "len+free+buf, O(1)长度, 二进制安全, 预分配自动扩容",
+    "dict": "两个ht(ht[0]+ht[1]), 负载因子≥1触发扩容(×2或初4), <0.1缩容, 渐进式rehash(每次操作搬一部分, 新写ht[1])",
+    "skipList": "多层有序链表, O(logN)查找插入删除, ZSet=SkipList(score排序)+Dict(member→score O(1)), 比红黑树实现简单范围查找快序列化方便",
+    "ziplist": "连续内存块, 顺序存储entry, 小数据省内存, 可能连锁更新, 升级阈值后转QuickList/SkipList/HT",
+    "others": {"QuickList": "双链表+ziplist节点(List底层)", "IntSet": "整数有序数组(Set底层)", "Listpack": "ziplist替代(Stream)", "Rax": "基数树(Stream消息ID索引)"}
+  },
+  "notes": "SDS(O1长度/二进制安全)→Dict(渐进rehash)→SkipList(跳表/ZSet)→Ziplist(紧凑/小数据)→QuickList(List)"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "c-02-24-cpu-high",
+  "name": "CPU 飙高排查",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:10:00+0800",
+  "content": {
+    "fiveSteps": ["top(Shift+P按CPU排序找进程PID)", "top -Hp $pid(找线程TID)", "printf %x $tid(10进制→16进制)", "jstack $pid > jstack.log", "less jstack.log | grep <hex>(定位线程栈)"],
+    "threeRootCauses": {
+      "gcThread": "线程名=GC task thread，堆快满反复无效回收→CPU全耗在GC→应用假死(GC thrashing)",
+      "deadLoop": "业务线程while(true)/HashMap1.7并发死循环",
+      "heavyCompute": "正则回溯/大JSON/不合理自旋等待"
+    },
+    "keyInsight": "CPU高不一定是业务代码→GC频繁导致CPU高更隐蔽更致命→根源在内存→jmap dump+MAT分析",
+    "gcthrasting": "堆满但未OOM，GC反复回收每次收一点点，CPU接近100%"
+  },
+  "notes": "五步: top→top -Hp→printf %x→jstack→less grep; 三种根因: GC频繁/死循环/大量计算; CPU高先看是否GC线程"
+}

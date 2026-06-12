@@ -1,0 +1,20 @@
+{
+  "id": "c-02-06-object-reference",
+  "name": "对象引用类型",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:25:00+0800",
+  "content": {
+    "fourTypes": {
+      "strong": {"gc": "永不回收，宁愿OOM", "access": "直接引用", "useCase": "普通对象"},
+      "soft": {"gc": "内存不足时回收", "access": "SoftReference.get()", "useCase": "内存敏感缓存(图片缓存)"},
+      "weak": {"gc": "下次GC必回收", "access": "WeakReference.get()", "useCase": "WeakHashMap, ThreadLocal key"},
+      "phantom": {"gc": "被GC时入ReferenceQueue通知", "access": "get()永远返回null", "useCase": "管理直接内存释放(NIO DirectByteBuffer)"}
+    },
+    "threadLocal": {
+      "whyWeak": "Key用弱引用→外部无强引时GC自动回收key→防key泄漏",
+      "remainingRisk": "key回收后value仍强可达→脏entry→仍需手动remove()"
+    }
+  },
+  "notes": "强(不GC)→软(内存不足GC)→弱(GC必回收)→虚(不可访问，仅跟踪GC通知)；ThreadLocal用弱引用key但仍需remove防value泄漏"
+}

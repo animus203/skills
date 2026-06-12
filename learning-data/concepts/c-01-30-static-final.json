@@ -1,0 +1,23 @@
+{
+  "id": "c-01-30-static-final",
+  "name": "static 和 final 关键字",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:55:00+0800",
+  "content": {
+    "static": {
+      "property": "类级别，所有实例共享，类加载时初始化(一次)，先于对象，ClassName.field调用",
+      "method": "类名直接调用，无this，仅访问静态成员",
+      "block": "static{} 类加载执行一次"
+    },
+    "final": {
+      "primitiveVar": "值不可改",
+      "referenceVar": "引用不可重新指向，但对象内容可改(list.add合法)",
+      "method": "子类不可重写，private方法隐式final",
+      "class": "不可继承(String/Integer)，所有成员方法隐式final",
+      "privateConstructor": "另一种禁止继承的方式(内部类无效)"
+    },
+    "staticFinal": "常量，命名SCREAMING_SNAKE_CASE"
+  },
+  "notes": "static类级共享无this，final锁引用不锁内容；static+final=常量；private方法隐式final"
+}

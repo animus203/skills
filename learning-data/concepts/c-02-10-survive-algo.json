@@ -1,0 +1,18 @@
+{
+  "id": "c-02-10-survive-algo",
+  "name": "存活算法与两次标记",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T09:45:00+0800",
+  "content": {
+    "referenceCounting": {"mechanism": "对象计数器+1/-1", "pros": "简单高效", "cons": "循环引用导致泄漏(A⇋B互指永不为0)", "jvmUsage": "不用，已抛弃"},
+    "reachabilityAnalysis": {"mechanism": "GC Roots出发沿引用链搜索，不可达=垃圾", "gcRoots": ["虚拟机栈引用(局部变量)", "静态变量引用(static字段)", "JNI引用", "活动线程", "synchronized持有对象"]},
+    "twoMarkProcess": {
+      "firstMark": "可达性分析→不可达→第一次标记",
+      "finalizeCheck": "未执行过finalize→放入F-Queue→Finalizer低优线程执行",
+      "secondMark": "finalize后仍不可达→真正回收；期间重建引用(连接GC Root)→自救成功",
+      "deprecation": "finalize Java9+ @Deprecated，可能被移除，用try-finally/Cleaner替代"
+    }
+  },
+  "notes": "JVM用可达性分析(GC Roots出发)不用引用计数(循环引用缺陷)；两次标记后才有自救机会(finalize已废弃)"
+}

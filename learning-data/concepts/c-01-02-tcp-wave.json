@@ -1,0 +1,17 @@
+{
+  "id": "c-01-02-tcp-wave",
+  "planId": "plan-01-basics",
+  "name": "TCP四次挥手",
+  "pages": "12-13",
+  "status": "completed",
+  "learnedAt": "2026-05-26T14:03:22+0800",
+  "content": "四次挥手过程（FIN/ACK/FIN/ACK 双向独立关闭）+ 主动方状态机 ESTABLISHED->FIN_WAIT_1->FIN_WAIT_2->TIME_WAIT->CLOSED + 被动方状态机 ESTABLISHED->CLOSE_WAIT->LAST_ACK->CLOSED；为什么四次（半关闭+服务端可能还有数据要发，ACK 和 FIN 不能合并）；TIME_WAIT 与 2MSL 两大目的（最后 ACK 重传、延迟报文消亡）；CLOSE_WAIT 堆积是应用没 close()；TIME_WAIT 过多解决方案（架构层让对端关、tcp_tw_reuse、长连接、避免开 tcp_tw_recycle）",
+  "examples": [
+    "主动方状态：ESTABLISHED -> FIN_WAIT_1 -> FIN_WAIT_2 -> TIME_WAIT -> CLOSED",
+    "被动方状态：ESTABLISHED -> CLOSE_WAIT -> LAST_ACK -> CLOSED",
+    "排查命令：netstat -anp | grep CLOSE_WAIT；netstat -an | grep TIME_WAIT | wc -l",
+    "MSL=60s（Linux），2MSL=120s",
+    "tcp_tw_reuse 安全可用 vs tcp_tw_recycle 已被 Linux 4.12 删除（NAT 环境会丢包）"
+  ],
+  "notes": "PDF Page 12-13 完整覆盖。补充工程内容：CLOSE_WAIT 堆积排查路径（netstat→lsof→jstack→代码 finally）、tcp_tw_reuse vs tcp_tw_recycle 对比、SO_LINGER=0 RST 关闭、shutdown vs close 区别。两道练习题：CLOSE_WAIT 堆积场景定位、tcp_tw_reuse vs recycle 判断。"
+}

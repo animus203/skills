@@ -1,0 +1,18 @@
+{
+  "id": "c-04-22-performance",
+  "name": "性能优化：深分页与查询优化",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-29T09:40:00+0800",
+  "content": {
+    "deepPaging": {"problem": "分库后LIMIT offset,N → 每库扫offset行 → N倍数据归并 → 内存暴涨", "example": "2库LIMIT 1000,10 → 需2020条归并取10条"},
+    "solutions": {
+      "globalView": "LIMIT 0,X+Y, 服务层内存排序再取, 翻页深线性变慢",
+      "cursor": "WHERE time>last_time LIMIT N, 禁止跳页, 性能恒定(推荐)",
+      "fuzzy": "每库取offset/N, 不精确但恒定",
+      "doubleQuery": "先查→找timemin→二次between定位→精确但复杂"
+    },
+    "controllerOOM": "大结果集→JSON解析内存翻倍→OOM。防范: 分页/精简DTO/异步流式导出"
+  },
+  "notes": "深分页=每库offset翻N倍→游标翻页(WHERE id>last_id)最优; Controller分页+精简字段防OOM"
+}

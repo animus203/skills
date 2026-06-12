@@ -1,0 +1,29 @@
+{
+  "id": "c-02-14-gc-config",
+  "name": "GC 配置与调优",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:10:00+0800",
+  "content": {
+    "keyParams": {
+      "Xms=Xmx": "相等避免动态扩缩STW",
+      "Xmx": "OS内存2/3, 不超32GB(指针压缩阈值)",
+      "Xmn": "新生代大小, 1/3-1/2堆",
+      "MetaspaceSize/MaxMetaspaceSize": "必设上限防元空间泄漏",
+      "UseG1GC": "JDK9+默认, >8GB堆首选",
+      "MaxGCPauseMillis": "G1目标停顿(默认200ms, 软目标非硬保证)",
+      "GC日志": "JDK9+用 -Xlog:gc*, 老版 -XX:+PrintGCDetails"
+    },
+    "tuningPriorities": ["1.减少Full GC频率(最关键)", "2.控制单次停顿时间(SLA)", "3.提升吞吐量(GC占比<5-10%)"],
+    "commonProblems": {
+      "minorGCFrequent": "Eden太小/对象生成快 → 加大Xmn",
+      "directOldGen": "Survivor太小溢出 → 加大Survivor",
+      "oldGenFast": "缓存泄漏/动态年龄晋升过早 → 查代码+MaxTenuringThreshold",
+      "fullGCFrequent": "老年代不足/MetaSpace泄漏 → 加大Xmx或排元空间",
+      "cmsFragment": "Promotion Failure → 升级G1"
+    },
+    "tool": "GCeasy(gc-easy.com)上传GC日志自动分析瓶颈",
+    "tuningFlow": "估算内存→设Xms=Xmx→选收集器→设日志→压测→GCeasy分析→迭代优化→生产监控"
+  },
+  "notes": "Xms=Xmx; 堆=OS-2/3; >8GB G1; 必设MaxMetaSize; 调优优先级: 灭Full GC>控停顿>提吞吐; GCeasy分析日志"
+}

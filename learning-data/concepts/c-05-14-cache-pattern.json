@@ -1,0 +1,14 @@
+{
+  "id": "c-05-14-cache-pattern",
+  "name": "缓存读写模式",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T11:20:00+0800",
+  "content": {
+    "cacheAside": {"read": "缓存→miss→DB→回填", "write": "先更DB→删缓存(不更新)", "whyDelete": "避免并发写乱序覆盖", "usage": "99%场景用此"},
+    "readWriteThrough": "缓存层封装DB访问, 调用方只管缓存交互",
+    "writeBehind": "写缓存即返回→异步批量刷DB, 延迟低但可能丢数据",
+    "trap": "先删缓存再更DB→中间可能读到旧值回填→不一致。正确: 先更DB→删缓存"
+  },
+  "notes": "Cache Aside(99%用): 先更DB再删缓存→读时miss回填; 不要先删缓存再更DB; Write Behind低延迟但可丢数据"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "c-02-23-cache-trouble",
+  "name": "Cache 故障排查",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:05:00+0800",
+  "content": {
+    "cases": {
+      "unboundedCache": {"issue": "HashMap无上限/无超时/无LRU→Old区持续涨", "fix": "Guava Cache+弱引用+maximumSize+expireAfterWrite"},
+      "noHashEquals": {"issue": "自定义Key没重写equals+hashCode→put进去get不出来→隐式泄漏", "fix": "@EqualsAndHashCode或IDE生成"},
+      "fdLeak": {"issue": "文件/连接close不在finally→fd泄漏→Too many open files", "fix": "try-with-resources自动关闭"}
+    },
+    "diagnosis": "jstat→Old持续涨→jmap dump→MAT Dominator Tree→找大对象→看GC Root链"
+  },
+  "notes": "Cache泄漏三场景：无界缓存/HashMap key缺hashCode-equals/fd泄漏；修复=Guava+弱引用+重写hashCode/equals+try-with-resources"
+}

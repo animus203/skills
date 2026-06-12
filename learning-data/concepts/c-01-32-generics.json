@@ -1,0 +1,32 @@
+{
+  "id": "c-01-32-generics",
+  "name": "泛型与泛型擦除",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:15:00+0800",
+  "content": {
+    "definition": "参数化类型，用于类/接口/方法，编译期类型安全",
+    "typeErasure": {
+      "essence": "Java伪泛型，编译后类型参数去掉",
+      "rules": {
+        "unbounded": "<T> → Object",
+        "bounded": "<T extends X> → X"
+      },
+      "jvmBehavior": "JVM只看到原始类型ArrayList，泛型类型信息不可见",
+      "compatibility": "为兼容Java5之前的旧代码，只改javac不改JVM"
+    },
+    "limitations": [
+      "不能 instanceOf 泛型（运行时无类型信息）",
+      "不能创建泛型数组 T[] arr = new T[10]",
+      "不能用基本类型作参数 List<int> ❌",
+      "静态上下文中不能用类参数 static T value ❌"
+    ],
+    "reflectionBypass": "反射调用 add(Object) 可绕过泛型约束，因为JVM看不到泛型",
+    "wildcards": {
+      "? extends T": "Producer(读)，只能取不能存",
+      "? super T": "Consumer(写)，只能存取为Object",
+      "mnemonic": "PECS: Producer Extends, Consumer Super"
+    }
+  },
+  "notes": "Java伪泛型编译擦除兼容老代码；T→Object，<T extends X>→X；PECS: ? extends读/? super写"
+}

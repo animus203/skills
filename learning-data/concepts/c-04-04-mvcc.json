@@ -1,0 +1,17 @@
+{
+  "id": "c-04-04-mvcc",
+  "name": "MVCC 多版本并发控制",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:40:00+0800",
+  "content": {
+    "reviewOf": "c-04-03-isolation",
+    "additionalPoints": {
+      "versionId": "版本号即事务ID，事务开始时系统版本号自增",
+      "insertNoUndo": "INSERT undo无roll_ptr(插入前这行不存在，无旧版本)",
+      "updateDeleteUndo": "UPDATE/DELETE产生版本链上的旧版本",
+      "purge": "DELETE仅标记删除→事务提交且无其他事务需要旧版本→purge线程物理删除"
+    }
+  },
+  "notes": "复习c-04-03; MVCC=trx_id+roll_ptr版本链+Read View; INSERT不产生旧版本; DELETE标记删除后purge线程清理"
+}

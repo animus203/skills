@@ -1,0 +1,21 @@
+{
+  "id": "c-01-24-memory-manage",
+  "name": "内存管理方式",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:05:00+0800",
+  "content": {
+    "threeApproaches": {
+      "segmentation": {"description": "按程序逻辑分段(代码/数据/堆栈)，段大小可变", "internalFragment": "无", "externalFragment": "有(段大小不一致致空隙)", "addressFormat": "(段号, 段内偏移)"},
+      "paging": {"description": "固定大小页(4KB)和页框，离散分配", "internalFragment": "有(最后一页用不满)", "externalFragment": "无(所有页框等大互换)", "addressFormat": "(页号, 页内偏移)"},
+      "segmentedPaging": {"description": "先分段再段内分页，结合两者优点", "adopter": "现代x86(保护模式)", "addressFormat": "(段号, 页号, 页内偏移)"}
+    },
+    "fragmentation": {
+      "internal": "分配的空间内部未用完部分(如最后1页只用3KB，1KB浪费)",
+      "external": "空间分布在已分配块之间的不连续空隙(如两个4KB洞无法装5KB段)"
+    },
+    "mmu": "CPU内硬件，自动完成虚拟→物理地址翻译",
+    "tlb": {"purpose": "MMU内缓存最近页表项", "latency": "命中~0.5-1周期, 不命中需查页表(多次内存访问)", "hugePage": "2MB/1GB大页→TLB条目覆盖扩大512倍→命中率飙升"}
+  },
+  "notes": "分段(无内碎片有外碎片)→分页(无外碎片有内碎片)→段页式(结合二者)；MMU翻译地址，TLB缓存页表项"
+}

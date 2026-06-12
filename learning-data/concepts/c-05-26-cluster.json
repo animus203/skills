@@ -1,0 +1,19 @@
+{
+  "id": "c-05-26-cluster",
+  "name": "集群模式",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:30:00+0800",
+  "content": {
+    "whyNotSentinel": "哨兵只高可用不解决容量和写扩展; 集群=分片+高可用",
+    "hashSlot": "16384个slot, CRC16(key)%16384定槽位, 每个Master负责部分slot",
+    "routing": {
+      "MOVED": "slot永久归属其他节点→客户端缓存新路由重定向(永久)",
+      "ASK": "slot迁移中→该key已迁走→临时重定向→下次还得问原节点(临时)"
+    },
+    "gossip": "节点间PING/PONG交换状态, PFAIL→多数Master确认→FAIL→Slave随机超时选举→投票当选新Master→接管slot→Gossip宣告",
+    "vsSentinel": "哨兵(单Master全量/仅高可用/需独立Sentinel进程); 集群(多Master分片/高可用+水平扩展/内置Gossip无额外组件/客户端需处理MOVED/ASK/带宽开销更大)",
+    "scenario": "写多/数据量大/需要水平扩展 → 集群模式；读多写少/数据量小 → 哨兵模式"
+  },
+  "notes": "16384槽=分片; CRC16定槽; MOVED永久/ASK临时; Gossip通信+PFAIL/FAIL投票→Slave升主; 哨兵仅高可用,集群=分片+高可用"
+}

@@ -1,0 +1,1 @@
+{"id":"c-05-09-ziplist-intset","name":"Ziplist与IntSet","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T10:55:00+0800","content":{"reviewOf":"c-05-07","ziplist":"连续内存紧凑/无指针/连链更新短板/7.0用Listpack替","intset":"有序整数数组二分查找/纯整数Set底层"}}

@@ -1,0 +1,19 @@
+{
+  "id": "c-04-16-cluster-arch",
+  "name": "集群架构",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-29T09:05:00+0800",
+  "content": {
+    "evolution": "Keepalived+VIP→MMM→MHA→MHA+Arksentinel/Orchestrator",
+    "architectures": {
+      "Keepalived+VIP": "双主共享VIP，挂则漂移，网络抖动→脑裂→双写",
+      "MMM": "双主写入+自动切换，网络分区→误判→来回切VIP→多写冲突",
+      "MHA": "脚本化切换，成熟但需人工确认，无自动仲裁",
+      "MHA+Arksentinel": "哨兵监控自动决策，避免脑裂"
+    },
+    "splitBrain": "网络抖动→VIP绑定多台→双写→数据不一致。应对: 原主read_only+binlog server补齐+分布式哨兵仲裁",
+    "failoverSteps": "确认真挂→原主read_only→数据补齐→提Slave为主→重定向→改连接地址"
+  },
+  "notes": "Keepalived(脑裂)→MMM(误判多写)→MHA(脚本需人工)→Arksentinel(哨兵自动)；脑裂=VIP多绑双写"
+}

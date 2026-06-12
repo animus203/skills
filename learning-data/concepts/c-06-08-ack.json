@@ -1,0 +1,1 @@
+{"id":"c-06-08-ack","name":"消息确认机制","planId":"plan-06-kafka","status":"completed","learnedAt":"2026-06-01T09:20:00+0800","content":{"reviewOf":"c-06-06","acks":"0(不等/最快/丢)/1(Leader确认/默认)/all(ISR全确认/最安全)"}}

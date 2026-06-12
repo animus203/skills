@@ -1,0 +1,1 @@
+{"id":"c-06-09-availability","name":"高可用性","planId":"plan-06-kafka","status":"completed","learnedAt":"2026-06-01T09:25:00+0800","content":{"reviewOf":["c-06-04","c-06-06"],"pillars":"Partition多副本(N+1容忍N台宕)/ISR+Leader选举(自动切换)/acks=all(ISR全确认不丢)"}}

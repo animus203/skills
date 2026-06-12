@@ -1,0 +1,28 @@
+{
+  "id": "c-01-36-fail-fast-safe",
+  "name": "fail-fast 与 fail-safe",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:55:00+0800",
+  "content": {
+    "failFast": {
+      "mechanism": "modCount校验，迭代器创建时expectedModCount=modCount，next()时不等就抛CME",
+      "representatives": ["ArrayList", "HashMap —— java.util包下所有集合"],
+      "safeRemoval": ["Iterator.remove()", "removeIf(Java8+)", "普通for倒序删除"],
+      "forbidden": "foreach(list.remove)——底层Iterator，抛CME"
+    },
+    "failSafe": {
+      "mechanism": "先复制快照，在拷贝上遍历，原集合修改不影响",
+      "representatives": ["CopyOnWriteArrayList", "ConcurrentHashMap —— java.util.concurrent包"],
+      "drawbacks": ["遍历期间看不到修改(旧快照)", "写操作每次复制开销大"],
+      "useCase": "读多写少(配置/白名单)"
+    },
+    "comparison": {
+      "modDuringIteration": "fast抛CME vs safe不抛",
+      "memory": "fast无额外开销 vs safe有(拷贝)",
+      "threadSafety": "fast非线程安全 vs safe线程安全",
+      "writePerformance": "fast正常 vs safe差(每次copy)"
+    }
+  },
+  "notes": "fail-fast: modCount+CME, java.util, 用Iterator.remove/removeIf/倒序for安全删；fail-safe: 快照拷贝, j.u.c, 读多写少"
+}

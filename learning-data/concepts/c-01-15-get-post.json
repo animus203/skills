@@ -1,0 +1,24 @@
+{
+  "id": "c-01-15-get-post",
+  "name": "GET 与 POST 区别",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:55:00+0800",
+  "content": {
+    "comparison": {
+      "parameterLocation": {"GET": "URL query string", "POST": "Request Body"},
+      "semantics": {"GET": "读，幂等", "POST": "写，非幂等"},
+      "caching": {"GET": "可缓存(浏览器/CDN)", "POST": "默认不缓存"},
+      "bookmark": {"GET": "可收藏(参数在URL)", "POST": "不可收藏"},
+      "backRefresh": {"GET": "无害(取缓存)", "POST": "浏览器提示确认"},
+      "encoding": {"GET": "application/x-www-form-urlencoded", "POST": "multipart/form-data 或 application/json"}
+    },
+    "misconceptions": [
+      "GET长度限制不是协议规定的，是浏览器/Nginx/Tomcat实现限制",
+      "POST不比GET更安全，都明文；安全靠HTTPS",
+      "GET技术上可以做写操作，但违反语义且危险"
+    ],
+    "httpMethods": ["GET(读)", "POST(创建)", "PUT(全量更新,幂等)", "PATCH(部分更新)", "DELETE(删除,幂等)", "HEAD(仅取头)", "OPTIONS(CORS预检)", "TRACE(诊断,禁用)", "CONNECT(隧道代理)"]
+  },
+  "notes": "GET读幂等URL传参可缓存，POST写非幂等Body传参不缓存；长度限制是实现的锅，安全靠HTTPS不靠方法"
+}

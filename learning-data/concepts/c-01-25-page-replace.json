@@ -1,0 +1,19 @@
+{
+  "id": "c-01-25-page-replace",
+  "name": "页面置换算法",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T10:15:00+0800",
+  "content": {
+    "purpose": "物理内存满时决定踢哪页，目标降低缺页中断次数",
+    "algorithms": {
+      "FIFO": {"rule": "先入先出", "problem": "Belady异常(增页框反增缺页)", "usage": "基本不用"},
+      "LRU": {"rule": "踢最近最少使用的页", "principle": "时间局部性", "performance": "好", "realOSUsage": "纯LRU开销大，OS用Clock近似"},
+      "OPT": {"rule": "踢未来最远才用的页", "reality": "理论最优但不可实现", "purpose": "评价基准"},
+      "Clock": {"rule": "循环链表+访问位，0踢1清0再给机会", "alias": "二次机会法", "example": "Linux kswapd"}
+    },
+    "beladyAnomaly": "FIFO独有：3框9次缺页，4框10次缺页——因不看使用频率只看入队顺序",
+    "lruJava": "LinkedHashMap(accessOrder=true) + removeEldestEntry → O(1) LRU缓存"
+  },
+  "notes": "FIFO简单有Belady异常不用，LRU利用时间局部性好但纯实现开销大(OS用Clock近似)，OPT理论最优不可实现"
+}

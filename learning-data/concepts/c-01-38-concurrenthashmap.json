@@ -1,0 +1,27 @@
+{
+  "id": "c-01-38-concurrenthashmap",
+  "name": "ConcurrentHashMap",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T12:15:00+0800",
+  "content": {
+    "evolution": {
+      "Hashtable": "全表synchronized锁，get/put都阻塞，效率低下",
+      "CHM17": "Segment分段锁(ReentrantLock, 默认16段)，不同段可并发，并发度固定16",
+      "CHM18": "CAS+synchronized，锁粒度到桶首节点，结构同HashMap18(数组+链表+红黑树)"
+    },
+    "chm18Mechanism": {
+      "read": "get()全程无锁，volatile保证可见性",
+      "write": "桶空→CAS无锁写; 桶非空→synchronized锁桶首节点",
+      "expansion": "多线程协同扩容(transfer)"
+    },
+    "noNull": "禁止null key/value——多线程下get返回null无法判断是不存在还是value为null",
+    "comparison17vs18": {
+      "structure": "17: Segment[]+HashEntry[]+链表 vs 18: Node[]+链表+红黑树",
+      "lock": "17: Segment(ReentrantLock) vs 18: CAS+synchronized",
+      "granularity": "17: Segment级(16) vs 18: 桶级(by capacity)",
+      "concurrency": "17: 固定16 vs 18: 随扩容增长"
+    }
+  },
+  "notes": "Hashtable全表锁→CHM17 Segment分段锁→CHM18 CAS+synchronized锁桶首节点；get无锁volatile可见；禁止null"
+}

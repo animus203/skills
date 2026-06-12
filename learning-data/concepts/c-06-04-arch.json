@@ -1,0 +1,19 @@
+{
+  "id": "c-06-04-arch",
+  "name": "Kafka架构与存储原理",
+  "planId": "plan-06-kafka",
+  "status": "completed",
+  "learnedAt": "2026-05-29T13:20:00+0800",
+  "content": {
+    "logSegment": "Partition=多个LogSegment(.log/.index/.timeindex), 文件名以第一条消息offset命名, 顺序追加写",
+    "indexLookup": "ConcurrentSkipListMap定位Segment→稀疏index二分找最近偏移→log顺序查找",
+    "threePillars": {
+      "sequentialIO": "永远追加写→磁盘顺序写≈0.03ms(随机写≈10ms)",
+      "zeroCopy": "sendfile系统调用: 磁盘→内核→网卡(DMA直接), CPU不参与拷贝, 只有1次DMA传输",
+      "pageCache": "OS管理, 不占JVM堆内存, GC不影响; 磁盘文件映射到内核内存"
+    },
+    "isr": "ISR={Leader+同步Follower}, Follower落后>replica.lag.time.max.ms(默认10s)→踢出ISR(进入OSR), 追上再加回",
+    "leoVsHw": {"LEO": "Log End Offset, 下一条写入位置", "HW": "High Watermark, ISR全部确认的最大offset, 消费者只能消费HW前数据"}
+  },
+  "notes": "LogSegment(顺序写); 零拷贝sendfile(CPU不参与); 页缓存(OS管); ISR(同步副本集); HW(消费者可见边界)"
+}

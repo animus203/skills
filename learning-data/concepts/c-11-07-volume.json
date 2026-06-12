@@ -1,0 +1,10 @@
+{
+  "id": "c-11-07-volume",
+  "planId": "plan-11-docker-k8s",
+  "title": "Docker数据卷",
+  "status": "completed",
+  "learnedAt": "2026-06-09T10:30:00+0800",
+  "content": "Volume解决容器数据持久化和共享。两种方式：Volume(docker volume create，Docker管理)和Bind mount(-v /host/path:/container/path，宿主机直通)。Volume独立于容器生命周期，删除容器不影响volume。多容器挂同一volume实现数据共享。",
+  "examples": ["docker volume create myvol", "docker run -v myvol:/data nginx", "docker run -v /host/code:/app myapp"],
+  "notes": "生产数据持久化用volume，开发热更新用bind mount；bind mount注意文件vs目录的坑；-v不支持相对路径"
+}

@@ -1,0 +1,1 @@
+{"id":"c-04-17-failover","name":"故障转移与恢复","planId":"plan-04-mysql","status":"completed","learnedAt":"2026-05-29T09:10:00+0800","content":{"reviewOf":"c-04-16","keypoints":["原主read_only防双写","binlog server补齐再提Slave","哨兵仲裁防误判"]}}

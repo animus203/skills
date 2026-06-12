@@ -1,0 +1,18 @@
+{
+  "id": "c-02-01-jvm-memory",
+  "name": "JVM 运行时数据区域",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-27T13:10:00+0800",
+  "content": {
+    "fiveAreas": {
+      "heap": {"shared": true, "content": "对象实例+数组", "feature": "GC主战场，新生代(Eden+S0+S1)+老年代", "escapeAnalysis": "未逃逸对象可标量替换栈上分配"},
+      "methodArea": {"shared": true, "jdk7": "永久代(PermGen,堆内)", "jdk8": "元空间(MetaSpace,直接内存)", "content": "类信息/常量池/静态变量/JIT编译代码", "whyChange": "永久代固定大小类多OOM，元空间自动扩容"},
+      "vmStack": {"shared": false, "lifecycle": "同线程", "unit": "栈帧(每个方法一个)", "stackFrame": ["局部变量表(slot)", "操作数栈(编译期定大小)", "动态链接(符号→直接引用)", "返回地址"], "errors": ["StackOverflowError(递归深)", "OOM(扩展不足)"]},
+      "nativeStack": {"shared": false, "purpose": "Native方法", "note": "HotSpot与虚拟机栈合二为一"},
+      "pc": {"shared": false, "purpose": "下一条字节码指令地址", "note": "唯一不OOM的区域"}
+    },
+    "metaspaceOOM": "Spring动态代理大量生成类→MetaSpace OOM"
+  },
+  "notes": "线程共享:堆(GC)+方法区(MetaSpace)；线程私有:栈(StackOverflow递归)+本地栈+PC(唯一不OOM)"
+}

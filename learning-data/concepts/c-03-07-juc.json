@@ -1,0 +1,19 @@
+{
+  "id": "c-03-07-juc",
+  "name": "JUC 工具类",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T12:10:00+0800",
+  "content": {
+    "aqs": {"mechanism": "volatile int state + CLH双向队列", "users": ["ReentrantLock", "CountDownLatch", "CyclicBarrier", "Semaphore"]},
+    "tools": {
+      "countDownLatch": "倒计数等归零, await阻塞, countDown减1, 一次性不可复用, 适合多线程汇总",
+      "cyclicBarrier": "等人齐再继续, await阻塞, 最后一个到齐→开门→全部继续, 可复用, 适合分片处理",
+      "semaphore": "令牌控制并发数, acquire获取/release归还, 限流用(Spring Hystrix同源)",
+      "completableFuture": "现代异步编排, supplyAsync→thenApply→thenAccept, 比CountDownLatch灵活"
+    },
+    "volatileUnderlying": "lock前缀指令=内存屏障: ①禁止重排 ②强制写回主存 ③缓存行失效",
+    "happensBefore": ["程序顺序(同线程前hb后)", "volatile写hb后续读", "unlock hb lock", "传递性", "线程start hb线程内操作 hb join返回"]
+  },
+  "notes": "AQS=state+CLH; CountDownLatch(一次减计数)/CyclicBarrier(可复用等人齐)/Semaphore(令牌限流); volatile=lock前缀+内存屏障"
+}

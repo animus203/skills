@@ -1,0 +1,19 @@
+{
+  "id": "plan-11-docker-k8s",
+  "topicId": "topic-server-dev-interview",
+  "name": "Docker & K8S篇",
+  "description": "Why Docker、核心概念、基本操作、实战",
+  "pages": "176-189",
+  "conceptIds": [
+    "c-11-01-why-docker",
+    "c-11-02-vs-vm",
+    "c-11-03-engine",
+    "c-11-04-image",
+    "c-11-05-repository",
+    "c-11-06-container-ops",
+    "c-11-07-volume",
+    "c-11-08-network"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

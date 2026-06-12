@@ -1,0 +1,22 @@
+{
+  "id": "c-01-22-user-kernel",
+  "name": "用户态与内核态",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T09:45:00+0800",
+  "content": {
+    "twoModes": {
+      "userMode": {"privilege": "Ring 3", "access": "受限内存访问，运行应用程序", "privilegeInstructions": "不能"},
+      "kernelMode": {"privilege": "Ring 0", "access": "所有内存+外设，运行OS内核", "privilegeInstructions": "可以"}
+    },
+    "whyIsolate": "防止程序窃取其他进程内存数据或直接操作外围设备",
+    "threeSwitchWays": {
+      "systemCall": {"type": "主动", "mechanism": "int 0x80(老)/syscall(新)→内核→sysret返回", "examples": "read/write/open/fork/mmap"},
+      "exception": {"type": "被动(程序错误)", "mechanism": "除零/缺页/非法地址→CPU切内核→内核发送SIGSEGV或修复", "examples": "缺页异常、段错误"},
+      "interrupt": {"type": "被动(异步)", "mechanism": "硬件发中断→CPU暂停当前→切内核执行ISR", "examples": "网卡收包、磁盘IO完成、时钟中断(调度基础)"}
+    },
+    "syscallJourney": "用户read()→glibc设寄存器→syscall指令→内核查fd/验权/读磁盘→拷数据→sysret→返回",
+    "switchCost": "模式切换几十-几百CPU周期，真正开销在内核处理逻辑(磁盘IO等)"
+  },
+  "notes": "Ring 0(内核)/Ring 3(用户)；隔离保护；三种切换：系统调用(主动)、异常(被动)、中断(被动)；时钟中断是抢占调度的基础"
+}

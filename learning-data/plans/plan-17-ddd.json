@@ -1,0 +1,17 @@
+{
+  "id": "plan-17-ddd",
+  "topicId": "topic-server-dev-interview",
+  "name": "领域驱动设计",
+  "description": "拆分微服务、关联微服务、微服务落地、领域模型意义、战略建模、相关名词",
+  "pages": "293-296",
+  "conceptIds": [
+    "c-17-01-split-ms",
+    "c-17-02-associate-ms",
+    "c-17-03-ms-practice",
+    "c-17-04-ddd-meaning",
+    "c-17-05-strategic-model",
+    "c-17-06-terminology"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

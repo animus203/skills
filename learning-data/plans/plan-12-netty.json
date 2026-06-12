@@ -1,0 +1,21 @@
+{
+  "id": "plan-12-netty",
+  "topicId": "topic-server-dev-interview",
+  "name": "Netty篇",
+  "description": "核心组件、网络传输、内存管理、高性能数据结构",
+  "pages": "180-206",
+  "conceptIds": [
+    "c-12-01-arch-layers",
+    "c-12-02-eventloop",
+    "c-12-03-pipeline-handler",
+    "c-12-04-reactor",
+    "c-12-05-io-models",
+    "c-12-06-reactor-proactor",
+    "c-12-07-bytebuf",
+    "c-12-08-memory-pool",
+    "c-12-09-zero-copy",
+    "c-12-10-data-structure"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

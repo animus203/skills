@@ -1,0 +1,1 @@
+{"id":"c-05-19-data-inconsist","name":"数据不一致","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:40:00+0800","content":{"rehashIssue":"节点漂移只更新目标→多节点残留脏数据","solutions":["删失败→MQ重试","缩短TTL","缓存分层不rehash"]}}

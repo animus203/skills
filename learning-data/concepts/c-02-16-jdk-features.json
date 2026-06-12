@@ -1,0 +1,22 @@
+{
+  "id": "c-02-16-jdk-features",
+  "name": "JDK 新特性",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:20:00+0800",
+  "content": {
+    "keyVersions": {
+      "8": "Lambda+Stream+HashMap红黑树+MetaSpace",
+      "9": "G1默认GC+JPMS模块系统",
+      "10": "G1并行Full GC",
+      "11(LTS)": "ZGC(<10ms STW)+Lambda参数var+移除JavaEE模块",
+      "12": "Shenandoah GC",
+      "13": "ZGC增强(归还未用内存给OS, 16TB)",
+      "14": "移CMS+弃Parallel+SerialOld组合, ZGC支持macOS/Windows",
+      "17(LTS)": "分代ZGC+密封类+Pattern Matching",
+      "21(LTS)": "虚拟线程(Virtual Threads)正式GA——高并发新范式"
+    },
+    "lts": "LTS版本: 8→11→17→21，企业优先选LTS"
+  },
+  "notes": "JDK8 Lambda+Stream; JDK11 ZGC; JDK14 移CMS; JDK21 虚拟线程GA; LTS优先(8→11→17→21)"
+}

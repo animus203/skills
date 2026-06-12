@@ -1,0 +1,1 @@
+{"id":"c-05-20-data-competition","name":"数据并发竞争","planId":"plan-05-redis","status":"completed","learnedAt":"2026-05-29T11:40:00+0800","content":{"phenomenon":"热点过期→海量并发同查→DB压力","solutions":["互斥锁","多备份分散","默认值快速返回"]}}

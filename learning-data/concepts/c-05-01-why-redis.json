@@ -1,0 +1,15 @@
+{
+  "id": "c-05-01-why-redis",
+  "name": "Why Redis",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T10:05:00+0800",
+  "content": {
+    "whyFast": ["纯内存(O(1))", "单线程无锁(6.0前)", "epoll多路复用", "C语言实现", "自定义VM"],
+    "vsMemcached": {"Redis": "多数据结构/持久化/主从/单线程2-4wTPS", "Memcached": "仅String/无持久化/多线程20-40wTPS"},
+    "cacheTypes": {"local": "Guava/Caffeine, JVM内极快, 多实例不一致", "distributed": "Redis, 跨实例共享, 网络IO", "hybrid": "本地+Redis二级"},
+    "tair": "淘宝分布式KV, MDB(内存)/RDB(Redis-like)/LDB(持久化)三引擎",
+    "evcache": "Netflix基于Memcached的全球分布式缓存, 短生命周期, 可随时消失"
+  },
+  "notes": "Redis快=内存+单线程+epoll+C; vs Memcached(仅String/无持久/多线程); 本地vs分布式缓存选择"
+}

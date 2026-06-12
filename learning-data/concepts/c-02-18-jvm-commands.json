@@ -1,0 +1,21 @@
+{
+  "id": "c-02-18-jvm-commands",
+  "name": "JVM 常用命令总结",
+  "planId": "plan-02-jvm",
+  "status": "completed",
+  "learnedAt": "2026-05-28T10:30:00+0800",
+  "content": {
+    "reviewOf": ["c-02-15-jvm-tuning", "c-02-17-hardware-trouble"],
+    "commandMap": {
+      "JavaLayer": {"jstack": "线程栈+死锁", "jmap -dump": "堆快照+OOM分析", "jstat -gc": "GC实时统计", "jinfo -flags": "JVM参数", "jps -l": "进程PID"},
+      "OSLayer": {"top -Hp": "线程级CPU", "free -h": "内存/SWAP", "ss -antp": "网络连接", "iostat -x": "磁盘I/O", "dmesg": "OOM Killer/内核"}
+    },
+    "troubleshootingChains": {
+      "cpuHigh": "top -Hp → jstack → 定位代码行",
+      "memoryLeak": "jstat -gc → jmap -dump → MAT Dominator Tree → 找大对象",
+      "deadlock": "jstack -l → Found deadlock → 定位锁等待链"
+    },
+    "principle": "先隔离再排查，先OS再JVM，先GC再代码"
+  },
+  "notes": "复习概念，与c-02-15/c-02-17重叠；两层命令(Java+OS)；三种故障链(CPU/内存/死锁)"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "c-04-10-explain",
+  "name": "EXPLAIN 执行计划",
+  "planId": "plan-04-mysql",
+  "status": "completed",
+  "learnedAt": "2026-05-28T13:20:00+0800",
+  "content": {
+    "explainColumns": {
+      "type": "访问类型: system>const>eq_ref>ref>range>index>ALL",
+      "key": "实际使用的索引, NULL=没走",
+      "rows": "预估扫描行数",
+      "Extra": "Using index(覆盖索引)✅ / Using filesort❌ / Using temporary❌ / Using index condition(ICP)✅"
+    },
+    "tableDesign": {"单库": "≤200表", "单表行": "≤500w", "单表列": "≤40", "单表索引": "≤5"},
+    "normalForms": {"1NF": "列不可再分", "2NF": "完全依赖主键(消部分依赖)", "3NF": "不依赖其他非主键(消传递依赖)", "reality": "适度反范式以性能换规范"},
+    "config": "连接数/SWAP禁用/加内存/SSD"
+  },
+  "notes": "EXPLAIN看type/key/rows/Extra; type至少range争取ref; Using index✅/filesort+temporary❌; 表≤500w/≤5索引; 三范式适度反范式"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "c-08-10-auth",
+  "planId": "plan-08-springcloud",
+  "name": "安全认证",
+  "pages": "153-154",
+  "status": "completed",
+  "learnedAt": "2026-06-04T17:30:00+0800",
+  "content": "认证方案从 Session（有状态，多节点需 Redis 集中存储）演进到 JWT（无状态，Header.Payload.Signature 三段格式，RSA 非对称签名防篡改）。认证流程：认证服务用私钥签发 Token（封装 userId+有效期）→ 各服务用公钥验证 → 服务间请求头 Authorization: Bearer 透传 → 服务内 ThreadLocal 传递上下文。Hystrix 线程池隔离致 ThreadLocal 丢失需重写 ConcurrencyStrategy。Token 最佳实践：短过期+Refresh Token 续期、注销黑名单放 Redis、监控频率防爬虫、敏感操作加验证码、密钥低峰动态更换。",
+  "examples": ["JWT 三段: Header(算法) . Payload(用户id+角色+过期时间) . Signature(RSA签名)", "密钥泄露处理: 低峰换密钥 → 旧 Token 过期前有效 → 新 Token 用新密钥 → 旧密钥废弃"],
+  "notes": "JWT Payload 只是 Base64 编码非加密，不要放敏感信息。Access Token 15min-2h, Refresh Token 7-30 天。Token 无状态特性使注销困难，需 Redis 黑名单辅助。"
+}

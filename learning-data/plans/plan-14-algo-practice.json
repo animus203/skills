@@ -1,0 +1,31 @@
+{
+  "id": "plan-14-algo-practice",
+  "topicId": "topic-server-dev-interview",
+  "name": "实战算法篇",
+  "description": "海量数据处理、系统设计题、手写代码",
+  "pages": "231-255",
+  "conceptIds": [
+    "c-14-01-bloom-filter",
+    "c-14-02-freq-count",
+    "c-14-03-bit-array",
+    "c-14-04-dup-url",
+    "c-14-05-topk",
+    "c-14-06-median",
+    "c-14-07-short-url",
+    "c-14-08-mq-comment",
+    "c-14-09-concurrent-user",
+    "c-14-10-trie",
+    "c-14-11-red-packet",
+    "c-14-12-quicksort",
+    "c-14-13-mergesort",
+    "c-14-14-heapsort",
+    "c-14-15-singleton-code",
+    "c-14-16-lru-code",
+    "c-14-17-threadpool-code",
+    "c-14-18-producer-consumer",
+    "c-14-19-blocking-queue",
+    "c-14-20-alternate-print"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

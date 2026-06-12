@@ -1,0 +1,38 @@
+{
+  "id": "c-01-14-encrypt",
+  "name": "对称与非对称加密",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T15:45:00+0800",
+  "content": {
+    "symmetric": {
+      "principle": "同一密钥加解密",
+      "advantage": "速度快，AES有CPU硬件指令集(AES-NI)",
+      "painPoint": "密钥分发(鸡生蛋问题)",
+      "algorithms": {
+        "DES": "56bit已淘汰",
+        "AES-128/256-GCM": "绝对主流，加密+认证(AEAD)",
+        "ChaCha20": "移动端首选，无AES硬件时更优"
+      },
+      "modes": {
+        "ECB": "禁用，同明文同密文",
+        "CBC": "考虑淘汰，padding oracle攻击",
+        "GCM": "推荐，AEAD加密+认证一体"
+      }
+    },
+    "asymmetric": {
+      "principle": "公私钥成对，公钥加密私钥解密",
+      "advantage": "安全交换密钥（公钥可公开）",
+      "painPoint": "速度慢(AES的1/100~1/1000)",
+      "algorithms": {
+        "RSA": "2048-4096bit，TLS1.3不再用于密钥交换",
+        "DSA": "已淘汰",
+        "ECDSA": "256bit，现代首选，短密钥高安全性",
+        "Ed25519": "256bit，比ECDSA更安全更简单"
+      },
+      "whyEcShort": "RSA基于大整数因子分解(sub-exponential攻击)，ECDSA基于椭圆曲线离散对数(无sub-exponential解)"
+    },
+    "hybrid": "非对称交换/协商对称密钥(握手阶段) + 对称加密传数据(数据传输阶段) = HTTPS方案"
+  },
+  "notes": "对称快但难分发，非对称慢但能安全交换密钥；生产用AES-GCM(对称)+ECDSA/Ed25519(非对称)"
+}

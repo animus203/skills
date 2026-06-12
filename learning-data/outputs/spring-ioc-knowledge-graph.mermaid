@@ -1,0 +1,131 @@
+graph TD
+    subgraph SpringIoC["Spring IoC 容器知识图谱"]
+        direction TB
+
+        subgraph CoreInterfaces["核心接口层"]
+            BeanFactory["BeanFactory<br/>基础容器接口"]
+            HierarchicalBF["HierarchicalBeanFactory<br/>父子容器层级"]
+            AutowireBF["AutowireCapableBeanFactory<br/>自动装配能力"]
+            ConfigurableBF["ConfigurableBeanFactory<br/>可配置容器"]
+            ConfigurableListableBF["ConfigurableListableBeanFactory<br/>完整功能容器"]
+            AppContext["ApplicationContext<br/>应用上下文"]
+            ConfigurableAC["ConfigurableApplicationContext<br/>可刷新上下文"]
+
+            BeanFactory --> HierarchicalBF --> AutowireBF --> ConfigurableBF --> ConfigurableListableBF
+            BeanFactory --> AppContext --> ConfigurableAC
+        end
+
+        subgraph CoreImpl["核心实现类"]
+            DefaultListableBF["DefaultListableBeanFactory<br/>完整 IoC 容器实现"]
+            AbstractBF["AbstractBeanFactory<br/>doGetBean 核心逻辑"]
+            AbstractAutowireBF["AbstractAutowireCapableBeanFactory<br/>doCreateBean 核心逻辑"]
+            GenericAC["GenericApplicationContext<br/>持有 DefaultListableBeanFactory"]
+            AbstractAC["AbstractApplicationContext<br/>refresh 模板方法"]
+
+            ConfigurableListableBF --> DefaultListableBF
+            AbstractBF --> AbstractAutowireBF --> DefaultListableBF
+            ConfigurableAC --> AbstractAC --> GenericAC
+            GenericAC -->|contains| DefaultListableBF
+        end
+
+        subgraph BeanDef["BeanDefinition 体系"]
+            BD["BeanDefinition<br/>元数据接口"]
+            AbstractBD["AbstractBeanDefinition<br/>通用属性定义"]
+            RootBD["RootBeanDefinition<br/>最终合并定义"]
+            GenericBD["GenericBeanDefinition<br/>通用定义"]
+            ScannedBD["ScannedGenericBeanDefinition<br/>注解扫描用"]
+            AnnotatedBD["AnnotatedGenericBeanDefinition<br/>配置类用"]
+
+            BD --> AbstractBD --> RootBD
+            AbstractBD --> GenericBD
+            AbstractBD --> ScannedBD
+            AbstractBD --> AnnotatedBD
+        end
+
+        subgraph Caches["三级缓存（循环依赖）"]
+            L1["singletonObjects<br/>一级缓存：完整单例"]
+            L2["earlySingletonObjects<br/>二级缓存：提前暴露"]
+            L3["singletonFactories<br/>三级缓存：ObjectFactory"]
+
+            L3 -->|getObject| L2 --> L1
+        end
+
+        subgraph Lifecycle["Bean 生命周期"]
+            Instantiate["createBeanInstance<br/>实例化（new 对象）"]
+            MergeBPP["MergedBeanDefinitionPostProcessor<br/>缓存注入元数据"]
+            EarlyExpose["addSingletonFactory<br/>提前暴露（三级缓存）"]
+            Populate["populateBean<br/>属性填充"]
+            Aware["invokeAwareMethods<br/>Aware 接口注入"]
+            BPPBefore["BPP.postProcessBeforeInitialization<br/>@PostConstruct"]
+            InitMethod["invokeInitMethods<br/>afterPropertiesSet / init-method"]
+            BPPAfter["BPP.postProcessAfterInitialization<br/>AOP 代理创建"]
+            RegisterDestroy["registerDisposableBeanIfNecessary<br/>注册销毁回调"]
+
+            Instantiate --> MergeBPP --> EarlyExpose --> Populate --> Aware --> BPPBefore --> InitMethod --> BPPAfter --> RegisterDestroy
+        end
+
+        subgraph DI["依赖注入"]
+            AutowiredBPP["AutowiredAnnotationBeanPostProcessor"]
+            CommonBPP["CommonAnnotationBeanPostProcessor"]
+            InjectionMeta["InjectionMetadata<br/>注入元数据缓存"]
+            DepDesc["DependencyDescriptor<br/>依赖描述符"]
+            ResolveDep["resolveDependency<br/>依赖解析"]
+            FindCandidates["findAutowireCandidates<br/>按类型查找候选"]
+            Primary["@Primary 优先"]
+            Priority["@Priority(n) 优先"]
+            NameMatch["字段名匹配"]
+
+            AutowiredBPP --> InjectionMeta
+            InjectionMeta --> DepDesc --> ResolveDep --> FindCandidates
+            FindCandidates -->|多个候选| Primary
+            FindCandidates -->|多个候选| Priority
+            FindCandidates -->|多个候选| NameMatch
+            CommonBPP -->|@Resource| ResolveDep
+        end
+
+        subgraph Refresh["ApplicationContext.refresh()"]
+            Prep["prepareRefresh<br/>初始化 Environment"]
+            ObtainBF["obtainFreshBeanFactory<br/>获取 BeanFactory"]
+            PrepBF["prepareBeanFactory<br/>注册默认 BPP"]
+            PostProcessBF["postProcessBeanFactory<br/>子类扩展点"]
+            InvokeBFPP["invokeBeanFactoryPostProcessors<br/>解析 @Configuration、@ComponentScan"]
+            RegBPP["registerBeanPostProcessors<br/>注册所有 BPP"]
+            InitMsg["initMessageSource<br/>国际化"]
+            InitEvent["initApplicationEventMulticaster<br/>事件广播器"]
+            OnRefresh["onRefresh<br/>Spring Boot 创建 WebServer"]
+            RegListeners["registerListeners<br/>注册监听器"]
+            FinishInit["finishBeanFactoryInitialization<br/>preInstantiateSingletons"]
+            FinishRefresh["finishRefresh<br/>发布 ContextRefreshedEvent"]
+
+            Prep --> ObtainBF --> PrepBF --> PostProcessBF --> InvokeBFPP --> RegBPP --> InitMsg --> InitEvent --> OnRefresh --> RegListeners --> FinishInit --> FinishRefresh
+        end
+
+        subgraph BPPExt["BeanPostProcessor 扩展点"]
+            BPPBase["BeanPostProcessor<br/>postProcessBefore/AfterInitialization"]
+            InstantiationBPP["InstantiationAwareBeanPostProcessor<br/>实例化阶段介入"]
+            SmartBPP["SmartInstantiationAwareBeanPostProcessor<br/>predictBeanType / determineCandidateConstructors / getEarlyBeanReference"]
+            MergedBPP["MergedBeanDefinitionPostProcessor<br/>postProcessMergedBeanDefinition"]
+            DestroyBPP["DestructionAwareBeanPostProcessor<br/>postProcessBeforeDestruction"]
+            AutoProxyCreator["AbstractAutoProxyCreator<br/>AOP 代理创建"]
+            AutowiredBPP2["AutowiredAnnotationBeanPostProcessor<br/>@Autowired / @Value"]
+            CommonBPP2["CommonAnnotationBeanPostProcessor<br/>@Resource / @PostConstruct / @PreDestroy"]
+
+            BPPBase --> InstantiationBPP --> SmartBPP
+            BPPBase --> MergedBPP
+            BPPBase --> DestroyBPP
+            SmartBPP --> AutoProxyCreator
+            InstantiationBPP --> AutowiredBPP2
+            InstantiationBPP --> CommonBPP2
+            DestroyBPP --> CommonBPP2
+        end
+    end
+
+    style SpringIoC fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style CoreInterfaces fill:#e1f5fe,stroke:#01579b
+    style CoreImpl fill:#e8f5e9,stroke:#1b5e20
+    style BeanDef fill:#fff3e0,stroke:#e65100
+    style Caches fill:#fce4ec,stroke:#c2185b
+    style Lifecycle fill:#f3e5f5,stroke:#7b1fa2
+    style DI fill:#e0f2f1,stroke:#00695c
+    style Refresh fill:#e8eaf6,stroke:#283593
+    style BPPExt fill:#fff8e1,stroke:#f57f17

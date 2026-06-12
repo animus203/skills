@@ -1,0 +1,15 @@
+{
+  "id": "c-07-05-annotations",
+  "planId": "plan-07-spring",
+  "name": "Spring 注解",
+  "pages": "135-138",
+  "status": "completed",
+  "learnedAt": "2026-06-04T10:00:00+0800",
+  "content": "Spring 四大声明注解 @Component/@Service/@Repository/@Controller 底层等价，都是 @Component 的特化，@Repository 额外享有持久层异常翻译。注入注解 @Autowired 默认按类型注入，@Resource 按名称，JDK 11 后弃用。@Autowired 由 AutowiredAnnotationBeanPostProcessor 实现：postProcessMergedBeanDefinition 查找并缓存注入点 → postProcessProperties 执行反射注入。@SpringBootApplication = @SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan。自动配置原理：扫描 META-INF/spring.factories 获取候选 → @Conditional 条件过滤 → 注册配置类。SpringMVC 请求流程：DispatcherServlet → HandlerMapping → HandlerAdapter → Controller → ViewResolver/HttpMessageConverter。@Transactional 7 种传播属性：REQUIRED（默认）、REQUIRES_NEW（独立事务）、NESTED（Savepoint）、MANDATORY、NEVER、NOT_SUPPORTED、SUPPORTS。",
+  "examples": [
+    "@Autowired 分两步：postProcessMergedBeanDefinition 扫描注入点缓存 → postProcessProperties 反射注入",
+    "REQUIRES_NEW：订单事务回滚不影响日志事务已提交的记录",
+    "NESTED：批量处理商品，某个商品失败只回滚到 Savepoint，不影响其他商品"
+  ],
+  "notes": "REQUIRES_NEW vs NESTED 核心区别：外层事务回滚时 REQUIRES_NEW 内层不受影响（独立连接），NESTED 内层被连带回滚（Savepoint）。Spring Boot 3.x 的自动配置改用 META-INF/spring/...AutoConfiguration.imports 文件替代 spring.factories。@Repository 的异常翻译由 PersistenceExceptionTranslationPostProcessor 实现。"
+}

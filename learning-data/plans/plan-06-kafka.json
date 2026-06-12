@@ -1,0 +1,24 @@
+{
+  "id": "plan-06-kafka",
+  "topicId": "topic-server-dev-interview",
+  "name": "Kafka篇",
+  "description": "Why Kafka、What Kafka、How Kafka、生产消费流程、一致性、可用性、面试题",
+  "pages": "118-139",
+  "conceptIds": [
+    "c-06-01-why-kafka",
+    "c-06-02-mq-compare",
+    "c-06-03-concept",
+    "c-06-04-arch",
+    "c-06-05-how-kafka",
+    "c-06-06-producer-consumer",
+    "c-06-07-isr",
+    "c-06-08-ack",
+    "c-06-09-availability",
+    "c-06-10-rebalance",
+    "c-06-11-no-loss-no-dup",
+    "c-06-12-backlog",
+    "c-06-13-order-msg"
+  ],
+  "status": "pending",
+  "createdAt": "2026-04-28T14:00:00Z"
+}

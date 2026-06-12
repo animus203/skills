@@ -1,0 +1,20 @@
+{
+  "id": "c-05-27-distributed-lock",
+  "name": "分布式锁",
+  "planId": "plan-05-redis",
+  "status": "completed",
+  "learnedAt": "2026-05-29T12:40:00+0800",
+  "content": {
+    "whyNeeded": "分布式多JVM实例, 本地锁管不了其他JVM, 需要共享锁点",
+    "evolution": {
+      "setnx": "SETNX lock value → 致命: 无过期(死锁) + del误删别人锁",
+      "setNxEx": "SET lock value NX EX seconds → 原子加锁+唯一标识requestId → 过期防死锁",
+      "luaUnlock": "if get(key)==value then del(key) → 原子解锁防误删",
+      "watchdog": "Redisson每10秒续期到30秒 → 业务完锁不过期",
+      "redlock": "≥N/2+1个独立Redis同意 → 防主从切换丢锁"
+    },
+    "optimisticLock": "WATCH key + MULTI/DECR/EXEC → CAS乐观锁, 适合秒杀低冲突率",
+    "comparison": "SET NX(悲观阻止并发) vs WATCH+MULTI(乐观允许并发读写时检查版本)"
+  },
+  "notes": "SET NX EX原子加锁→Lua原子解锁→Redisson看门狗续期→RedLock多数派；WATCH乐观锁秒杀场景"
+}

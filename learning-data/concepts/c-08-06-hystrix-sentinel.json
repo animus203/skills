@@ -1,0 +1,11 @@
+{
+  "id": "c-08-06-hystrix-sentinel",
+  "planId": "plan-08-springcloud",
+  "name": "Hystrix 与 Sentinel",
+  "pages": "149-151",
+  "status": "completed",
+  "learnedAt": "2026-06-04T15:30:00+0800",
+  "content": "服务雪崩根因：同步调用链中一个点慢导致上游线程堆积、资源耗尽。Hystrix 五层防护：Command 封装请求、线程池/信号量资源隔离、断路器 CLOSED→OPEN→HALF_OPEN 三态、失败回退 fallback、指标监控。四种限流算法：计数器（临界突变）、滑动窗口（小窗口精确）、令牌桶（定速发令牌允许突发）、漏桶（定速漏出绝对平滑）。三个坑：线程池隔离 ThreadLocal 丢失需重写 HystrixConcurrencyStrategy、配置写死代码需对接配置中心、Gateway 用线程池开销大应用信号量。Sentinel 替代 Hystrix：Dashboard 控制台 UI 实时配置、熔断不试探直接时间窗口恢复、规则存内存需持久化到 Nacos。",
+  "examples": ["断路器三态转换: CLOSED→失败20次→OPEN→5秒休眠→HALF_OPEN(放一个试探)→成功→CLOSED", "令牌桶: 每秒发100令牌，桶容量200，允许最大200的突发"],
+  "notes": "Hystrix 2018 年停止维护，新项目选 Sentinel。HALF_OPEN 只放一个请求试探，不是放一定比例。Sentinel 不二次确认，直接按时间窗口恢复。网关场景用信号量隔离而非线程池。"
+}

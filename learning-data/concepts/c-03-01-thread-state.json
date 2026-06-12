@@ -1,0 +1,20 @@
+{
+  "id": "c-03-01-thread-state",
+  "name": "线程状态",
+  "planId": "plan-03-multithreading",
+  "status": "completed",
+  "learnedAt": "2026-05-28T11:15:00+0800",
+  "content": {
+    "basicStates": ["新建(NEW)", "就绪(RUNNABLE)", "运行(RUNNING)", "阻塞(BLOCKED)", "死亡(TERMINATED)"],
+    "javaStates": {
+      "NEW": "new Thread()未start",
+      "RUNNABLE": "就绪+运行合并(JVM不区分)",
+      "BLOCKED": "等synchronized锁(被动)",
+      "WAITING": "wait/join/park无限等(主动)",
+      "TIMED_WAITING": "sleep(ms)/wait(ms)/join(ms)",
+      "TERMINATED": "run结束"
+    },
+    "blockedVsWaiting": "BLOCKED=等synchronized锁(被动竞争) vs WAITING=主动等待通知(wait/join)"
+  },
+  "notes": "五种基本态→Java六态(NEW/RUNNABLE/BLOCKED/WAITING/TIMED_WAITING/TERMINATED)；BLOCKED等锁vs WAITING等通知"
+}

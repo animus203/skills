@@ -1,0 +1,19 @@
+{
+  "id": "c-01-31-abstract-interface",
+  "name": "抽象类与接口",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-27T11:05:00+0800",
+  "content": {
+    "abstractClass": {"keyword": "abstract", "constructor": "有", "fields": "各种类型", "methods": "抽象+普通", "inheritance": "单extends", "designIntent": "is-a"},
+    "interface": {"keyword": "interface", "constructor": "无", "fields": "仅public static final常量", "methods": "public abstract + Java8 default/static", "inheritance": "多implements", "designIntent": "can-do"},
+    "same": ["都不能实例化", "都可定义抽象方法，子类必须实现"],
+    "java8Changes": {
+      "default": "接口默认实现，动机：不改实现类给接口加新方法(如Collection.stream())",
+      "static": "接口静态工具方法(如Comparator.naturalOrder())"
+    },
+    "selection": "需要共享状态(成员变量)+构造逻辑→抽象类；只需行为契约→接口(优先，更灵活)",
+    "whyAbstractStillNeeded": "接口不能有非static非final成员变量、不能有构造方法、方法默认public(不能protected/private)"
+  },
+  "notes": "抽象类is-a有构造有状态单继承，接口can-do多实现无构造无状态；Java8 default打破边界；优先接口更灵活"
+}

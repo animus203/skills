@@ -1,0 +1,27 @@
+{
+  "id": "c-01-17-redirect-forward",
+  "name": "重定向与转发",
+  "planId": "plan-01-basics",
+  "status": "completed",
+  "learnedAt": "2026-05-26T16:15:00+0800",
+  "content": {
+    "redirect": {
+      "mechanism": "浏览器端跳转，302+Location头",
+      "addressBar": "变化",
+      "requests": 2,
+      "crossSite": "可以",
+      "requestShare": "不能（两个独立请求）",
+      "useCase": "登录后跳转、跨站、PRG防重复提交"
+    },
+    "forward": {
+      "mechanism": "服务端容器内部转交",
+      "addressBar": "不变",
+      "requests": 1,
+      "crossSite": "不行（仅同应用内）",
+      "requestShare": "可以（同一request对象）",
+      "useCase": "MVC内部渲染、统一错误页"
+    },
+    "prgPattern": "写操作用Redirect(POST→Redirect→GET)，读操作用Forward；防F5重复提交"
+  },
+  "notes": "Redirect两次请求地址栏变可跨站request不共享；Forward一次请求地址栏不变仅内部request可共享；PRG防重复提交"
+}
